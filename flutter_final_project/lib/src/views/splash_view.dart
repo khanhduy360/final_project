@@ -45,7 +45,7 @@ class _SplashViewState extends State<SplashView> {
       home: Scaffold(
         body: Container(
           width: double.infinity,
-          color: Colors.black,
+          color: Colors.orange.shade900,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,

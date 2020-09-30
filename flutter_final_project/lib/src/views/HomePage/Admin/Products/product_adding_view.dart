@@ -1,21 +1,20 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_final_project/src/helpers/TextStyle.dart';
 import 'package:flutter_final_project/src/helpers/colors_constant.dart';
 import 'package:flutter_final_project/src/helpers/screen.dart';
+import 'package:flutter_final_project/src/model/categogy.dart';
 import 'package:flutter_final_project/src/model/clothingSize.dart';
+import 'package:flutter_final_project/src/views/HomePage/Admin/Products/product_manager_controller.dart';
 import 'package:flutter_final_project/src/widgets/button_raised.dart';
 import 'package:flutter_final_project/src/widgets/input_text.dart';
 import 'package:grouped_buttons/grouped_buttons.dart';
 
 import 'package:multi_image_picker/multi_image_picker.dart';
-
-import 'product_manager_controller.dart';
 
 class ProductAddingView extends StatefulWidget {
   final _scaffoldKey = GlobalKey<ScaffoldState>();

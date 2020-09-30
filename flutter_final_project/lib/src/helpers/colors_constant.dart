@@ -13,7 +13,7 @@ const Color kColorPink = Color(0xffF7ACB0);
 const Color kColorBrown = Color(0xff7D503F);
 const Color kColorPurple = Color(0xffa55eea);
 const Color kColorCyan = Color(0xff00AFF0);
-const Color kColorGreen = Color(0xff05A75B);
+const Color kColorGreen = Color(0xff4CAF50);
 
 class ColorInfo {
   ColorInfo({this.id, this.color});

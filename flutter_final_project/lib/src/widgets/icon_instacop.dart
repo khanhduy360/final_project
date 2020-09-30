@@ -9,7 +9,7 @@ class IconInstacop extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Text(
-          'Insta',
+          'D',
           style: TextStyle(
             fontSize: textSize,
             fontWeight: FontWeight.w900,
@@ -18,11 +18,11 @@ class IconInstacop extends StatelessWidget {
           textAlign: TextAlign.center,
         ),
         Text(
-          'COP',
+          'GREEN',
           style: TextStyle(
             fontSize: textSize,
             fontWeight: FontWeight.w900,
-            color: Colors.redAccent.shade700,
+            color: Colors.greenAccent.shade200,
           ),
           textAlign: TextAlign.center,
         )

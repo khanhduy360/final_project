@@ -77,11 +77,11 @@ class _SignInViewState extends State<SignInView> {
             Expanded(
               child: MaterialButton(
                 height: ConstScreen.setSizeHeight(90),
-                color: _isAdmin ? kColorWhite : kColorBlack,
+                color: _isAdmin ? kColorWhite : kColorGreen,
                 child: Text(
                   'CUSTOMER',
                   style: TextStyle(
-                      color: _isAdmin ? kColorBlack : kColorWhite,
+                      color: _isAdmin ? kColorGreen : kColorWhite,
                       fontSize: FontSize.s30),
                 ),
                 onPressed: () {
@@ -101,7 +101,7 @@ class _SignInViewState extends State<SignInView> {
             stream: signInController.btnLoadingStream,
             builder: (context, snapshot) {
               return CusRaisedButton(
-                backgroundColor: kColorBlack,
+                backgroundColor: kColorGreen,
                 title: 'SIGN IN',
                 isDisablePress: snapshot.hasData ? snapshot.data : true,
                 onPress: () async {

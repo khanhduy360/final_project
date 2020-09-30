@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_final_project/src/helpers/screen.dart';
+import 'package:flutter_final_project/src/widgets/button_normal.dart';
 import 'package:flutter_final_project/src/widgets/button_tap.dart';
 import 'package:flutter_final_project/src/widgets/icon_instacop.dart';
 
@@ -16,7 +17,7 @@ class WelcomeScreen extends StatelessWidget {
           width: double.infinity,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage(KImageAddress + 'welcome_wall.jpg'),
+              image: AssetImage(KImageAddress + 'welcome.png'),
               fit: BoxFit.cover,
             ),
           ),
@@ -43,26 +44,25 @@ class WelcomeScreen extends StatelessWidget {
                   Expanded(
                     flex: 8,
                     child: IconInstacop(
-                      textSize: FontSize.setTextSize(80),
+                      textSize: FontSize.setTextSize(150),
                     ),
                   ),
                   SizedBox(
                     height: ConstScreen.setSizeHeight(100),
                   ),
-                  new ButtonTap(
+                  new ButtonNormal(
                     text: 'Sign Up / Sign In',
-                    isSelected: true,
-                    function: () {
+                    isBtnColor: true,
+                    onPress: () {
                       Navigator.pushNamed(context, 'register_screen');
                     },
                   ),
                   SizedBox(
                     height: ConstScreen.setSizeHeight(25),
                   ),
-                  new ButtonTap(
+                  new ButtonNormal(
                     text: "Start Browsing",
-                    isSelected: false,
-                    function: () {
+                    onPress: () {
                       Navigator.pushNamed(context, 'customer_home_screen');
                     },
                   )

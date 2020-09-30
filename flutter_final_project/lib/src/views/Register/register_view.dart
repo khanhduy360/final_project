@@ -19,14 +19,14 @@ class _RegisterViewState extends State<RegisterView> {
     return Container(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: kColorBlack,
+          backgroundColor: kColorGreen,
         ),
         body: Container(
           width: double.infinity,
           decoration: BoxDecoration(
             gradient: LinearGradient(colors: [
-              Colors.black,
-              Colors.black87,
+              Colors.green,
+              Colors.lightGreenAccent,
             ], begin: Alignment.topCenter),
           ),
           child: Column(
