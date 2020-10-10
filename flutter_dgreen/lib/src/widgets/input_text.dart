@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dgreen/src/helpers/TextStyle.dart';
 import 'package:flutter_dgreen/src/helpers/colors_constant.dart';
@@ -20,7 +21,7 @@ class InputText extends StatefulWidget {
   final String errorText;
   final String title;
   final bool isPassword;
-  final IconData icon;
+  final Icon icon;
   final Function onValueChange;
   final String hintText;
   final TextEditingController controller;
@@ -64,13 +65,14 @@ class _InputTextState extends State<InputText> {
                   });
                 },
               )
-            : null,
+            : widget.icon,
         border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(40),
           borderSide: BorderSide(
               color: (widget.errorText != '') ? kColorBlack : kColorRed),
         ),
       ),
-      style: TextStyle(fontSize: FontSize.s28),
+      style: TextStyle(fontSize: FontSize.s36),
       obscureText: isShowPassword,
       keyboardType: widget.inputType,
       onChanged: (value) {

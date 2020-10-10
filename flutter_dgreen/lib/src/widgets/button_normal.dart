@@ -72,7 +72,7 @@ class ButtonNormal extends StatelessWidget {
                       color: isBtnColor || color != Colors.white
                           ? Colors.white
                           : kColorGreen,
-                      fontSize: setFontSize(size: 16.0),
+                      fontSize: setFontSize(size: 35.0),
                     ),
                   ),
                   SizedBox(width: hasSuffixIcon != null ? 15 : 0),

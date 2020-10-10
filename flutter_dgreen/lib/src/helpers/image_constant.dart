@@ -11,6 +11,7 @@ const kImgLogoApp = imagePath + 'logo-app1.png';
 const kImgBGWelcome = imagePath + 'bg-welcome.png';
 const kIconFacebook = imagePath + 'icon-facebook.png';
 const kIconGoogle = imagePath + 'icon-google.png';
+const kIconMail = imagePath + 'icon_mail.svg';
 const kImgSignUp = imagePath + 'img-signup.png';
 const kImgBGHome = imagePath + 'bg-home.png';
 const kIconTypeCar = imagePath + 'icon-type-car.png';
