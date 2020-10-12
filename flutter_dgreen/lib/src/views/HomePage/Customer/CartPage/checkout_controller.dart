@@ -102,7 +102,7 @@ class CheckoutController {
               .document(qtyOrder.productId)
               .get()
               .then((document) {
-            int quantity = int.parse(document.data['quantity']);
+            int quantity = int.parse(document.data()['quantity']);
             int result = quantity - qtyOrder.quantity;
             Firestore.instance
                 .collection('Products')

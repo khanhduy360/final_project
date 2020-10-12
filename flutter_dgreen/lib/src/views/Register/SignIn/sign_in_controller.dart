@@ -44,36 +44,36 @@ class SignInController {
       try {
         _isBtnLoading.sink.add(false);
         FirebaseAuth auth = FirebaseAuth.instance;
-        FirebaseUser firebaseUser = (await auth.signInWithEmailAndPassword(
+        User firebaseUser = (await auth.signInWithEmailAndPassword(
                 email: email, password: password))
             .user;
         String uid = firebaseUser.uid;
-        await Firestore.instance
+        await FirebaseFirestore.instance
             .collection('Users')
-            .document(uid)
+            .doc(uid)
             .get()
             .then((DocumentSnapshot snapshot) {
-          User user = new User(
-              snapshot.data['fullname'],
-              snapshot.data['username'],
-              snapshot.data['password'],
-              snapshot.data['gender'],
-              snapshot.data['birthday'],
-              snapshot.data['phone'],
-              snapshot.data['address'],
-              snapshot.data['create_at'],
-              snapshot.data['id_scripe'],
-              snapshot.data['type']);
+          UserApp user = new UserApp(
+              snapshot.data()['fullname'],
+              snapshot.data()['username'],
+              snapshot.data()['password'],
+              snapshot.data()['gender'],
+              snapshot.data()['birthday'],
+              snapshot.data()['phone'],
+              snapshot.data()['address'],
+              snapshot.data()['create_at'],
+              snapshot.data()['id_scripe'],
+              snapshot.data()['type']);
           print(user.toJson());
 
           //TODO: Navigator
           if (isAdmin) {
             //TODO: Admin Sign In
-            if (snapshot.data['type'] == 'admin') {
+            if (snapshot.data()['type'] == 'admin') {
               result = 'admin_home_screen';
               //TODO: Add data to shared preference
               StorageUtil.setUid(uid);
-              StorageUtil.setFullName(snapshot.data['fullname']);
+              StorageUtil.setFullName(snapshot.data()['fullname']);
               StorageUtil.setIsLogging(true);
               StorageUtil.setUserInfo(user);
               StorageUtil.setAccountType('admin');
@@ -81,11 +81,11 @@ class SignInController {
             }
           } else {
             //TODO: Customer Sign In
-            if (snapshot.data['type'] == 'customer') {
+            if (snapshot.data()['type'] == 'customer') {
               result = 'customer_home_screen';
               //TODO: Add data to shared preference
               StorageUtil.setUid(uid);
-              StorageUtil.setFullName(snapshot.data['fullname']);
+              StorageUtil.setFullName(snapshot.data()['fullname']);
               StorageUtil.setIsLogging(true);
               StorageUtil.setUserInfo(user);
               StorageUtil.setAccountType('customer');

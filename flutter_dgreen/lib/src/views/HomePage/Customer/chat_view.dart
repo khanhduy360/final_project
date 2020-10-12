@@ -55,7 +55,7 @@ class _ChatScreenState extends State<ChatScreen>
 
   void getCurrentUser() async {
     try {
-      final user = await _auth.currentUser();
+      final user = await _auth.currentUser;
       if (user != null) {
         loggedInUser = user;
       }
@@ -106,16 +106,19 @@ class _ChatScreenState extends State<ChatScreen>
 
   //TODO Save Image to Firebase Storage
   Future saveImage(List<Asset> asset) async {
-    StorageUploadTask uploadTask;
+    UploadTask uploadTask;
     List<String> linkImage = [];
     for (var value in asset) {
       String fileName = DateTime.now().millisecondsSinceEpoch.toString();
-      StorageReference ref = FirebaseStorage.instance.ref().child(fileName);
+      Reference ref = FirebaseStorage.instance.ref().child(fileName);
       ByteData byteData = await value.requestOriginal(quality: 70);
       var imageData = byteData.buffer.asUint8List();
       uploadTask = ref.putData(imageData);
       String imageUrl;
-      await (await uploadTask.onComplete).ref.getDownloadURL().then((onValue) {
+      await (await uploadTask.whenComplete(() => null))
+          .ref
+          .getDownloadURL()
+          .then((onValue) {
         imageUrl = onValue;
       });
       linkImage.add(imageUrl);
@@ -197,19 +200,19 @@ class _ChatScreenState extends State<ChatScreen>
                         final messages = snapshot.data.documents.reversed;
                         messageBubbles = [];
                         for (var message in messages) {
-                          final messageText = message.data['text'];
-                          final messageSender = message.data['sender'];
-                          final List<dynamic> images = message.data['image'];
+                          final messageText = message.data()['text'];
+                          final messageSender = message.data()['sender'];
+                          final List<dynamic> images = message.data()['image'];
                           final currentUser = loggedInUser.email;
 
                           final messageBubble = MessageBubble(
                             context: context,
                             uid: uid,
-                            createAt: message.data['timestamp'],
-                            documentID: message.documentID,
+                            createAt: message.data()['timestamp'],
+                            documentID: message.id,
                             sender: messageSender,
                             text: (messageText != null) ? messageText : '',
-                            isAdmin: message.data['is_admin'],
+                            isAdmin: message.data()['is_admin'],
                             isMe: currentUser == messageSender,
                             onlineImagesList:
                                 (images != null || images.length != 0)

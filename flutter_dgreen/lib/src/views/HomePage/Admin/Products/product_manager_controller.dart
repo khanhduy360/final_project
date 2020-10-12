@@ -168,18 +168,21 @@ class ProductManagerController {
 
   //TODO Save Image to Firebase Storage
   Future saveImage(List<Asset> asset) async {
-    StorageUploadTask uploadTask;
+    UploadTask uploadTask;
     List<String> linkImage = [];
     for (var value in asset) {
       String fileName = DateTime.now().millisecondsSinceEpoch.toString();
-      StorageReference ref = FirebaseStorage.instance.ref().child(fileName);
+      Reference ref = FirebaseStorage.instance.ref().child(fileName);
 //      int width = 500;
 //      int height = ((width * value.originalHeight) / width).round();
-      ByteData byteData = await value.requestOriginal(quality: 70);
+      ByteData byteData = await value.getByteData(quality: 70);
       var imageData = byteData.buffer.asUint8List();
       uploadTask = ref.putData(imageData);
       String imageUrl;
-      await (await uploadTask.onComplete).ref.getDownloadURL().then((onValue) {
+      await (await uploadTask.whenComplete(() => null))
+          .ref
+          .getDownloadURL()
+          .then((onValue) {
         imageUrl = onValue;
       });
       linkImage.add(imageUrl);

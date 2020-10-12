@@ -264,7 +264,7 @@ class _OrderAndBillViewState extends State<OrderAndBillView> {
                                                                             (document) {
                                                                       int quantity =
                                                                           int.parse(
-                                                                              document.data['quantity']);
+                                                                              document.data()['quantity']);
                                                                       int result =
                                                                           quantity +
                                                                               qtyOrder.quantity;

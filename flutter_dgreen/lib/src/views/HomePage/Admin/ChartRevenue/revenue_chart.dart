@@ -57,15 +57,15 @@ class _RevenueChartState extends State<RevenueChart> {
   //TODO: Get total sale per month
   Future<int> getTotalPerMonth(int month, int year) async {
     int total = 0;
-    var snapshot = await Firestore.instance
+    var snapshot = await FirebaseFirestore.instance
         .collection('Orders')
         .where('month', isEqualTo: month)
         .where('year', isEqualTo: year)
         .where('status', isEqualTo: 'Completed')
-        .getDocuments();
-    if (snapshot.documents.length != 0) {
-      for (var document in snapshot.documents) {
-        total += int.parse(document.data['total']);
+        .get();
+    if (snapshot.docs.length != 0) {
+      for (var document in snapshot.docs) {
+        total += int.parse(document.data()['total']);
       }
       return total;
     } else {

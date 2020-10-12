@@ -83,7 +83,7 @@ class SignUpController {
         String createAt = user.metadata.creationTime.toString();
         //TODO: encode password
         String pwdSha512 = Util.encodePassword(password);
-        Firestore.instance.collection('Users').document(user.uid).setData({
+        FirebaseFirestore.instance.collection('Users').doc(user.uid).set({
           'id': user.uid,
           'username': email,
           'password': pwdSha512,
@@ -96,8 +96,8 @@ class SignUpController {
           'id_scripe': '',
           'type': typeAccount,
         });
-        User userInfo = new User(fullName, email, password, '', '', '', '',
-            createAt, '', 'customer');
+        UserApp userInfo = new UserApp(fullName, email, password, '', '', '',
+            '', createAt, '', 'customer');
         StorageUtil.setUid(user.uid);
         StorageUtil.setFullName(fullName);
         await StorageUtil.setIsLogging(true);

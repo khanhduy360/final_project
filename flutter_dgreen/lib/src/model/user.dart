@@ -1,4 +1,4 @@
-class User {
+class UserApp {
   String fullName;
   String username;
   String password;
@@ -9,10 +9,19 @@ class User {
   String create_at;
   String id_scripe;
   String type;
-  User(this.fullName, this.username, this.password, this.gender, this.birthday,
-      this.phone, this.address, this.create_at, this.id_scripe, this.type);
+  UserApp(
+      this.fullName,
+      this.username,
+      this.password,
+      this.gender,
+      this.birthday,
+      this.phone,
+      this.address,
+      this.create_at,
+      this.id_scripe,
+      this.type);
 
-  User.fromJson(Map<String, dynamic> json) {
+  UserApp.fromJson(Map<String, dynamic> json) {
     fullName = json['fullName'];
     username = json['username'];
     password = json['password'];

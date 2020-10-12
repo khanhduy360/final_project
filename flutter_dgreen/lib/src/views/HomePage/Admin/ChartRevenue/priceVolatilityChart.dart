@@ -12,14 +12,14 @@ class _PriceVolatilityChartState extends State<PriceVolatilityChart> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-        stream: Firestore.instance.collection('Products').snapshots(),
+        stream: FirebaseFirestore.instance.collection('Products').snapshots(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return ListView(
               children: snapshot.data.documents.map((document) {
                 return Card(
                   child: StreamBuilder<QuerySnapshot>(
-                      stream: Firestore.instance
+                      stream: FirebaseFirestore.instance
                           .collection('PriceVolatility')
                           .orderBy('timeCreate')
                           .where('product_id', isEqualTo: document.documentID)
@@ -31,13 +31,13 @@ class _PriceVolatilityChartState extends State<PriceVolatilityChart> {
                             var widget = CategoryItem(
                               title: 'Price: ' +
                                   Util.intToMoneyType(
-                                      int.parse(docs.data['price'])) +
+                                      int.parse(docs.data()['price'])) +
                                   ' VND\nSale price: ' +
                                   Util.intToMoneyType(
-                                      int.parse(docs.data['sale_price'])) +
+                                      int.parse(docs.data()['sale_price'])) +
                                   ' VND\nCreate at: ' +
                                   Util.convertDateToFullString(
-                                      docs.data['create_at']),
+                                      docs.data()['create_at']),
                               height: 130,
                             );
                             listPriceVolatility.add(widget);
@@ -45,7 +45,7 @@ class _PriceVolatilityChartState extends State<PriceVolatilityChart> {
                         }
                         return ExpansionTile(
                           title: Text(
-                              'ID: ${document.data['id']}\nProduct: ${document.data['name']}'),
+                              'ID: ${document.data()['id']}\nProduct: ${document.data()['name']}'),
                           children: listPriceVolatility.reversed.toList(),
                         );
                       }),

@@ -284,13 +284,13 @@ class _PrivateCouponViewState extends State<PrivateCouponView> {
                             }
                             return ExpansionTile(
                               title: Text(
-                                  '${document.data['fullname']} - ${document.data['username']}'),
+                                  '${document.data()['fullname']} - ${document.data()['username']}'),
                               children: privateCouponList,
                             );
                           } else {
                             return ExpansionTile(
                               title: Text(
-                                  '${document.data['fullname']} - ${document.data['username']}'),
+                                  '${document.data()['fullname']} - ${document.data()['username']}'),
                             );
                           }
                         }),

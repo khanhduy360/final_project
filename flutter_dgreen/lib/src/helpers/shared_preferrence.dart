@@ -65,16 +65,16 @@ class StorageUtil {
   }
 
   //TODO: Set User info
-  static Future<void> setUserInfo(User user) async {
+  static Future<void> setUserInfo(UserApp user) async {
     SharedPreferences _preferences = await SharedPreferences.getInstance();
     return _preferences.setString('UserInfo', jsonEncode(user.toJson()));
   }
 
   //TODO: get User info
-  static Future<User> getUserInfo() async {
+  static Future<UserApp> getUserInfo() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    User user =
-        new User.fromJson(jsonDecode(preferences.getString('UserInfo')));
+    UserApp user =
+        new UserApp.fromJson(jsonDecode(preferences.getString('UserInfo')));
     return user;
   }
 

@@ -61,14 +61,14 @@ class _AdminHomeViewState extends State<AdminHomeView> {
       });
     });
     //TODO: Revenue
-    Firestore.instance
+    FirebaseFirestore.instance
         .collection('Orders')
         .where('status', isEqualTo: 'Completed')
-        .getDocuments()
+        .get()
         .then((document) {
       int revenue = 0;
-      for (var order in document.documents) {
-        int value = int.parse(order.data['total']);
+      for (var order in document.docs) {
+        int value = int.parse(order.data()['total']);
         revenue += value;
       }
       setState(() {

@@ -323,7 +323,7 @@ class _SoldAndOrderViewState extends State<SoldAndOrderView> {
                                                                           (document) {
                                                                     int quantity =
                                                                         int.parse(
-                                                                            document.data['quantity']);
+                                                                            document.data()['quantity']);
                                                                     int result =
                                                                         quantity +
                                                                             qtyOrder.quantity;

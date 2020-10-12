@@ -42,11 +42,11 @@ class _CartViewState extends State<CartView> {
     var find = uiProductList.firstWhere((it) => it.id == productID,
         orElse: () => null);
     if (find != null) {
-      Firestore.instance
+      FirebaseFirestore.instance
           .collection('Carts')
-          .document(uidUser)
+          .doc(uidUser)
           .collection(uidUser)
-          .document(productID)
+          .doc(productID)
           .delete();
       setState(() {
         uiProductList.removeAt(uiProductList.indexOf(find));
@@ -124,19 +124,19 @@ class _CartViewState extends State<CartView> {
         int index = 0;
         //TODO:Get list product
         for (var value in onValue.documents) {
-          print('Sale: ' + value.data['sale_price']);
+          print('Sale: ' + value.data()['sale_price']);
           Product product = new Product(
-            id: value.data['id'],
-            productName: value.data['name'],
-            image: value.data['image'],
-            category: value.data['categogy'],
-            size: value.data['size'],
-            color: value.data['color'],
-            price: value.data['price'],
-            salePrice: value.data['sale_price'],
-            brand: value.data['brand'],
-            madeIn: value.data['made_in'],
-            quantity: value.data['quantity'],
+            id: value.data()['id'],
+            productName: value.data()['name'],
+            image: value.data()['image'],
+            category: value.data()['categogy'],
+            size: value.data()['size'],
+            color: value.data()['color'],
+            price: value.data()['price'],
+            salePrice: value.data()['sale_price'],
+            brand: value.data()['brand'],
+            madeIn: value.data()['made_in'],
+            quantity: value.data()['quantity'],
           );
           productInfoList.add(product);
           getQuantity();
