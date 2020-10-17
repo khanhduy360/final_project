@@ -60,10 +60,10 @@ class BankCardController {
     try {
       _btnLoadController.sink.add(false);
       String uid = await StorageUtil.getUid();
-      await Firestore.instance
+      await FirebaseFirestore.instance
           .collection('Cards')
-          .document(DateTime.now().millisecondsSinceEpoch.toString())
-          .setData({
+          .doc(DateTime.now().millisecondsSinceEpoch.toString())
+          .set({
         'uid': uid,
         'cardNumber': cardNumber,
         'expiryMonth': expMonth,

@@ -16,18 +16,18 @@ class _PriceVolatilityChartState extends State<PriceVolatilityChart> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return ListView(
-              children: snapshot.data.documents.map((document) {
+              children: snapshot.data.docs.map((document) {
                 return Card(
                   child: StreamBuilder<QuerySnapshot>(
                       stream: FirebaseFirestore.instance
                           .collection('PriceVolatility')
                           .orderBy('timeCreate')
-                          .where('product_id', isEqualTo: document.documentID)
+                          .where('product_id', isEqualTo: document.id)
                           .snapshots(),
                       builder: (context, snapshot) {
                         List<CategoryItem> listPriceVolatility = [];
                         if (snapshot.hasData) {
-                          for (var docs in snapshot.data.documents) {
+                          for (var docs in snapshot.data.docs) {
                             var widget = CategoryItem(
                               title: 'Price: ' +
                                   Util.intToMoneyType(

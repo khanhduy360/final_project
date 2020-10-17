@@ -44,17 +44,17 @@ class _WishListViewState extends State<WishListView>
 
   Future<void> getWishlistList(String uid) async {
     List<ProductCard> list = [];
-    await Firestore.instance
-        .collection('Wishlists')
-        .document(uid)
+    await FirebaseFirestore.instance
+        .collection('WishLists')
+        .doc(uid)
         .collection(uid)
-        .getDocuments()
+        .get()
         .then((snap) async {
-      if (snap.documents != null) {
-        for (var document in snap.documents) {
-          var doc = await Firestore.instance
+      if (snap.docs != null) {
+        for (var document in snap.docs) {
+          var doc = await FirebaseFirestore.instance
               .collection('Products')
-              .document(document['id'])
+              .doc(document['id'])
               .get();
           listProduct.add(ProductCard(
             id: doc['id'],
@@ -91,11 +91,11 @@ class _WishListViewState extends State<WishListView>
               );
             },
             onClosePress: () {
-              Firestore.instance
-                  .collection('Wishlists')
-                  .document(uid)
+              FirebaseFirestore.instance
+                  .collection('WishLists')
+                  .doc(uid)
                   .collection(uid)
-                  .document(doc['id'])
+                  .doc(doc['id'])
                   .delete();
               removeProduct(doc['id']);
             },

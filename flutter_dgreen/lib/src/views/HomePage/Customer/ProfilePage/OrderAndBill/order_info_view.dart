@@ -157,17 +157,17 @@ class _OrderInfoViewState extends State<OrderInfoView> {
             ),
             //TODO: List Product
             StreamBuilder<QuerySnapshot>(
-              stream: Firestore.instance
+              stream: FirebaseFirestore.instance
                   .collection('Orders')
-                  .document(widget.orderInfo.subId)
+                  .doc(widget.orderInfo.subId)
                   .collection(widget.orderInfo.id)
                   .snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: snapshot.data.documents
-                        .map((DocumentSnapshot document) {
+                    children:
+                        snapshot.data.docs.map((DocumentSnapshot document) {
                       return ProductOrderDetail(
                         name: document['name'],
                         price: document['price'],

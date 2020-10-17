@@ -7,6 +7,7 @@ import 'package:flutter_dgreen/src/helpers/TextStyle.dart';
 import 'package:flutter_dgreen/src/helpers/colors_constant.dart';
 import 'package:flutter_dgreen/src/helpers/screen.dart';
 import 'package:flutter_dgreen/src/helpers/utils.dart';
+import 'package:validators/sanitizers.dart';
 
 class RevenueChart extends StatefulWidget {
   @override
@@ -14,8 +15,9 @@ class RevenueChart extends StatefulWidget {
 }
 
 class _RevenueChartState extends State<RevenueChart> {
-  DateTime yearPick;
   int totalSale = 0;
+  String selectedDate;
+  TextEditingController yController = TextEditingController();
 
   List<OrdinalSales> chartData = [
     new OrdinalSales('Jan', 0),
@@ -36,8 +38,8 @@ class _RevenueChartState extends State<RevenueChart> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    yearPick = DateTime.now();
-    getDataForChart(yearPick.year);
+    selectedDate = DateTime.now().year.toString();
+    getDataForChart(int.parse(selectedDate));
   }
 
   //TODO: Chart Data
@@ -77,7 +79,7 @@ class _RevenueChartState extends State<RevenueChart> {
   getDataForChart(int year) {
     totalSale = 0;
     for (int index = 0; index < 12; index++) {
-      getTotalPerMonth(index + 1, year).then((total) {
+      getTotalPerMonth(index + 1, year.toInt()).then((total) {
         setState(() {
           totalSale += total;
           chartData.elementAt(index).sales = total;
@@ -151,31 +153,44 @@ class _RevenueChartState extends State<RevenueChart> {
               child: Row(
                 children: <Widget>[
                   SizedBox(
-                    width: ConstScreen.setSizeWidth(50),
+                    width: ConstScreen.setSizeWidth(10),
                   ),
                   Text(
                     'Year Picker:',
                     style: kBoldTextStyle.copyWith(fontSize: FontSize.s36),
+                    textAlign: TextAlign.start,
                   ),
                   //TODO: Year picker
                   Container(
                     height: ConstScreen.setSizeHeight(300),
                     width: ConstScreen.setSizeWidth(300),
-                    child: YearPicker(
-                      dragStartBehavior: DragStartBehavior.start,
-                      firstDate: DateTime.utc(2010),
-                      lastDate: DateTime.now(),
-                      selectedDate: yearPick,
-                      onChanged: (date) {
-                        setState(() {
-                          yearPick = date;
-                          getDataForChart(yearPick.year);
-                        });
-                      },
+                    margin: new EdgeInsets.symmetric(
+                        vertical: 40.0, horizontal: 10.0),
+                    child: GestureDetector(
+                      onTap: yearPicker,
+                      child: AbsorbPointer(
+                        child: TextFormField(
+                          controller: yController,
+                          decoration: InputDecoration(
+                            labelText: 'Pick Year',
+                            border: OutlineInputBorder(),
+                            filled: true,
+                          ),
+                          onSaved: (val) {
+                            selectedDate = yController.text;
+                          },
+                          validator: (val) {
+                            if (val == null || val.isEmpty) {
+                              return 'Year is necessary';
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
                     ),
                   ),
                   Text(
-                    'CURRENT \n ${yearPick.year}',
+                    'CURRENT \n $selectedDate',
                     style: kBoldTextStyle.copyWith(fontSize: FontSize.s30),
                     textAlign: TextAlign.center,
                   ),
@@ -185,6 +200,37 @@ class _RevenueChartState extends State<RevenueChart> {
           ),
         ],
       ),
+    );
+  }
+
+  yearPicker() {
+    final year = DateTime.now().year;
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(
+            'Chọn năm',
+            textAlign: TextAlign.center,
+          ),
+          content: Container(
+            height: MediaQuery.of(context).size.height / 4.0,
+            width: MediaQuery.of(context).size.width,
+            color: Colors.grey[200],
+            child: CalendarDatePicker(
+              initialDate: DateTime(year - 10),
+              firstDate: DateTime(year - 10),
+              lastDate: DateTime(year + 10),
+              initialCalendarMode: DatePickerMode.year,
+              onDateChanged: (value) {
+                yController.text = value.toString().substring(0, 4);
+                Navigator.of(context).pop();
+              },
+            ),
+          ),
+        );
+      },
     );
   }
 }

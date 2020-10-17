@@ -29,35 +29,35 @@ class _AdminHomeViewState extends State<AdminHomeView> {
   String globalCouponCount = '0';
   loadNumberDashboard() {
     //TODO: User
-    Firestore.instance.collection('Users').getDocuments().then((onValue) {
+    FirebaseFirestore.instance.collection('Users').get().then((onValue) {
       setState(() {
-        _userCount = onValue.documents.length.toString();
+        _userCount = onValue.docs.length.toString();
       });
     });
     //TODO:Order
-    Firestore.instance
+    FirebaseFirestore.instance
         .collection('Orders')
         .where('status', isEqualTo: 'Pending')
-        .getDocuments()
+        .get()
         .then((onValue) {
       setState(() {
-        _orderCount = onValue.documents.length.toString();
+        _orderCount = onValue.docs.length.toString();
       });
     });
     //TODO: Product
-    Firestore.instance.collection('Products').getDocuments().then((onValue) {
+    FirebaseFirestore.instance.collection('Products').get().then((onValue) {
       setState(() {
-        _productCount = onValue.documents.length.toString();
+        _productCount = onValue.docs.length.toString();
       });
     });
     //TODO:Sold
-    Firestore.instance
+    FirebaseFirestore.instance
         .collection('Orders')
         .where('status', isLessThan: 'Pending')
-        .getDocuments()
+        .get()
         .then((onValue) {
       setState(() {
-        _soldCount = onValue.documents.length.toString();
+        _soldCount = onValue.docs.length.toString();
       });
     });
     //TODO: Revenue
@@ -76,19 +76,19 @@ class _AdminHomeViewState extends State<AdminHomeView> {
       });
     });
     //TODO: Coupon
-    Firestore.instance
+    FirebaseFirestore.instance
         .collection('Coupon')
         .where('uid', isLessThan: 'global')
-        .getDocuments()
+        .get()
         .then((value) {
-      privateCouponCount = value.documents.length.toString();
+      privateCouponCount = value.docs.length.toString();
     });
-    Firestore.instance
+    FirebaseFirestore.instance
         .collection('Coupon')
         .where('uid', isEqualTo: 'global')
-        .getDocuments()
+        .get()
         .then((value) {
-      globalCouponCount = value.documents.length.toString();
+      globalCouponCount = value.docs.length.toString();
     });
   }
 

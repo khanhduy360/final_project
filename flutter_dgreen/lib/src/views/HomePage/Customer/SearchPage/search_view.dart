@@ -34,12 +34,12 @@ class _SearchViewState extends State<SearchView>
     var capitalizedValue =
         value.substring(0, 1).toUpperCase() + value.substring(1);
     if (queryResultSet.length == 0 && value.length == 1) {
-      Firestore.instance
+      FirebaseFirestore.instance
           .collection('Products')
           .where('search_key', isEqualTo: value.substring(0, 1).toUpperCase())
-          .getDocuments()
+          .get()
           .then((snapshot) {
-        for (var document in snapshot.documents) {
+        for (var document in snapshot.docs) {
           Product product = new Product(
             id: document['id'],
             productName: document['name'],

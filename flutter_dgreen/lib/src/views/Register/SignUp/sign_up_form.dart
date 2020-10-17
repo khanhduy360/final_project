@@ -133,7 +133,7 @@ class _SignUpViewState extends State<SignUpView> {
                       confirmPwd: _confirmPwd,
                       typeAccount: widget.typeAccount);
 
-                  if (result) {
+                  if (result == true) {
                     if (widget.typeAccount == 'customer') {
                       Navigator.pushNamed(context, 'customer_home_screen');
                     } else {

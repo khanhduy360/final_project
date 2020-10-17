@@ -24,7 +24,7 @@ class _GlobalCouponViewState extends State<GlobalCouponView> {
     return Scaffold(
       body: Container(
           child: StreamBuilder<QuerySnapshot>(
-        stream: Firestore.instance
+        stream: FirebaseFirestore.instance
             .collection('Coupon')
             .where('uid', isEqualTo: 'global')
             .orderBy('create_at')
@@ -33,7 +33,7 @@ class _GlobalCouponViewState extends State<GlobalCouponView> {
           int index = 0;
           if (snapshot.hasData) {
             return ListView(
-              children: snapshot.data.documents.map((document) {
+              children: snapshot.data.docs.map((document) {
                 return Slidable(
                   actionPane: SlidableDrawerActionPane(),
                   actionExtentRatio: 0.25,
@@ -43,9 +43,9 @@ class _GlobalCouponViewState extends State<GlobalCouponView> {
                       color: kColorRed,
                       icon: Icons.delete,
                       onTap: () {
-                        Firestore.instance
+                        FirebaseFirestore.instance
                             .collection('Coupon')
-                            .document(document.documentID)
+                            .doc(document.id)
                             .delete();
                         setState(() {});
                       },

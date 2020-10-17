@@ -122,7 +122,7 @@ class ProductManagerController {
       List<String> linkImage = await saveImage(imageList);
       String id = DateTime.now().millisecondsSinceEpoch.toString();
       print(linkImage.length);
-      Firestore.instance.collection('Products').document(id).setData({
+      FirebaseFirestore.instance.collection('Products').doc(id).set({
         'id': id,
         'name': productName,
         'search_key': productName.substring(0, 1).toUpperCase(),
@@ -142,7 +142,7 @@ class ProductManagerController {
         print(onError.toString());
       });
       //TODO: Price Volatility
-      Firestore.instance.collection('PriceVolatility').document().setData({
+      FirebaseFirestore.instance.collection('PriceVolatility').doc().set({
         'product_id': id,
         'price': price,
         'sale_price': salePrice,

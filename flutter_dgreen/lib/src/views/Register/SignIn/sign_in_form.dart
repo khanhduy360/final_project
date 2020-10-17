@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dgreen/src/helpers/TextStyle.dart';
 import 'package:flutter_dgreen/src/helpers/colors_constant.dart';
@@ -22,6 +23,7 @@ class _SignInViewState extends State<SignInView> {
   bool obscureText = true;
   bool _isAdmin = false;
   bool isLoading = false;
+  final _auth = FirebaseAuth.instance;
   SignInController signInController = new SignInController();
   String _email = '';
   String _password = '';
@@ -80,6 +82,7 @@ class _SignInViewState extends State<SignInView> {
                 onPressed: () {
                   setState(() {
                     _isAdmin = true;
+                    print('Admin' + _isAdmin.toString());
                   });
                 },
               ),
@@ -100,6 +103,7 @@ class _SignInViewState extends State<SignInView> {
                 onPressed: () {
                   setState(() {
                     _isAdmin = false;
+                    print('customer' + _isAdmin.toString());
                   });
                 },
               ),
@@ -114,7 +118,6 @@ class _SignInViewState extends State<SignInView> {
             stream: signInController.btnLoadingStream,
             builder: (context, snapshot) {
               return ButtonNormal(
-                isLoading: isLoading,
                 // hasSuffixIcon: true,
                 isBtnColor: true,
                 text: 'SIGN IN',
@@ -125,10 +128,11 @@ class _SignInViewState extends State<SignInView> {
                   }
                   var result = await signInController.onSubmitSignIn(
                       email: _email, password: _password, isAdmin: _isAdmin);
+
                   print('Screen' + result.toString());
 
                   if (result != '') {
-                    Navigator.pushNamed(context, result);
+                    Navigator.pushNamed(context, result.toString());
                     SignInController().dispose();
                   } else {
                     Scaffold.of(context).showSnackBar(SnackBar(

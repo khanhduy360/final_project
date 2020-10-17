@@ -54,12 +54,12 @@ class _OrderAndBillViewState extends State<OrderAndBillView> {
               if (mainSnapshot.hasData) {
                 return StreamBuilder<QuerySnapshot>(
                     stream: widget.isAdmin
-                        ? Firestore.instance
+                        ? FirebaseFirestore.instance
                             .collection('Orders')
                             .where('status', isEqualTo: widget.status)
                             .orderBy('create_at')
                             .snapshots()
-                        : Firestore.instance
+                        : FirebaseFirestore.instance
                             .collection('Orders')
                             .where('id', isEqualTo: uid)
                             .where('status', isEqualTo: widget.status)
@@ -68,7 +68,7 @@ class _OrderAndBillViewState extends State<OrderAndBillView> {
                     builder: (context, snapshot) {
                       if (mainSnapshot.hasData && snapshot.hasData) {
                         return ListView(
-                          children: snapshot.data.documents
+                          children: snapshot.data.docs
                               .map((DocumentSnapshot document) {
                                 OrderInfo orderInfo = new OrderInfo(
                                     id: document['id'],
@@ -203,14 +203,13 @@ class _OrderAndBillViewState extends State<OrderAndBillView> {
                                                                     adminName =
                                                                     await StorageUtil
                                                                         .geFullName();
-                                                                Firestore
+                                                                FirebaseFirestore
                                                                     .instance
                                                                     .collection(
                                                                         'Orders')
-                                                                    .document(
-                                                                        document[
-                                                                            'sub_Id'])
-                                                                    .updateData({
+                                                                    .doc(document[
+                                                                        'sub_Id'])
+                                                                    .update({
                                                                   'status':
                                                                       'Canceled',
                                                                   'description':
@@ -222,17 +221,16 @@ class _OrderAndBillViewState extends State<OrderAndBillView> {
                                                                       'None'
                                                                 });
                                                                 //TODO: increase quantity
-                                                                Firestore
+                                                                FirebaseFirestore
                                                                     .instance
                                                                     .collection(
                                                                         'Orders')
-                                                                    .document(
-                                                                        document[
-                                                                            'sub_Id'])
+                                                                    .doc(document[
+                                                                        'sub_Id'])
                                                                     .collection(
                                                                         document[
                                                                             'id'])
-                                                                    .getDocuments()
+                                                                    .get()
                                                                     .then(
                                                                         (document) {
                                                                   List<QuantityOrder>
@@ -240,7 +238,7 @@ class _OrderAndBillViewState extends State<OrderAndBillView> {
                                                                       [];
                                                                   for (var document
                                                                       in document
-                                                                          .documents) {
+                                                                          .docs) {
                                                                     QuantityOrder
                                                                         quantityOrder =
                                                                         new QuantityOrder(
@@ -253,11 +251,11 @@ class _OrderAndBillViewState extends State<OrderAndBillView> {
                                                                   }
                                                                   for (var qtyOrder
                                                                       in quantityOrderList) {
-                                                                    Firestore
+                                                                    FirebaseFirestore
                                                                         .instance
                                                                         .collection(
                                                                             'Products')
-                                                                        .document(qtyOrder
+                                                                        .doc(qtyOrder
                                                                             .productId)
                                                                         .get()
                                                                         .then(
@@ -270,13 +268,13 @@ class _OrderAndBillViewState extends State<OrderAndBillView> {
                                                                               qtyOrder.quantity;
                                                                       print(
                                                                           result);
-                                                                      Firestore
+                                                                      FirebaseFirestore
                                                                           .instance
                                                                           .collection(
                                                                               'Products')
-                                                                          .document(
-                                                                              qtyOrder.productId)
-                                                                          .updateData({
+                                                                          .doc(qtyOrder
+                                                                              .productId)
+                                                                          .update({
                                                                         'quantity':
                                                                             result.toString(),
                                                                       });

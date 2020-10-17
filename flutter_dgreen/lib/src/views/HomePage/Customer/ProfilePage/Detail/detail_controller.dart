@@ -59,7 +59,7 @@ class DetailUserInfoController {
     if (countError == 0) {
       final userInfo = await StorageUtil.getUserInfo();
       final uid = await StorageUtil.getUid();
-      await Firestore.instance.collection('Users').document(uid).updateData({
+      await FirebaseFirestore.instance.collection('Users').doc(uid).update({
         'fullname': fullName,
         'address': address,
         'phone': phone,

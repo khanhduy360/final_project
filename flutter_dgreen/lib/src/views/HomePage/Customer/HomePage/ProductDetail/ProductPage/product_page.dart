@@ -68,11 +68,11 @@ class _ProductPageState extends State<ProductPage>
   //TODO: Check isCheckWishList
   getIsCheckWishlist() async {
     String userUid = await StorageUtil.getUid();
-    final snapShot = await Firestore.instance
-        .collection('Wishlists')
-        .document(userUid)
+    final snapShot = await FirebaseFirestore.instance
+        .collection('WishLists')
+        .doc(userUid)
         .collection(userUid)
-        .document(widget.product.id)
+        .doc(widget.product.id)
         .get();
     bool isExists = snapShot.exists;
     if (isExists) {

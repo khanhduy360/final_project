@@ -28,7 +28,7 @@ class _DetailBannerScreenState extends State<ProductListView> {
       setState(() {
         title = 'SALE';
       });
-      return Firestore.instance
+      return FirebaseFirestore.instance
           .collection('Products')
           .where('sale_price', isGreaterThan: '0')
           .snapshots();
@@ -36,7 +36,7 @@ class _DetailBannerScreenState extends State<ProductListView> {
       setState(() {
         title = 'SEARCHING';
       });
-      return Firestore.instance
+      return FirebaseFirestore.instance
           .collection('Products')
           .orderBy('create_at')
           .where('categogy', isEqualTo: widget.search)
@@ -45,7 +45,7 @@ class _DetailBannerScreenState extends State<ProductListView> {
       setState(() {
         title = 'NEW IN';
       });
-      return Firestore.instance
+      return FirebaseFirestore.instance
           .collection('Products')
           .orderBy('create_at')
           .snapshots();
@@ -160,8 +160,8 @@ class _DetailBannerScreenState extends State<ProductListView> {
                         crossAxisSpacing: ConstScreen.setSizeHeight(30),
                         mainAxisSpacing: ConstScreen.setSizeHeight(40),
                         childAspectRatio: 66 / 110,
-                        children: snapshot.data.documents
-                            .map((DocumentSnapshot document) {
+                        children:
+                            snapshot.data.docs.map((DocumentSnapshot document) {
                           return ProductCard(
                             productName: document['name'],
                             image: document['image'][0],

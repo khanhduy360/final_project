@@ -67,14 +67,14 @@ class _BankAccountViewState extends State<BankAccountView> {
           builder: (context, mainSnapshot) {
             if (mainSnapshot.hasData) {
               return StreamBuilder<QuerySnapshot>(
-                stream: Firestore.instance
+                stream: FirebaseFirestore.instance
                     .collection('Cards')
                     .where('uid', isEqualTo: mainSnapshot.data)
                     .snapshots(),
                 builder: (BuildContext context,
                     AsyncSnapshot<QuerySnapshot> snapshot) {
                   if (snapshot.hasData && mainSnapshot.hasData) {
-                    if (snapshot.data.documents.length != 0) {
+                    if (snapshot.data.docs.length != 0) {
                       return Stack(
                         children: <Widget>[
                           Padding(
@@ -91,7 +91,7 @@ class _BankAccountViewState extends State<BankAccountView> {
                           ),
                           //TODO: list card
                           ListView(
-                            children: snapshot.data.documents
+                            children: snapshot.data.docs
                                 .map((DocumentSnapshot document) {
                               return Center(
                                 child: Slidable(
@@ -103,9 +103,9 @@ class _BankAccountViewState extends State<BankAccountView> {
                                       color: Colors.red,
                                       icon: Icons.delete,
                                       onTap: () {
-                                        Firestore.instance
+                                        FirebaseFirestore.instance
                                             .collection('Cards')
-                                            .document(document.documentID)
+                                            .doc(document.id)
                                             .delete();
                                       },
                                     ),

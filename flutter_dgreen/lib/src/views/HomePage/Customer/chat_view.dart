@@ -12,7 +12,7 @@ import 'package:flutter_dgreen/src/helpers/shared_preferrence.dart';
 import 'package:flutter_dgreen/src/widgets/message_bubble.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
 
-FirebaseUser loggedInUser;
+User loggedInUser;
 
 class ChatScreen extends StatefulWidget {
   ChatScreen({this.isAdmin = false, this.uidCustomer = '', this.type});
@@ -111,7 +111,7 @@ class _ChatScreenState extends State<ChatScreen>
     for (var value in asset) {
       String fileName = DateTime.now().millisecondsSinceEpoch.toString();
       Reference ref = FirebaseStorage.instance.ref().child(fileName);
-      ByteData byteData = await value.requestOriginal(quality: 70);
+      ByteData byteData = await value.getByteData(quality: 70);
       var imageData = byteData.buffer.asUint8List();
       uploadTask = ref.putData(imageData);
       String imageUrl;
@@ -186,9 +186,9 @@ class _ChatScreenState extends State<ChatScreen>
                 builder: (context, mainSnapshot) {
                   if (mainSnapshot.hasData) {
                     return StreamBuilder<QuerySnapshot>(
-                      stream: Firestore.instance
+                      stream: FirebaseFirestore.instance
                           .collection('Chat')
-                          .document(mainSnapshot.data)
+                          .doc(mainSnapshot.data)
                           .collection(mainSnapshot.data)
                           .orderBy('timestamp')
                           .snapshots(),
@@ -197,7 +197,7 @@ class _ChatScreenState extends State<ChatScreen>
                         if (!snapshot.hasData || !mainSnapshot.hasData) {
                           return Container();
                         }
-                        final messages = snapshot.data.documents.reversed;
+                        final messages = snapshot.data.docs.reversed;
                         messageBubbles = [];
                         for (var message in messages) {
                           final messageText = message.data()['text'];
@@ -273,9 +273,9 @@ class _ChatScreenState extends State<ChatScreen>
                       onPressed: () async {
                         if (images.length != 0) {
                           List<String> listImages = await saveImage(images);
-                          Firestore.instance
+                          FirebaseFirestore.instance
                               .collection('Chat')
-                              .document(uid)
+                              .doc(uid)
                               .collection(uid)
                               .add({
                             'roomId': uid,
@@ -287,9 +287,9 @@ class _ChatScreenState extends State<ChatScreen>
                                 DateTime.now().toUtc().millisecondsSinceEpoch
                           });
                         } else {
-                          Firestore.instance
+                          FirebaseFirestore.instance
                               .collection('Chat')
-                              .document(uid)
+                              .doc(uid)
                               .collection(uid)
                               .add({
                             'roomId': uid,

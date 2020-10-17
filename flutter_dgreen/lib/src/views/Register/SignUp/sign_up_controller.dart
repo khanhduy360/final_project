@@ -75,7 +75,7 @@ class SignUpController {
         _isBtnLoadingController.sink.add(false);
         //TODO: Create account
         FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-        FirebaseUser user = (await firebaseAuth.createUserWithEmailAndPassword(
+        User user = (await firebaseAuth.createUserWithEmailAndPassword(
                 email: email, password: password))
             .user;
 
@@ -98,12 +98,12 @@ class SignUpController {
         });
         UserApp userInfo = new UserApp(fullName, email, password, '', '', '',
             '', createAt, '', 'customer');
-        StorageUtil.setUid(user.uid);
-        StorageUtil.setFullName(fullName);
+        await StorageUtil.setUid(user.uid);
+        await StorageUtil.setFullName(fullName);
         await StorageUtil.setIsLogging(true);
-        StorageUtil.setUserInfo(userInfo);
-        StorageUtil.setAccountType('customer');
-        StorageUtil.setPassword(pwdSha512);
+        await StorageUtil.setUserInfo(userInfo);
+        await StorageUtil.setAccountType('customer');
+        await StorageUtil.setPassword(pwdSha512);
         _isBtnLoadingController.sink.add(true);
         return true;
       } catch (e) {

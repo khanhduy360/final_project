@@ -300,7 +300,7 @@ class _RatingProductPageState extends State<RatingProductPage>
           Expanded(
             flex: 9,
             child: StreamBuilder<QuerySnapshot>(
-                stream: Firestore.instance
+                stream: FirebaseFirestore.instance
                     .collection('Comments')
                     .orderBy('create_at')
                     .where('product_id', isEqualTo: widget.productId)
@@ -313,7 +313,7 @@ class _RatingProductPageState extends State<RatingProductPage>
                     // snapshot.data.documents.length.toDouble();
                     double ratingPoint = 0;
 
-                    for (var rating in snapshot.data.documents) {
+                    for (var rating in snapshot.data.docs) {
                       if (rating['type'] == 'customer') {
                         totalReview++;
                         ratingPoint += rating['point'];
@@ -321,8 +321,8 @@ class _RatingProductPageState extends State<RatingProductPage>
                     }
                     _controller.setTotalReview(totalReview.toInt());
                     _controller.setAveragePoint(ratingPoint / totalReview);
-                    commentList = snapshot.data.documents
-                        .map((DocumentSnapshot document) {
+                    commentList =
+                        snapshot.data.docs.map((DocumentSnapshot document) {
                       return RatingComment(
                         username: document['name'],
                         isAdmin: (document['type'] == 'admin'),
@@ -332,9 +332,9 @@ class _RatingProductPageState extends State<RatingProductPage>
                             Util.convertDateToFullString(document['create_at']),
                         isCanDelete: widget.isAdmin,
                         onDelete: () {
-                          Firestore.instance
+                          FirebaseFirestore.instance
                               .collection('Comments')
-                              .document(document.documentID)
+                              .doc(document.id)
                               .delete();
                           setState(() {});
                         },

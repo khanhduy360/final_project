@@ -28,12 +28,12 @@ class ProductController {
     if (countError == 0) {
       String userUid = await StorageUtil.getUid();
       print(userUid);
-      await Firestore.instance
+      await FirebaseFirestore.instance
           .collection('Carts')
-          .document(userUid)
+          .doc(userUid)
           .collection(userUid)
-          .document(product.id)
-          .setData({
+          .doc(product.id)
+          .set({
         'id': product.id,
         'name': product.productName,
         'image': product.imageList[0],
@@ -57,12 +57,12 @@ class ProductController {
   //TODO Add product to Wish list
   addProductToWishlist({@required Product product}) async {
     String userUid = await StorageUtil.getUid();
-    await Firestore.instance
+    await FirebaseFirestore.instance
         .collection('Wishlists')
-        .document(userUid)
+        .doc(userUid)
         .collection(userUid)
-        .document(product.id)
-        .setData({
+        .doc(product.id)
+        .set({
       'id': product.id,
       'create_at': DateTime.now().toString()
     }).catchError((onError) {

@@ -67,7 +67,7 @@ class SignInController {
           print(user.toJson());
 
           //TODO: Navigator
-          if (isAdmin) {
+          if (isAdmin == true) {
             //TODO: Admin Sign In
             if (snapshot.data()['type'] == 'admin') {
               result = 'admin_home_screen';

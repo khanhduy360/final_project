@@ -25,7 +25,7 @@ class _PrivateCouponViewState extends State<PrivateCouponView> {
     return Scaffold(
       body: Container(
           child: StreamBuilder<QuerySnapshot>(
-        stream: Firestore.instance
+        stream: FirebaseFirestore.instance
             .collection('Users')
             .where('type', isEqualTo: 'customer')
             .orderBy('create_at')
@@ -33,7 +33,7 @@ class _PrivateCouponViewState extends State<PrivateCouponView> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return ListView(
-              children: snapshot.data.documents.map((document) {
+              children: snapshot.data.docs.map((document) {
                 return Slidable(
                   actionPane: SlidableDrawerActionPane(),
                   actionExtentRatio: 0.25,
@@ -204,8 +204,7 @@ class _PrivateCouponViewState extends State<PrivateCouponView> {
                                                 coupon.maxBillingAmount =
                                                     billingAmountTextController
                                                         .text;
-                                                coupon.uid =
-                                                    document.documentID;
+                                                coupon.uid = document.id;
                                                 coupon.couponKey =
                                                     Coupon.randomCouponKey(10);
                                                 coupon.createAt =
@@ -245,16 +244,16 @@ class _PrivateCouponViewState extends State<PrivateCouponView> {
                   ],
                   child: Card(
                     child: StreamBuilder<QuerySnapshot>(
-                        stream: Firestore.instance
+                        stream: FirebaseFirestore.instance
                             .collection('Coupon')
-                            .where('uid', isEqualTo: document.documentID)
+                            .where('uid', isEqualTo: document.id)
                             .orderBy('create_at')
                             .snapshots(),
                         builder: (context, snapshot) {
                           int index = 0;
                           if (snapshot.hasData) {
                             List<Slidable> privateCouponList = [];
-                            for (var coupon in snapshot.data.documents) {
+                            for (var coupon in snapshot.data.docs) {
                               if (Util.isDateGreaterThanNow(
                                   coupon['expired_date'])) {
                                 privateCouponList.add(Slidable(
@@ -266,9 +265,9 @@ class _PrivateCouponViewState extends State<PrivateCouponView> {
                                       color: kColorRed,
                                       icon: Icons.delete,
                                       onTap: () {
-                                        Firestore.instance
+                                        FirebaseFirestore.instance
                                             .collection('Coupon')
-                                            .document(coupon.documentID)
+                                            .doc(coupon.id)
                                             .delete();
                                         setState(() {});
                                       },

@@ -311,7 +311,8 @@ class _ProcessingOrderViewState extends State<ProcessingOrderView> {
                                                 children: <Widget>[
                                                   //TODO: your coupon
                                                   StreamBuilder<QuerySnapshot>(
-                                                      stream: Firestore.instance
+                                                      stream: FirebaseFirestore
+                                                          .instance
                                                           .collection('Coupon')
                                                           .where('uid',
                                                               isEqualTo:
@@ -322,8 +323,8 @@ class _ProcessingOrderViewState extends State<ProcessingOrderView> {
                                                           (context, snapshot) {
                                                         if (snapshot.hasData) {
                                                           for (var document
-                                                              in snapshot.data
-                                                                  .documents) {
+                                                              in snapshot
+                                                                  .data.docs) {
                                                             if (Util.isDateGreaterThanNow(
                                                                 document[
                                                                     'expired_date'])) {
@@ -334,7 +335,7 @@ class _ProcessingOrderViewState extends State<ProcessingOrderView> {
                                                                 onTap: () {
                                                                   Coupon coup = new Coupon(
                                                                       id: document
-                                                                          .documentID,
+                                                                          .id,
                                                                       discount:
                                                                           document[
                                                                               'discount'],
@@ -392,7 +393,8 @@ class _ProcessingOrderViewState extends State<ProcessingOrderView> {
                                                       }),
                                                   //TODO: global coupon
                                                   StreamBuilder<QuerySnapshot>(
-                                                      stream: Firestore.instance
+                                                      stream: FirebaseFirestore
+                                                          .instance
                                                           .collection('Coupon')
                                                           .where('uid',
                                                               isEqualTo:
@@ -403,8 +405,8 @@ class _ProcessingOrderViewState extends State<ProcessingOrderView> {
                                                           (context, snapshot) {
                                                         if (snapshot.hasData) {
                                                           for (var document
-                                                              in snapshot.data
-                                                                  .documents) {
+                                                              in snapshot
+                                                                  .data.docs) {
                                                             if (Util.isDateGreaterThanNow(
                                                                 document[
                                                                     'expired_date'])) {
@@ -415,7 +417,7 @@ class _ProcessingOrderViewState extends State<ProcessingOrderView> {
                                                                 onTap: () {
                                                                   Coupon coup = new Coupon(
                                                                       id: document
-                                                                          .documentID,
+                                                                          .id,
                                                                       discount:
                                                                           document[
                                                                               'discount'],
@@ -833,7 +835,8 @@ class _ProcessingOrderViewState extends State<ProcessingOrderView> {
                                           builder: (context) => Dialog(
                                                 child: StreamBuilder<
                                                     QuerySnapshot>(
-                                                  stream: Firestore.instance
+                                                  stream: FirebaseFirestore
+                                                      .instance
                                                       .collection('Cards')
                                                       .where('uid',
                                                           isEqualTo: widget.uid)
@@ -872,9 +875,7 @@ class _ProcessingOrderViewState extends State<ProcessingOrderView> {
                                                                 .setSizeHeight(
                                                                     15),
                                                           ),
-                                                          (snapshot
-                                                                      .data
-                                                                      .documents
+                                                          (snapshot.data.docs
                                                                       .length !=
                                                                   0)
                                                               ? ListView(
@@ -883,8 +884,7 @@ class _ProcessingOrderViewState extends State<ProcessingOrderView> {
                                                                   scrollDirection:
                                                                       Axis.vertical,
                                                                   children: snapshot
-                                                                      .data
-                                                                      .documents
+                                                                      .data.docs
                                                                       .map((DocumentSnapshot
                                                                           document) {
                                                                     return Center(

@@ -41,11 +41,11 @@ class _ProductManagerState extends State<ProductManager> {
           ],
         ),
         body: StreamBuilder<QuerySnapshot>(
-          stream: Firestore.instance.collection('Products').snapshots(),
+          stream: FirebaseFirestore.instance.collection('Products').snapshots(),
           builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (snapshot.hasData) {
               return ListView(
-                children: snapshot.data.documents.map((document) {
+                children: snapshot.data.docs.map((document) {
                   return AdminProductCard(
                     productName: document['name'],
                     quantity: document['quantity'],
@@ -68,9 +68,9 @@ class _ProductManagerState extends State<ProductManager> {
                                   )));
                     },
                     onClose: () {
-                      Firestore.instance
+                      FirebaseFirestore.instance
                           .collection('Products')
-                          .document(document.documentID)
+                          .doc(document.id)
                           .delete();
                     },
                     onEdit: () {
@@ -163,10 +163,10 @@ class _ProductManagerState extends State<ProductManager> {
                                                 title: 'SAVE',
                                                 backgroundColor: kColorBlack,
                                                 onPress: () {
-                                                  Firestore.instance
+                                                  FirebaseFirestore.instance
                                                       .collection('Products')
-                                                      .document(document['id'])
-                                                      .updateData({
+                                                      .doc(document['id'])
+                                                      .update({
                                                     'name': (productName !=
                                                                 null &&
                                                             productName != '')
@@ -193,11 +193,11 @@ class _ProductManagerState extends State<ProductManager> {
                                                               salePrice) &&
                                                       (price != '' &&
                                                           salePrice != '')) {
-                                                    Firestore.instance
+                                                    FirebaseFirestore.instance
                                                         .collection(
                                                             'PriceVolatility')
-                                                        .document()
-                                                        .setData({
+                                                        .doc()
+                                                        .set({
                                                       'product_id': productId,
                                                       'price': price,
                                                       'sale_price': salePrice,

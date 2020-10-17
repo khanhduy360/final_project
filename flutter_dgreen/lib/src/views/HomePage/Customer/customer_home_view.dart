@@ -24,7 +24,7 @@ class _CustomerHomeViewState extends State<CustomerHomeView> {
     ChatScreen(),
     ProfileView(),
   ];
-  final tabsTitle = [' ', 'Search', 'Wishlist', 'Chat', 'Profile'];
+  final tabsTitle = [' ', 'Search', 'WishList', 'Chat', 'Profile'];
   int indexScreen = 0;
   bool _isLogging;
   final pageController = PageController();
