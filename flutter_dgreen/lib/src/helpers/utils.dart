@@ -22,7 +22,7 @@ class Util {
   }
 
   static String convertDateToString(String dateTime) {
-    DateTime value = new DateFormat("yyyy-MM-dd").parse(dateTime);
+    DateTime value = new DateFormat("yyyy-dd-MM").parse(dateTime);
     var formatter = new DateFormat.yMd();
     return formatter.format(value);
   }

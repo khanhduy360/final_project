@@ -57,6 +57,7 @@ dependencies:
   charts_flutter: ^0.9.0
   fl_chart: ^0.9.3
   http: ^0.12.0+4
+  flutter_swiper: ^1.1.6
 flutter_datetime_picker:
   git:
     url: https://github.com/derohimat/flutter_datetime_picker.git

@@ -44,12 +44,12 @@ class _OrderChartState extends State<OrderChart>
         .where('status', isEqualTo: 'Pending')
         .where('year', isEqualTo: year)
         .get();
-    var cancelled = await Firestore.instance
+    var cancelled = await FirebaseFirestore.instance
         .collection('Orders')
         .where('status', isEqualTo: 'Canceled')
         .where('year', isEqualTo: year)
         .get();
-    var completed = await Firestore.instance
+    var completed = await FirebaseFirestore.instance
         .collection('Orders')
         .where('status', isEqualTo: 'Completed')
         .where('year', isEqualTo: year)
@@ -108,6 +108,7 @@ class _OrderChartState extends State<OrderChart>
                               sectionsSpace: 0,
                               centerSpaceRadius: 40,
                               sections: showingSections(snapshot.data)),
+                          swapAnimationDuration: Duration(milliseconds: 1500),
                         );
                       } else {
                         return Center(child: CircularProgressIndicator());

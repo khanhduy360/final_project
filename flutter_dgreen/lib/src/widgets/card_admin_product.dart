@@ -61,14 +61,15 @@ class AdminProductCard extends StatelessWidget {
                 children: <Widget>[
                   // TODO: Image Product
                   Expanded(
-                    flex: 4,
+                    flex: 3,
                     child: Padding(
                       padding: EdgeInsets.symmetric(
-                          horizontal: ConstScreen.setSizeWidth(20)),
+                          horizontal: ConstScreen.setSizeWidth(20),
+                          vertical: ConstScreen.setSizeHeight(40)),
                       child: CachedNetworkImage(
                         imageUrl: productImage,
                         fit: BoxFit.fill,
-                        height: ConstScreen.setSizeHeight(400),
+                        height: ConstScreen.setSizeHeight(280),
                         width: ConstScreen.setSizeWidth(280),
                         placeholder: (context, url) => Container(
                           child: Center(
@@ -86,43 +87,39 @@ class AdminProductCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         TitleWidget(
-                          title: 'Name: ',
+                          title: 'Tên sản phẩm: ',
                           content: productName,
                         ),
                         TitleWidget(
-                          title: 'Quantity: ',
+                          title: 'Số lượng: ',
                           content: quantity,
                         ),
                         TitleWidget(
-                          title: 'Price: ',
+                          title: 'Giá: ',
                           content: '${Util.intToMoneyType(productPrice)} VND',
                         ),
                         TitleWidget(
-                          title: 'SalePrice: ',
+                          isSpaceBetween: true,
+                          title: 'Giá khuyến mãi: ',
                           content:
                               '${Util.intToMoneyType(productSalePrice)} VND',
                         ),
                         TitleWidget(
-                          title: 'Brand: ',
+                          title: 'Thương hiệu: ',
                           content: brand,
                         ),
                         TitleWidget(
-                          title: 'Categogy: ',
+                          title: 'Loại: ',
                           content: category,
                         ),
                         TitleWidget(
-                          title: 'Made in: ',
+                          title: 'Xuất xứ: ',
                           content: madeIn,
                         ),
                         TitleWidget(
-                          title: 'Create at: ',
+                          isSpaceBetween: true,
+                          title: 'Ngày thêm: ',
                           content: createAt,
-                        ),
-                        TitleWidget(
-                          title: 'Size: ',
-                          content: (productSizeList != null)
-                              ? '$productSizeList'
-                              : 'None',
                         ),
                         Row(
                           children: <Widget>[
@@ -165,7 +162,7 @@ class AdminProductCard extends StatelessWidget {
         ),
         actions: <Widget>[
           IconSlideAction(
-            caption: 'Comment',
+            caption: 'Bình luận',
             color: Colors.blueAccent,
             icon: Icons.insert_comment,
             onTap: () {
@@ -175,7 +172,7 @@ class AdminProductCard extends StatelessWidget {
         ],
         secondaryActions: <Widget>[
           IconSlideAction(
-            caption: 'Edit',
+            caption: 'Chỉnh sửa',
             color: Colors.black45,
             icon: Icons.edit,
             onTap: () {
@@ -183,7 +180,7 @@ class AdminProductCard extends StatelessWidget {
             },
           ),
           IconSlideAction(
-            caption: 'Delete',
+            caption: 'Xóa',
             color: Colors.red,
             icon: Icons.delete,
             onTap: () {

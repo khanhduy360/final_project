@@ -27,7 +27,7 @@ class _AdminBillHistoryViewState extends State<AdminBillHistoryView>
         backgroundColor: kColorWhite,
         // TODO: Quantity Items
         title: Text(
-          'Bill History',
+          'Hóa đơn',
           style: TextStyle(
               color: kColorBlack,
               fontSize: FontSize.setTextSize(32),
@@ -47,7 +47,7 @@ class _AdminBillHistoryViewState extends State<AdminBillHistoryView>
                 size: ConstScreen.setSizeHeight(30),
               ),
               child: Text(
-                'Completed',
+                'Hoàn thành',
                 style: kBoldTextStyle.copyWith(fontSize: FontSize.s28),
               ),
             ),
@@ -57,7 +57,7 @@ class _AdminBillHistoryViewState extends State<AdminBillHistoryView>
                 size: ConstScreen.setSizeHeight(30),
               ),
               child: Text(
-                'Canceled',
+                'Đã hủy',
                 style: kBoldTextStyle.copyWith(fontSize: FontSize.s28),
               ),
             )
@@ -67,11 +67,11 @@ class _AdminBillHistoryViewState extends State<AdminBillHistoryView>
       body: TabBarView(
         children: [
           OrderAndBillView(
-            status: 'Completed',
+            status: 'Hoàn thành',
             isAdmin: true,
           ),
           OrderAndBillView(
-            status: 'Canceled',
+            status: 'Đã hủy',
             isAdmin: true,
           ),
         ],

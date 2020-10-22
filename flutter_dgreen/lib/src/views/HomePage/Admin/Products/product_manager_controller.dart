@@ -10,7 +10,6 @@ class ProductManagerController {
   StreamController _productNameController = new StreamController.broadcast();
   StreamController _productImageController = new StreamController.broadcast();
   StreamController _categoryController = new StreamController.broadcast();
-  StreamController _sizeListController = new StreamController.broadcast();
   StreamController _colorListController = new StreamController.broadcast();
   StreamController _priceController = new StreamController.broadcast();
   StreamController _salePriceController = new StreamController.broadcast();
@@ -23,7 +22,7 @@ class ProductManagerController {
   Stream get productNameStream => _productNameController.stream;
   Stream get productImageStream => _productImageController.stream;
   Stream get categoryStream => _categoryController.stream;
-  Stream get sizeListStream => _sizeListController.stream;
+
   Stream get colorListStream => _colorListController.stream;
   Stream get priceStream => _priceController.stream;
   Stream get salePriceStream => _salePriceController.stream;
@@ -37,19 +36,16 @@ class ProductManagerController {
       {@required String productName,
       @required List<Asset> imageList,
       @required String category,
-      @required List<String> sizeList,
       @required List<String> colorList,
       @required String price,
       String salePrice = '0',
       @required String brand,
       @required String madeIn,
       @required String quantity,
-      @required String description,
-      @required String sizeType}) async {
+      @required String description}) async {
     _productNameController.sink.add('');
     _productImageController.sink.add('');
     _categoryController.sink.add('');
-    _sizeListController.sink.add('');
     _colorListController.sink.add('');
     _priceController.sink.add('');
     _salePriceController.sink.add('');
@@ -74,11 +70,7 @@ class ProductManagerController {
       _categoryController.sink.addError('Category is empty');
       countError++;
     }
-    //TODO: Size list
-    if (sizeType != 'None' && sizeList.length == 0) {
-      _sizeListController.sink.addError('Size List is empty.');
-      countError++;
-    }
+
     //TODO: Color list
     if (colorList.length == 0) {
       _colorListController.addError('Product Colors is empty');
@@ -128,7 +120,6 @@ class ProductManagerController {
         'search_key': productName.substring(0, 1).toUpperCase(),
         'image': linkImage,
         'categogy': category,
-        'size': sizeList,
         'color': colorListFinal,
         'price': price,
         'sale_price': salePrice,
@@ -161,7 +152,7 @@ class ProductManagerController {
   List<int> convertListColor(List<String> colorList) {
     List<int> result = [];
     for (var value in colorList) {
-      result.add(ClothingPickingList().getColorFromColorList(value).value);
+      result.add(TreePickingList().getColorFromColorList(value).value);
     }
     return result;
   }
@@ -194,7 +185,7 @@ class ProductManagerController {
     _productNameController.close();
     _productImageController.close();
     _categoryController.close();
-    _sizeListController.close();
+
     _colorListController.close();
     _priceController.close();
     _salePriceController.close();

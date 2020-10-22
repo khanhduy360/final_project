@@ -39,7 +39,7 @@ class _PrivateCouponViewState extends State<PrivateCouponView> {
                   actionExtentRatio: 0.25,
                   secondaryActions: <Widget>[
                     IconSlideAction(
-                      caption: 'Sent',
+                      caption: 'Thêm',
                       color: Colors.deepOrangeAccent.shade200,
                       icon: FontAwesomeIcons.ticketAlt,
                       onTap: () {
@@ -80,7 +80,7 @@ class _PrivateCouponViewState extends State<PrivateCouponView> {
                                               couponController.discountStream,
                                           builder: (context, snapshot) {
                                             return InputText(
-                                              title: 'Discount',
+                                              title: 'Giảm giá',
                                               controller:
                                                   discountTextController,
                                               errorText: snapshot.hasError
@@ -99,7 +99,7 @@ class _PrivateCouponViewState extends State<PrivateCouponView> {
                                               .billingAmountStream,
                                           builder: (context, snapshot) {
                                             return InputText(
-                                              title: 'Billing Amount',
+                                              title: 'Giá trị hóa đơn',
                                               controller:
                                                   billingAmountTextController,
                                               errorText: snapshot.hasError
@@ -160,7 +160,7 @@ class _PrivateCouponViewState extends State<PrivateCouponView> {
                                                         )
                                                       : Text(
                                                           snapshot.hasData
-                                                              ? ('Expired Date: ' +
+                                                              ? ('Ngày hết hạn: ' +
                                                                   expiredDate
                                                                       .day
                                                                       .toString() +
@@ -172,7 +172,7 @@ class _PrivateCouponViewState extends State<PrivateCouponView> {
                                                                   expiredDate
                                                                       .year
                                                                       .toString())
-                                                              : 'Expired Date Picker',
+                                                              : 'Chọn hạn dùng',
                                                           style: TextStyle(
                                                               color:
                                                                   kColorBlack,
@@ -195,7 +195,7 @@ class _PrivateCouponViewState extends State<PrivateCouponView> {
                                           Expanded(
                                             flex: 1,
                                             child: CusRaisedButton(
-                                              title: 'CREATE',
+                                              title: 'Thêm',
                                               backgroundColor: kColorBlack,
                                               onPress: () {
                                                 coupon.discount =
@@ -225,7 +225,7 @@ class _PrivateCouponViewState extends State<PrivateCouponView> {
                                           Expanded(
                                             flex: 1,
                                             child: CusRaisedButton(
-                                              title: 'CANCEL',
+                                              title: 'Hủy',
                                               backgroundColor: kColorLightGrey,
                                               onPress: () {
                                                 Navigator.pop(context);
@@ -261,7 +261,7 @@ class _PrivateCouponViewState extends State<PrivateCouponView> {
                                   actionExtentRatio: 0.25,
                                   secondaryActions: <Widget>[
                                     IconSlideAction(
-                                      caption: 'Delete',
+                                      caption: 'Xóa',
                                       color: kColorRed,
                                       icon: Icons.delete,
                                       onTap: () {

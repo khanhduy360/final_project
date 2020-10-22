@@ -55,7 +55,7 @@ class _RegisterViewState extends State<RegisterView> {
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: <Widget>[
                           Text(
-                            _isSignIn ? 'Sign In' : 'Register',
+                            _isSignIn ? 'Đăng nhập' : 'Đăng kí',
                             style: TextStyle(
                                 fontSize: FontSize.setTextSize(60),
                                 fontWeight: FontWeight.bold),
@@ -75,7 +75,7 @@ class _RegisterViewState extends State<RegisterView> {
                           ButtonNormal(
                             // hasSuffixIcon: true,
                             isBtnColor: false,
-                            text: _isSignIn ? 'REGISTER' : 'SIGN IN',
+                            text: _isSignIn ? 'ĐĂNG KÍ' : 'ĐĂNG NHẬP',
                             onPress: () {
                               setState(() {
                                 _isSignIn = !_isSignIn;

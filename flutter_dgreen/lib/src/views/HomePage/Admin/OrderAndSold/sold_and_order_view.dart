@@ -30,7 +30,7 @@ class _SoldAndOrderViewState extends State<SoldAndOrderView> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    if (widget.title == 'Order List') {
+    if (widget.title == 'Đơn hàng') {
       isOrderPage = true;
     } else {
       isOrderPage = false;
@@ -161,7 +161,7 @@ class _SoldAndOrderViewState extends State<SoldAndOrderView> {
                                           ),
                                           Expanded(
                                             child: Text(
-                                              'Invalid Bank Cards.',
+                                              'Thẻ ngân hàng không có hiệu lực.',
                                               style: kBoldTextStyle.copyWith(
                                                   fontSize: FontSize.s28),
                                             ),
@@ -196,7 +196,7 @@ class _SoldAndOrderViewState extends State<SoldAndOrderView> {
                                                     flex: 1,
                                                     child: Center(
                                                       child: Text(
-                                                        'Cancel Order',
+                                                        'Xóa đơn',
                                                         style: kBoldTextStyle
                                                             .copyWith(
                                                                 fontSize:
@@ -222,8 +222,7 @@ class _SoldAndOrderViewState extends State<SoldAndOrderView> {
                                                                     fontSize:
                                                                         FontSize
                                                                             .s25),
-                                                            hintText:
-                                                                'Description',
+                                                            hintText: 'Mô tả',
                                                             border:
                                                                 OutlineInputBorder(),
                                                             labelStyle: kBoldTextStyle
@@ -255,7 +254,7 @@ class _SoldAndOrderViewState extends State<SoldAndOrderView> {
                                                           flex: 1,
                                                           child:
                                                               CusRaisedButton(
-                                                            title: 'ACCEPT',
+                                                            title: 'Nhận đơn',
                                                             backgroundColor:
                                                                 kColorBlack,
                                                             onPress: () async {
@@ -357,7 +356,7 @@ class _SoldAndOrderViewState extends State<SoldAndOrderView> {
                                                           flex: 1,
                                                           child:
                                                               CusRaisedButton(
-                                                            title: 'CANCEL',
+                                                            title: 'Hủy',
                                                             backgroundColor:
                                                                 kColorWhite,
                                                             onPress: () {

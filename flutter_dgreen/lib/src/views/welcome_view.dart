@@ -51,7 +51,7 @@ class WelcomeScreen extends StatelessWidget {
                     height: ConstScreen.setSizeHeight(100),
                   ),
                   new ButtonNormal(
-                    text: 'Sign Up / Sign In',
+                    text: 'Đăng nhập / Đăng kí',
                     isBtnColor: true,
                     onPress: () {
                       Navigator.pushNamed(context, 'register_screen');
@@ -61,7 +61,7 @@ class WelcomeScreen extends StatelessWidget {
                     height: ConstScreen.setSizeHeight(25),
                   ),
                   new ButtonNormal(
-                    text: "Start Browsing",
+                    text: "Khám phá",
                     onPress: () {
                       Navigator.pushNamed(context, 'customer_home_screen');
                     },

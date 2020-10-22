@@ -4,6 +4,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_dgreen/src/helpers/screen.dart';
 import 'package:flutter_dgreen/src/widgets/banner.dart';
 import 'package:flutter_dgreen/src/widgets/icon_instacop.dart';
+import 'package:flutter_dgreen/src/widgets/offer_auto_play.dart';
 
 import 'product_list_view.dart';
 
@@ -30,20 +31,7 @@ class _CustomerHomePageViewState extends State<CustomerHomePageView>
             initialPage: 0,
           ),
           items: <Widget>[
-            CustomBanner(
-              title: 'NEW IN',
-              description:
-                  'Discover this season\'s new collection built around',
-              image: 'giphy_1.gif',
-              onPress: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ProductListView(
-                              search: '',
-                            )));
-              },
-            ),
+            OfferBannerView(),
             CustomBanner(
               title: 'SALE',
               description:

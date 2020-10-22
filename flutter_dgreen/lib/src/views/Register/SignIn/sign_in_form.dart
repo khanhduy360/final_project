@@ -51,7 +51,7 @@ class _SignInViewState extends State<SignInView> {
         StreamBuilder(
           stream: signInController.passwordStream,
           builder: (context, snapshot) => InputText(
-            title: 'Password',
+            title: 'Mật Khẩu',
             isPassword: true,
             errorText: snapshot.hasError ? snapshot.error : '',
             onValueChange: (value) {
@@ -74,7 +74,7 @@ class _SignInViewState extends State<SignInView> {
                 height: ConstScreen.setSizeHeight(90),
                 color: _isAdmin ? kColorOrange : kColorWhite,
                 child: Text(
-                  'MANAGER',
+                  'Quản lý',
                   style: TextStyle(
                       color: _isAdmin ? kColorWhite : kColorOrange,
                       fontSize: FontSize.s30),
@@ -95,7 +95,7 @@ class _SignInViewState extends State<SignInView> {
                 height: ConstScreen.setSizeHeight(90),
                 color: _isAdmin ? kColorWhite : kColorOrange,
                 child: Text(
-                  'CUSTOMER',
+                  'Khách Hàng',
                   style: TextStyle(
                       color: _isAdmin ? kColorOrange : kColorWhite,
                       fontSize: FontSize.s30),
@@ -120,7 +120,7 @@ class _SignInViewState extends State<SignInView> {
               return ButtonNormal(
                 // hasSuffixIcon: true,
                 isBtnColor: true,
-                text: 'SIGN IN',
+                text: 'ĐĂNG NHẬP',
                 onPress: () async {
                   FocusScopeNode currentFocus = FocusScope.of(context);
                   if (!currentFocus.hasPrimaryFocus) {
@@ -149,7 +149,7 @@ class _SignInViewState extends State<SignInView> {
                           ),
                           Expanded(
                             child: Text(
-                              'Sign In failed.',
+                              'Đăng nhập thất bại.',
                               style: kBoldTextStyle.copyWith(
                                   fontSize: FontSize.s28),
                             ),

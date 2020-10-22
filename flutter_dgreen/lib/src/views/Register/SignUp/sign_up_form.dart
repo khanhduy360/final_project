@@ -43,7 +43,7 @@ class _SignUpViewState extends State<SignUpView> {
           stream: signUpController.fullNameStream,
           builder: (context, snapshot) => InputText(
             icon: Icon(Icons.person_outline),
-            title: 'Full Name',
+            title: 'Họ tên',
             errorText: snapshot.hasError ? snapshot.error : '',
             onValueChange: (value) {
               _fullName = value;
@@ -58,7 +58,7 @@ class _SignUpViewState extends State<SignUpView> {
           stream: signUpController.phoneStream,
           builder: (context, snapshot) => InputText(
             icon: Icon(Icons.phone_android),
-            title: 'Phone number',
+            title: 'Số điện thoại',
             inputType: TextInputType.number,
             errorText: snapshot.hasError ? snapshot.error : '',
             onValueChange: (value) {
@@ -89,7 +89,7 @@ class _SignUpViewState extends State<SignUpView> {
         StreamBuilder(
           stream: signUpController.passwordStream,
           builder: (context, snapshot) => InputText(
-            title: 'Password',
+            title: 'Mật khẩu',
             errorText: snapshot.hasError ? snapshot.error : '',
             isPassword: true,
             onValueChange: (value) {
@@ -104,7 +104,7 @@ class _SignUpViewState extends State<SignUpView> {
         StreamBuilder(
           stream: signUpController.confirmPwdSteam,
           builder: (context, snapshot) => InputText(
-            title: 'Confirm',
+            title: 'Xác nhận mật khẩu',
             errorText: snapshot.hasError ? snapshot.error : '',
             isPassword: true,
             onValueChange: (value) {
@@ -123,7 +123,7 @@ class _SignUpViewState extends State<SignUpView> {
                 isLoading: isLoading,
                 // hasSuffixIcon: true,
                 isBtnColor: true,
-                text: 'REGISTER',
+                text: 'ĐĂNG KÍ',
                 onPress: () async {
                   bool result = await signUpController.onSubmitRegister(
                       fullName: _fullName,
@@ -151,7 +151,7 @@ class _SignUpViewState extends State<SignUpView> {
                             ),
                             Expanded(
                               child: Text(
-                                'Adding User Complete',
+                                'Thêm người dùng thành công',
                                 style: kBoldTextStyle.copyWith(
                                     fontSize: FontSize.s28),
                               ),
@@ -175,7 +175,7 @@ class _SignUpViewState extends State<SignUpView> {
                           ),
                           Expanded(
                             child: Text(
-                              'Sign Up failed.',
+                              'Đăng kí thất bại.',
                               style: kBoldTextStyle.copyWith(
                                   fontSize: FontSize.s28),
                             ),
