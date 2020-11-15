@@ -30,7 +30,7 @@ class _OrderHistoryViewState extends State<OrderHistoryView>
         backgroundColor: kColorWhite,
         // TODO: Quantity Items
         title: Text(
-          'Order And Bill',
+          'Lịch sử mua hàng',
           style: TextStyle(
               color: kColorBlack,
               fontSize: FontSize.setTextSize(32),
@@ -50,7 +50,7 @@ class _OrderHistoryViewState extends State<OrderHistoryView>
                 size: ConstScreen.setSizeHeight(30),
               ),
               child: Text(
-                'Pending',
+                'Đang chờ',
                 style: kBoldTextStyle.copyWith(fontSize: FontSize.s28),
               ),
             ),
@@ -60,7 +60,7 @@ class _OrderHistoryViewState extends State<OrderHistoryView>
                 size: ConstScreen.setSizeHeight(30),
               ),
               child: Text(
-                'Completed',
+                'Hoàn thành',
                 style: kBoldTextStyle.copyWith(fontSize: FontSize.s28),
               ),
             ),
@@ -70,7 +70,7 @@ class _OrderHistoryViewState extends State<OrderHistoryView>
                 size: ConstScreen.setSizeHeight(30),
               ),
               child: Text(
-                'Canceled',
+                'Đã hủy',
                 style: kBoldTextStyle.copyWith(fontSize: FontSize.s28),
               ),
             )

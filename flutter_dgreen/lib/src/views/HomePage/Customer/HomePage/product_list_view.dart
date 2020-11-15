@@ -82,12 +82,14 @@ class _DetailBannerScreenState extends State<ProductListView> {
           centerTitle: true,
           title: Text(
             title,
-            style: kBoldTextStyle.copyWith(fontSize: FontSize.s36),
+            style: kBoldTextStyle.copyWith(
+                fontSize: FontSize.s36, color: kColorGreen),
           ),
           actions: <Widget>[
             IconButton(
               icon: Icon(
                 FontAwesomeIcons.shoppingBag,
+                color: kColorGreen,
               ),
               onPressed: () {
                 StorageUtil.getIsLogging().then((bool value) {
@@ -176,7 +178,6 @@ class _DetailBannerScreenState extends State<ProductListView> {
                                 productName: document['name'],
                                 imageList: document['image'],
                                 category: document['categogy'],
-                                sizeList: document['size'],
                                 colorList: document['color'],
                                 price: document['price'],
                                 salePrice: document['sale_price'],

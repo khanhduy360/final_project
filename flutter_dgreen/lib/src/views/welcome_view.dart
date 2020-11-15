@@ -43,7 +43,7 @@ class WelcomeScreen extends StatelessWidget {
                 children: <Widget>[
                   Expanded(
                     flex: 8,
-                    child: IconInstacop(
+                    child: IconDgreen(
                       textSize: FontSize.setTextSize(150),
                     ),
                   ),

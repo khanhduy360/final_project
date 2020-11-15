@@ -73,11 +73,11 @@ class _MainDetailProductViewState extends State<MainDetailProductView> {
           iconSize: ConstScreen.setSizeHeight(0.1),
           items: const [
             BottomNavigationBarItem(
-                title: Text('Product'), icon: Icon(Icons.rate_review)),
+                title: Text('Sản phẩm'), icon: Icon(Icons.rate_review)),
             BottomNavigationBarItem(
-                title: Text('Detail'), icon: Icon(Icons.rate_review)),
+                title: Text('Chi tiết'), icon: Icon(Icons.rate_review)),
             BottomNavigationBarItem(
-                title: Text('Rating'), icon: Icon(Icons.rate_review)),
+                title: Text('Đánh giá'), icon: Icon(Icons.rate_review)),
           ],
         ),
       ),

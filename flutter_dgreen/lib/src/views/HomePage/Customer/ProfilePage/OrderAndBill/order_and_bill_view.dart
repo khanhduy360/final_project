@@ -15,7 +15,7 @@ import 'package:flutter_dgreen/src/widgets/card_order.dart';
 import 'order_info_view.dart';
 
 class OrderAndBillView extends StatefulWidget {
-  OrderAndBillView({this.status, this.isAdmin = false});
+  OrderAndBillView({this.status, this.isAdmin});
   final String status;
   final bool isAdmin;
   @override
@@ -135,7 +135,7 @@ class _OrderAndBillViewState extends State<OrderAndBillView> {
                                                       flex: 1,
                                                       child: Center(
                                                         child: Text(
-                                                          'Cancel Order',
+                                                          'Hủy',
                                                           style: kBoldTextStyle
                                                               .copyWith(
                                                                   fontSize:
@@ -156,13 +156,12 @@ class _OrderAndBillViewState extends State<OrderAndBillView> {
                                                             Alignment.topCenter,
                                                         child: TextField(
                                                           decoration: InputDecoration(
-                                                              hintStyle:
-                                                                  kBoldTextStyle
-                                                                      .copyWith(
-                                                                          fontSize: FontSize
-                                                                              .s25),
+                                                              hintStyle: kBoldTextStyle
+                                                                  .copyWith(
+                                                                      fontSize: FontSize
+                                                                          .s25),
                                                               hintText:
-                                                                  'Description',
+                                                                  'Mô tả',
                                                               border:
                                                                   OutlineInputBorder(),
                                                               labelStyle: kBoldTextStyle
@@ -194,7 +193,8 @@ class _OrderAndBillViewState extends State<OrderAndBillView> {
                                                             flex: 1,
                                                             child:
                                                                 CusRaisedButton(
-                                                              title: 'ACCEPT',
+                                                              title:
+                                                                  'Chấp nhận',
                                                               backgroundColor:
                                                                   kColorBlack,
                                                               onPress:
@@ -297,7 +297,7 @@ class _OrderAndBillViewState extends State<OrderAndBillView> {
                                                             flex: 1,
                                                             child:
                                                                 CusRaisedButton(
-                                                              title: 'CANCEL',
+                                                              title: 'Hủy',
                                                               backgroundColor:
                                                                   kColorWhite,
                                                               onPress: () {

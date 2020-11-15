@@ -38,10 +38,7 @@ class CheckoutController {
       String cusName = await StorageUtil.geFullName();
       String uid = await StorageUtil.getUid();
       //TODO: receiver info
-      await FirebaseFirestore.instance
-          .collection('Orders')
-          .document(orderId)
-          .setData({
+      await FirebaseFirestore.instance.collection('Orders').doc(orderId).set({
         'id': uid,
         'sub_Id': orderId,
         'customer_name': cusName,

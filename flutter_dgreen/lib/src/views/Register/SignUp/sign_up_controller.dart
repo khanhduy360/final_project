@@ -90,6 +90,7 @@ class SignUpController {
           'fullname': fullName,
           'gender': '',
           'birthday': '',
+          'avatar': '',
           'phone': phone,
           'address': '',
           'create_at': createAt,
@@ -97,7 +98,7 @@ class SignUpController {
           'type': typeAccount,
         });
         UserApp userInfo = new UserApp(fullName, email, password, '', '', '',
-            '', createAt, '', 'customer');
+            '', createAt, '', 'customer','');
         await StorageUtil.setUid(user.uid);
         await StorageUtil.setFullName(fullName);
         await StorageUtil.setIsLogging(true);

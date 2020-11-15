@@ -6,6 +6,7 @@ import 'package:flutter_dgreen/src/helpers/screen.dart';
 import 'package:flutter_dgreen/src/widgets/button_raised.dart';
 import 'package:flutter_dgreen/src/widgets/input_text.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:multi_image_picker/multi_image_picker.dart';
 
 import 'detail_controller.dart';
 
@@ -19,13 +20,57 @@ class _EditDetailViewState extends State<EditDetailView> {
   DateTime birthDay;
   bool _isBirthdayConfirm = false;
   bool _isEditPage = false;
-  List<String> gender = ['Male', 'Female'];
+  List<String> gender = ['Nam', 'Nữ'];
   //TODO: data
   String _fullName;
   String _address;
   String _genderData;
   String _phone;
   String _birthday;
+  List<Asset> _avatar = List<Asset>();
+//TODO: Image product holder
+  Widget imageGridView() {
+    return GridView.count(
+      crossAxisCount: 1,
+      shrinkWrap: true,
+      children: List.generate(_avatar.length, (index) {
+        Asset asset = _avatar[index];
+        return Padding(
+          padding: EdgeInsets.all(20),
+          child: AssetThumb(
+            asset: asset,
+            width: 300,
+            height: 300,
+          ),
+        );
+      }),
+    );
+  }
+
+//TODO: load multi image
+  Future<void> loadAssets() async {
+    List<Asset> resultList = List<Asset>();
+    try {
+      resultList = await MultiImagePicker.pickImages(
+        maxImages: 300,
+        enableCamera: true,
+        selectedAssets: _avatar,
+        cupertinoOptions: CupertinoOptions(takePhotoIcon: "chat"),
+        materialOptions: MaterialOptions(
+          actionBarColor: "#000000",
+          actionBarTitle: "Pick Product Image",
+          allViewTitle: "All Photos",
+          useDetailsView: false,
+          selectCircleStrokeColor: "#000000",
+        ),
+      );
+    } on Exception catch (e) {}
+    if (!mounted) return;
+
+    setState(() {
+      _avatar = resultList;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +79,7 @@ class _EditDetailViewState extends State<EditDetailView> {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          'Edit Detail',
+          'Chỉnh sửa thông tin',
           style: kBoldTextStyle.copyWith(
             fontSize: FontSize.setTextSize(32),
           ),
@@ -42,8 +87,7 @@ class _EditDetailViewState extends State<EditDetailView> {
         backgroundColor: kColorWhite,
         iconTheme: IconThemeData.fallback(),
       ),
-      body: Container(
-        color: kColorWhite,
+      body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.only(
               left: ConstScreen.setSizeWidth(20),
@@ -57,7 +101,7 @@ class _EditDetailViewState extends State<EditDetailView> {
                   stream: _controller.fullNameStream,
                   builder: (context, snapshot) {
                     return InputText(
-                      title: 'Full Name',
+                      title: 'Họ tên',
                       errorText: snapshot.hasError ? snapshot.error : '',
                       onValueChange: (value) {
                         _fullName = value;
@@ -73,7 +117,7 @@ class _EditDetailViewState extends State<EditDetailView> {
                   stream: _controller.addressStream,
                   builder: (context, snapshot) {
                     return InputText(
-                      title: 'Address',
+                      title: 'Địa chỉ',
                       errorText: snapshot.hasError ? snapshot.error : '',
                       onValueChange: (value) {
                         _address = value;
@@ -94,7 +138,7 @@ class _EditDetailViewState extends State<EditDetailView> {
                         return Expanded(
                           flex: 2,
                           child: InputText(
-                            title: 'Mobile',
+                            title: 'Số điện thoại',
                             errorText: snapshot.hasError ? snapshot.error : '',
                             inputType: TextInputType.number,
                             onValueChange: (value) {
@@ -135,7 +179,7 @@ class _EditDetailViewState extends State<EditDetailView> {
                                           maxLines: 1,
                                         )
                                       : AutoSizeText(
-                                          'Choose gender',
+                                          'Chọn giới tính',
                                           style: kBoldTextStyle.copyWith(
                                               fontSize: FontSize.s30,
                                               color: kColorBlack),
@@ -196,13 +240,13 @@ class _EditDetailViewState extends State<EditDetailView> {
                   child: Center(
                     child: Text(
                       _isBirthdayConfirm
-                          ? ('Birthday: ' +
+                          ? ('Ngày sinh: ' +
                               birthDay.day.toString() +
                               '/' +
                               birthDay.month.toString() +
                               '/' +
                               birthDay.year.toString())
-                          : 'Birthday Picker',
+                          : 'Chọn ngày sinh',
                       style: TextStyle(
                           color: kColorBlack,
                           fontSize: FontSize.s30,
@@ -210,6 +254,33 @@ class _EditDetailViewState extends State<EditDetailView> {
                     ),
                   ),
                 ),
+              ),
+              //TODO: Image product
+              Text(
+                'Hình ảnh:',
+                style:
+                    kBoldTextStyle.copyWith(fontSize: FontSize.setTextSize(34)),
+              ),
+              SizedBox(
+                height: ConstScreen.sizeMedium,
+              ),
+              imageGridView(),
+              RaisedButton(
+                child: Text(
+                  "Chọn ảnh",
+                  style: kBoldTextStyle.copyWith(fontSize: FontSize.s25),
+                ),
+                onPressed: loadAssets,
+              ),
+              //TODO: Image Error
+              StreamBuilder(
+                stream: _controller.avatarStream,
+                builder: (context, snapshot) => Center(
+                    child: Text(
+                  snapshot.hasError ? 'Error: ' + snapshot.error : '',
+                  style: kBoldTextStyle.copyWith(
+                      fontSize: FontSize.s28, color: kColorRed),
+                )),
               ),
               SizedBox(
                 height: ConstScreen.setSizeHeight(20),
@@ -219,19 +290,23 @@ class _EditDetailViewState extends State<EditDetailView> {
                   builder: (context, snapshot) {
                     return CusRaisedButton(
                       height: 90,
-                      title: 'Save',
+                      title: 'Lưu lại',
                       isDisablePress: snapshot.hasData ? snapshot.data : true,
-                      backgroundColor: kColorBlack,
+                      backgroundColor: kColorBlue,
                       onPress: () async {
                         bool result = await _controller.onSave(
                             fullName: _fullName,
                             address: _address,
                             phone: _phone,
                             gender: _genderData,
-                            birthday: _birthday);
+                            birthday: _birthday,
+                            avatar: _avatar);
                         if (result) {
                           setState(() {
                             _isEditPage = !_isEditPage;
+                          });
+                          Future.delayed(Duration(seconds: 1), () {
+                            Navigator.pop(context);
                           });
                         } else {
                           Scaffold.of(context).showSnackBar(SnackBar(
@@ -248,7 +323,7 @@ class _EditDetailViewState extends State<EditDetailView> {
                                 ),
                                 Expanded(
                                   child: Text(
-                                    'Update profile failed.',
+                                    'Cập nhật thông tin thất bại.',
                                     style: kBoldTextStyle.copyWith(
                                         fontSize: FontSize.s28),
                                   ),

@@ -26,7 +26,7 @@ const kIconFlagVI = imagePath + 'icon-flag-vi.png';
 const kIconPhone = imagePath + 'Phone.png';
 
 //BUS
-const kImgBusHeader = imagePath + 'bg-bus-header2.png';
+const kImgHeader = imagePath + 'header.png';
 const kImgBusHeaderBigger = imagePath + 'bg_dashboard.png';
 const kIconStepActive = imagePath + 'icon-step-active.png';
 const kIconStep = imagePath + 'icon-step.png';

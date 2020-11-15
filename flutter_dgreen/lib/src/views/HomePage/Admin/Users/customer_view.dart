@@ -16,7 +16,7 @@ class _CustomerUserListViewState extends State<CustomerUserListView> {
   Widget build(BuildContext context) {
     return Container(
       child: StreamBuilder<QuerySnapshot>(
-        stream: Firestore.instance
+        stream: FirebaseFirestore.instance
             .collection('Users')
             .orderBy('create_at')
             .where('type', isEqualTo: 'customer')
@@ -25,7 +25,7 @@ class _CustomerUserListViewState extends State<CustomerUserListView> {
           if (snapshot.hasData) {
             int index = 0;
             return ListView(
-              children: snapshot.data.documents
+              children: snapshot.data.docs
                   .map((DocumentSnapshot document) {
                     index++;
                     return Slidable(

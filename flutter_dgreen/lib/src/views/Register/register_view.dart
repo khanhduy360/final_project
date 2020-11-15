@@ -25,7 +25,7 @@ class _RegisterViewState extends State<RegisterView> {
     return Container(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: kColorGreen,
+          backgroundColor: Colors.green,
         ),
         body: Container(
           width: double.infinity,

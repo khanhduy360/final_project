@@ -130,7 +130,6 @@ class _CartViewState extends State<CartView> {
             productName: value.data()['name'],
             image: value.data()['image'],
             category: value.data()['categogy'],
-            size: value.data()['size'],
             color: value.data()['color'],
             price: value.data()['price'],
             salePrice: value.data()['sale_price'],
@@ -232,7 +231,7 @@ class _CartViewState extends State<CartView> {
                             top: ConstScreen.setSizeHeight(650),
                             left: ConstScreen.setSizeWidth(250),
                             child: Text(
-                              'No Product Order',
+                              'Không có sản phẩm nào',
                               style: kBoldTextStyle.copyWith(
                                   color: kColorBlack.withOpacity(0.8),
                                   fontSize: FontSize.s36,
@@ -277,9 +276,9 @@ class _CartViewState extends State<CartView> {
                   child: Row(
                     children: <Widget>[
                       Expanded(
-                        flex: 1,
+                        flex: 2,
                         child: AutoSizeText(
-                          'Total',
+                          'Tổng cộng',
                           style: TextStyle(
                               fontSize: FontSize.s36,
                               fontWeight: FontWeight.bold),
@@ -308,8 +307,8 @@ class _CartViewState extends State<CartView> {
             Expanded(
               flex: 1,
               child: CusRaisedButton(
-                title: 'PLACE THIS ORDER',
-                backgroundColor: kColorBlack,
+                title: 'Đặt hàng',
+                backgroundColor: kColorBlue,
                 height: ConstScreen.setSizeHeight(150),
                 onPress: () {
                   if (totalPrice != 0) {

@@ -173,7 +173,6 @@ class _OrderInfoViewState extends State<OrderInfoView> {
                         price: document['price'],
                         quantity: document['quantity'],
                         color: Color(document['color']),
-                        size: document['size'],
                       );
                     }).toList(),
                   );

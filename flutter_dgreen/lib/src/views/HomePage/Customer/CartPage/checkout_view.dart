@@ -101,9 +101,10 @@ class _ProcessingOrderViewState extends State<ProcessingOrderView> {
                             children: <Widget>[
                               Icon(
                                 Icons.location_on,
+                                color: kColorRed,
                                 size: ConstScreen.setSizeHeight(40),
                               ),
-                              AutoSizeText('SHIPING INFO:',
+                              AutoSizeText('Thông tin vận chuyển:',
                                   textAlign: TextAlign.start,
                                   maxLines: 2,
                                   minFontSize: 15,
@@ -122,7 +123,7 @@ class _ProcessingOrderViewState extends State<ProcessingOrderView> {
                           stream: _checkoutController.nameStream,
                           builder: (context, snapshot) {
                             return InputText(
-                              title: 'Receiver\'s Name',
+                              title: 'Tên người nhận',
                               errorText:
                                   snapshot.hasError ? snapshot.error : '',
                               inputType: TextInputType.text,
@@ -140,7 +141,7 @@ class _ProcessingOrderViewState extends State<ProcessingOrderView> {
                           stream: _checkoutController.phoneStream,
                           builder: (context, snapshot) {
                             return InputText(
-                              title: 'Phone number',
+                              title: 'Số điện thoại',
                               errorText:
                                   snapshot.hasError ? snapshot.error : '',
                               inputType: TextInputType.number,
@@ -199,7 +200,7 @@ class _ProcessingOrderViewState extends State<ProcessingOrderView> {
                           stream: _checkoutController.addressStream,
                           builder: (context, snapshot) {
                             return InputText(
-                              title: 'Address',
+                              title: 'Địa chỉ',
                               errorText:
                                   snapshot.hasError ? snapshot.error : '',
                               onValueChange: (address) {
@@ -234,7 +235,7 @@ class _ProcessingOrderViewState extends State<ProcessingOrderView> {
                                 width: ConstScreen.setSizeWidth(12),
                               ),
                               AutoSizeText(
-                                'YOUR COUPON:',
+                                'Mã giảm giá:',
                                 textAlign: TextAlign.start,
                                 maxLines: 2,
                                 minFontSize: 15,
@@ -257,12 +258,12 @@ class _ProcessingOrderViewState extends State<ProcessingOrderView> {
                                     child: Column(
                                       children: <Widget>[
                                         Text(
-                                          ('Discount : ${coupon.discount}%'),
+                                          ('Giảm giá : ${coupon.discount}%'),
                                           style: kNormalTextStyle.copyWith(
                                               fontSize: FontSize.s30),
                                         ),
                                         Text(
-                                          ('Billing amount: ${Util.intToMoneyType(int.parse(coupon.maxBillingAmount))}'),
+                                          ('Khoảng tiền thanh toán: ${Util.intToMoneyType(int.parse(coupon.maxBillingAmount))}'),
                                           style: kNormalTextStyle.copyWith(
                                               fontSize: FontSize.s30),
                                         ),
@@ -275,8 +276,8 @@ class _ProcessingOrderViewState extends State<ProcessingOrderView> {
                             ),
                             //TODO: Coupon Dialog
                             CusRaisedButton(
-                              title: 'Get Coupon',
-                              backgroundColor: kColorBlack,
+                              title: 'Lấy mã',
+                              backgroundColor: kColorBlue,
                               onPress: () {
                                 List<CategoryItem> privateCoupon = [];
                                 List<CategoryItem> globalCoupon = [];
@@ -297,7 +298,7 @@ class _ProcessingOrderViewState extends State<ProcessingOrderView> {
                                                     vertical: ConstScreen
                                                         .setSizeHeight(20)),
                                                 child: Text(
-                                                  'COUPON',
+                                                  'Mã giảm giá',
                                                   style:
                                                       kBoldTextStyle.copyWith(
                                                           fontSize:
@@ -371,7 +372,7 @@ class _ProcessingOrderViewState extends State<ProcessingOrderView> {
                                                           }
                                                           return ExpansionTile(
                                                             title: Text(
-                                                              'Your Coupon',
+                                                              'Mã giảm giá của bạn',
                                                               style: TextStyle(
                                                                   fontSize: FontSize
                                                                       .setTextSize(
@@ -453,7 +454,7 @@ class _ProcessingOrderViewState extends State<ProcessingOrderView> {
                                                           }
                                                           return ExpansionTile(
                                                             title: Text(
-                                                              'Global Coupon',
+                                                              'Mã giảm giá dùng chung',
                                                               style: TextStyle(
                                                                   fontSize: FontSize
                                                                       .setTextSize(
@@ -510,7 +511,7 @@ class _ProcessingOrderViewState extends State<ProcessingOrderView> {
                                 width: ConstScreen.setSizeWidth(5),
                               ),
                               AutoSizeText(
-                                'YOUR ODER:',
+                                'Đơn hàng của bạn:',
                                 textAlign: TextAlign.start,
                                 maxLines: 2,
                                 minFontSize: 15,
@@ -535,7 +536,6 @@ class _ProcessingOrderViewState extends State<ProcessingOrderView> {
                                   : product.salePrice,
                               quantity: product.quantity,
                               color: Color(product.color),
-                              size: product.size,
                             );
                           }).toList(),
                         ),
@@ -548,7 +548,7 @@ class _ProcessingOrderViewState extends State<ProcessingOrderView> {
                             Expanded(
                               flex: 3,
                               child: AutoSizeText(
-                                'Subtotal',
+                                'Giá sản phẩm',
                                 textAlign: TextAlign.start,
                                 maxLines: 2,
                                 minFontSize: 15,
@@ -579,7 +579,7 @@ class _ProcessingOrderViewState extends State<ProcessingOrderView> {
                             Expanded(
                               flex: 3,
                               child: AutoSizeText(
-                                'Shipping',
+                                'Phí vận chuyển',
                                 textAlign: TextAlign.start,
                                 maxLines: 2,
                                 minFontSize: 15,
@@ -613,7 +613,7 @@ class _ProcessingOrderViewState extends State<ProcessingOrderView> {
                                   Expanded(
                                     flex: 3,
                                     child: AutoSizeText(
-                                      'Discount',
+                                      'Giảm giá',
                                       textAlign: TextAlign.start,
                                       maxLines: 2,
                                       minFontSize: 15,
@@ -647,7 +647,7 @@ class _ProcessingOrderViewState extends State<ProcessingOrderView> {
                             Expanded(
                               flex: 3,
                               child: AutoSizeText(
-                                'TOTAL',
+                                'Tổng cộng',
                                 textAlign: TextAlign.start,
                                 maxLines: 2,
                                 minFontSize: 15,
@@ -717,7 +717,7 @@ class _ProcessingOrderViewState extends State<ProcessingOrderView> {
             stream: _checkoutController.btnLoadingStream,
             builder: (context, snapshot) {
               return CusRaisedButton(
-                title: 'PAYMENT',
+                title: 'THANH TOÁN',
                 isDisablePress: snapshot.hasData ? snapshot.data : true,
                 height: ConstScreen.setSizeHeight(150),
                 backgroundColor: Colors.orangeAccent.shade700,
@@ -755,7 +755,7 @@ class _ProcessingOrderViewState extends State<ProcessingOrderView> {
                                           width: ConstScreen.setSizeWidth(5),
                                         ),
                                         AutoSizeText(
-                                          'PAYMENT:',
+                                          'Chọn hình thức:',
                                           textAlign: TextAlign.start,
                                           maxLines: 2,
                                           minFontSize: 15,
@@ -773,8 +773,8 @@ class _ProcessingOrderViewState extends State<ProcessingOrderView> {
                                   ),
                                   //TODO: Pay via new card
                                   CusRaisedButton(
-                                    title: 'Pay via new card',
-                                    backgroundColor: Colors.deepOrangeAccent,
+                                    title: 'Trả với thẻ mới',
+                                    backgroundColor: Colors.blue,
                                     onPress: () async {
                                       String orderId = DateTime.now()
                                           .millisecondsSinceEpoch
@@ -827,8 +827,8 @@ class _ProcessingOrderViewState extends State<ProcessingOrderView> {
                                   ),
                                   //TODO: Payment via existing card
                                   CusRaisedButton(
-                                    title: 'Pay via existing card',
-                                    backgroundColor: Colors.deepOrangeAccent,
+                                    title: 'Dùng thẻ hiện tại',
+                                    backgroundColor: Colors.blue,
                                     onPress: () {
                                       showDialog(
                                           context: context,
@@ -855,7 +855,7 @@ class _ProcessingOrderViewState extends State<ProcessingOrderView> {
                                                                     15),
                                                           ),
                                                           AutoSizeText(
-                                                            'Bank Cards',
+                                                            'Thẻ ngân hàng',
                                                             textAlign: TextAlign
                                                                 .center,
                                                             maxLines: 2,
@@ -897,7 +897,7 @@ class _ProcessingOrderViewState extends State<ProcessingOrderView> {
                                                                               dialog =
                                                                               new ProgressDialog(context);
                                                                           dialog.style(
-                                                                              message: 'Please wait...');
+                                                                              message: 'Vui lòng chờ...');
                                                                           dialog
                                                                               .show();
                                                                           //TODO: Show dialog loading
@@ -1024,7 +1024,7 @@ class _ProcessingOrderViewState extends State<ProcessingOrderView> {
                                                                             100),
                                                                         child:
                                                                             Text(
-                                                                          ' No Credit Card Found',
+                                                                          'Không tìm thấy thẻ',
                                                                           style: kBoldTextStyle.copyWith(
                                                                               color: kColorBlack.withOpacity(0.8),
                                                                               fontSize: FontSize.s36,
@@ -1050,8 +1050,8 @@ class _ProcessingOrderViewState extends State<ProcessingOrderView> {
                                     height: ConstScreen.setSizeWidth(15),
                                   ),
                                   CusRaisedButton(
-                                    title: 'Cancel',
-                                    backgroundColor: kColorBlack,
+                                    title: 'Hủy',
+                                    backgroundColor: kColorRed,
                                     onPress: () {
                                       Navigator.pop(context);
                                     },

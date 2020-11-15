@@ -54,16 +54,18 @@ class SignInController {
             .get()
             .then((DocumentSnapshot snapshot) {
           UserApp user = new UserApp(
-              snapshot.data()['fullname'],
-              snapshot.data()['username'],
-              snapshot.data()['password'],
-              snapshot.data()['gender'],
-              snapshot.data()['birthday'],
-              snapshot.data()['phone'],
-              snapshot.data()['address'],
-              snapshot.data()['create_at'],
-              snapshot.data()['id_scripe'],
-              snapshot.data()['type']);
+            snapshot.data()['fullname'],
+            snapshot.data()['username'],
+            snapshot.data()['password'],
+            snapshot.data()['gender'],
+            snapshot.data()['birthday'],
+            snapshot.data()['phone'],
+            snapshot.data()['address'],
+            snapshot.data()['create_at'],
+            snapshot.data()['id_scripe'],
+            snapshot.data()['type'],
+            snapshot.data()['avatar'][0],
+          );
           print(user.toJson());
 
           //TODO: Navigator
@@ -78,6 +80,7 @@ class SignInController {
               StorageUtil.setUserInfo(user);
               StorageUtil.setAccountType('admin');
               StorageUtil.setPassword(password);
+              StorageUtil.setAvatar(snapshot.data()['avatar'][0]);
             }
           } else {
             //TODO: Customer Sign In
@@ -90,6 +93,7 @@ class SignInController {
               StorageUtil.setUserInfo(user);
               StorageUtil.setAccountType('customer');
               StorageUtil.setPassword(Util.encodePassword(password));
+              StorageUtil.setAvatar(snapshot.data()['avatar'][0]);
             }
           }
         });

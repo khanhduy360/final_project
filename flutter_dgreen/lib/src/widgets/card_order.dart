@@ -48,7 +48,7 @@ class OrderCard extends StatelessWidget {
                   ),
                   children: [
                     TextSpan(
-                      text: 'Order Id: ',
+                      text: 'ID: ',
                     ),
                     TextSpan(
                       text: id,
@@ -70,7 +70,7 @@ class OrderCard extends StatelessWidget {
                   ),
                   children: [
                     TextSpan(
-                      text: 'Order Date: ',
+                      text: 'Ngày duyệt: ',
                     ),
                     TextSpan(
                       text: date,
@@ -92,7 +92,7 @@ class OrderCard extends StatelessWidget {
                   ),
                   children: [
                     TextSpan(
-                      text: 'Admin: ',
+                      text: 'Người duyệt: ',
                     ),
                     TextSpan(
                       text: admin,
@@ -114,7 +114,7 @@ class OrderCard extends StatelessWidget {
                   ),
                   children: [
                     TextSpan(
-                      text: 'Customer: ',
+                      text: 'Khách hàng: ',
                     ),
                     TextSpan(
                       text: customerName,
@@ -136,14 +136,14 @@ class OrderCard extends StatelessWidget {
                   ),
                   children: [
                     TextSpan(
-                      text: 'Status: ',
+                      text: 'Trạng thái: ',
                     ),
                     TextSpan(
                       text: status,
                       style: kNormalTextStyle.copyWith(
-                        color: (status != 'Pending')
-                            ? (status == 'Canceled' ? kColorRed : kColorGreen)
-                            : kColorBlack,
+                        color: status == 'Pending'
+                            ? kColorBlue
+                            : status == 'Canceled' ? kColorRed : kColorGreen,
                         fontSize: FontSize.s30,
                       ),
                     ),
@@ -161,7 +161,7 @@ class OrderCard extends StatelessWidget {
                   ),
                   children: [
                     TextSpan(
-                      text: 'Total: ',
+                      text: 'Giá: ',
                     ),
                     TextSpan(
                       text: '$total VND',
@@ -192,7 +192,7 @@ class OrderCard extends StatelessWidget {
                           width: ConstScreen.setSizeWidth(7),
                         ),
                         Text(
-                          'VIEW DETAIL',
+                          'Xem chi tiết',
                           style: kBoldTextStyle.copyWith(
                               color: kColorBlue, fontSize: FontSize.s28),
                         ),
@@ -217,7 +217,7 @@ class OrderCard extends StatelessWidget {
                           width: ConstScreen.setSizeWidth(7),
                         ),
                         Text(
-                          'CANCEL',
+                          'Hủy',
                           style: kBoldTextStyle.copyWith(
                               color: isEnableCancel
                                   ? kColorBlue

@@ -11,13 +11,12 @@ class ProductOrderDetail extends StatelessWidget {
       {this.name = '',
       this.price = '',
       this.quantity = '',
-      this.size = '',
       this.color = kColorWhite});
 
   final String name;
   final String price;
   final String quantity;
-  final String size;
+
   final Color color;
   @override
   Widget build(BuildContext context) {
@@ -44,16 +43,11 @@ class ProductOrderDetail extends StatelessWidget {
           children: <Widget>[
             // TODO: Product name
             TitleWidget(
-              title: 'Product Name: ',
+              title: 'Tên sản phẩm: ',
               content: name,
               isSpaceBetween: false,
             ),
-            //TODO: Size
-            TitleWidget(
-              title: 'Size: ',
-              content: size,
-              isSpaceBetween: false,
-            ),
+
             //TODO: Color
             Padding(
               padding: EdgeInsets.symmetric(
@@ -67,7 +61,7 @@ class ProductOrderDetail extends StatelessWidget {
                   Expanded(
                     flex: 4,
                     child: AutoSizeText(
-                      'Color:',
+                      'Màu:',
                       maxLines: 1,
                       minFontSize: 10,
                       style: kBoldTextStyle.copyWith(
@@ -93,19 +87,19 @@ class ProductOrderDetail extends StatelessWidget {
             ),
             //TODO: Price
             TitleWidget(
-              title: 'Price: ',
+              title: 'Giá sản phẩm: ',
               content: '$priceMoneyType VND',
               isSpaceBetween: false,
             ),
             //TODO: Quantity
             TitleWidget(
-              title: 'Quantity: ',
+              title: 'Số lượng: ',
               content: quantity,
               isSpaceBetween: false,
             ),
             //TODO: SubTotal
             TitleWidget(
-              title: 'SubTotal: ',
+              title: 'Tổng: ',
               content: '$subPriceMoneyType VND',
               isSpaceBetween: false,
             ),

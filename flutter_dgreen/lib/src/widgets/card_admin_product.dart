@@ -5,6 +5,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_dgreen/src/component/textline_between.dart';
 import 'package:flutter_dgreen/src/helpers/TextStyle.dart';
 import 'package:flutter_dgreen/src/helpers/colors_constant.dart';
 import 'package:flutter_dgreen/src/helpers/screen.dart';
@@ -86,39 +87,37 @@ class AdminProductCard extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        TitleWidget(
-                          title: 'Tên sản phẩm: ',
+                        TextLineBetween(
+                          label: 'Tên sản phẩm: ',
                           content: productName,
                         ),
-                        TitleWidget(
-                          title: 'Số lượng: ',
+                        TextLineBetween(
+                          label: 'Số lượng: ',
                           content: quantity,
                         ),
-                        TitleWidget(
-                          title: 'Giá: ',
+                        TextLineBetween(
+                          label: 'Giá: ',
                           content: '${Util.intToMoneyType(productPrice)} VND',
                         ),
-                        TitleWidget(
-                          isSpaceBetween: true,
-                          title: 'Giá khuyến mãi: ',
+                        TextLineBetween(
+                          label: 'Giá khuyến mãi: ',
                           content:
                               '${Util.intToMoneyType(productSalePrice)} VND',
                         ),
-                        TitleWidget(
-                          title: 'Thương hiệu: ',
+                        TextLineBetween(
+                          label: 'Thương hiệu: ',
                           content: brand,
                         ),
-                        TitleWidget(
-                          title: 'Loại: ',
+                        TextLineBetween(
+                          label: 'Loại: ',
                           content: category,
                         ),
-                        TitleWidget(
-                          title: 'Xuất xứ: ',
+                        TextLineBetween(
+                          label: 'Xuất xứ: ',
                           content: madeIn,
                         ),
-                        TitleWidget(
-                          isSpaceBetween: true,
-                          title: 'Ngày thêm: ',
+                        TextLineBetween(
+                          label: 'Ngày thêm: ',
                           content: createAt,
                         ),
                         Row(

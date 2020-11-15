@@ -119,63 +119,27 @@ class _SearchViewState extends State<SearchView>
       children: <Widget>[
         //TODO: Clothing
         ExpansionTile(
-          title: Text('CLOTHING',
+          title: Text('Trong nhà',
               style: TextStyle(
                   fontSize: FontSize.setTextSize(32),
                   fontWeight: FontWeight.w400)),
           children: <Widget>[
             CategoryItem(
-              title: 'Tees',
+              title: 'Sen đá',
               onTap: () {
-                navigatorTo('Tees');
+                navigatorTo('Sen');
               },
             ),
             CategoryItem(
-              title: 'Hoodies & Sweatshirts',
+              title: 'Xương rồng',
               onTap: () {
-                navigatorTo('Hoodies & Sweatshirts');
+                navigatorTo('Xương rồng');
               },
             ),
             CategoryItem(
-              title: 'Shirts',
+              title: 'Cỏ',
               onTap: () {
-                navigatorTo('Shirts');
-              },
-            ),
-            CategoryItem(
-              title: 'Jacket',
-              onTap: () {
-                navigatorTo('Jacket');
-              },
-            ),
-            CategoryItem(
-              title: 'Shorts',
-              onTap: () {
-                navigatorTo('Shorts');
-              },
-            ),
-            CategoryItem(
-              title: 'Pants',
-              onTap: () {
-                navigatorTo('Pants');
-              },
-            ),
-            CategoryItem(
-              title: 'Sweatpants',
-              onTap: () {
-                navigatorTo('Sweatpants');
-              },
-            ),
-            CategoryItem(
-              title: 'Jeans',
-              onTap: () {
-                navigatorTo('Jeans');
-              },
-            ),
-            CategoryItem(
-              title: 'Joggers',
-              onTap: () {
-                navigatorTo('Joggers');
+                navigatorTo('Cỏ');
               },
             ),
           ],
@@ -183,7 +147,7 @@ class _SearchViewState extends State<SearchView>
         //TODO: Shoes
         ExpansionTile(
           title: Text(
-            'SHOES',
+            'Ngoài trời',
             style: TextStyle(
                 fontSize: FontSize.setTextSize(32),
                 color: kColorBlack,
@@ -191,29 +155,23 @@ class _SearchViewState extends State<SearchView>
           ),
           children: <Widget>[
             CategoryItem(
-              title: 'Athletic Shoes',
+              title: 'Cao kiểng',
               onTap: () {
-                navigatorTo('Athletic Shoes');
+                navigatorTo('Cao kiểng');
               },
             ),
             CategoryItem(
-              title: 'Causual Shoes',
+              title: 'Hoa',
               onTap: () {
-                navigatorTo('Causual Shoes');
+                navigatorTo('Hoa');
               },
             ),
-            CategoryItem(
-              title: 'Sandals & Slides',
-              onTap: () {
-                navigatorTo('Sandals & Slides');
-              },
-            )
           ],
         ),
         //TODO: Accessories
         ExpansionTile(
           title: Text(
-            'ACCESSORIES',
+            'Chậu treo',
             style: TextStyle(
                 fontSize: FontSize.setTextSize(32),
                 color: kColorBlack,
@@ -221,35 +179,17 @@ class _SearchViewState extends State<SearchView>
           ),
           children: <Widget>[
             CategoryItem(
-              title: 'Hats',
+              title: 'Lan',
               onTap: () {
-                navigatorTo('Hats');
+                navigatorTo('Lan');
               },
             ),
             CategoryItem(
-              title: 'Backpacks',
+              title: 'Lan rừng',
               onTap: () {
-                navigatorTo('Backpacks');
+                navigatorTo('Lan rừng');
               },
             ),
-            CategoryItem(
-              title: 'Sunglasses',
-              onTap: () {
-                navigatorTo('Sunglasses');
-              },
-            ),
-            CategoryItem(
-              title: 'Belts',
-              onTap: () {
-                navigatorTo('Belts');
-              },
-            ),
-            CategoryItem(
-              title: 'Watches',
-              onTap: () {
-                navigatorTo('Watches');
-              },
-            )
           ],
         ),
       ],

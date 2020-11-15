@@ -24,9 +24,10 @@ class _CustomerHomeViewState extends State<CustomerHomeView> {
     ChatScreen(),
     ProfileView(),
   ];
-  final tabsTitle = [' ', 'Search', 'WishList', 'Chat', 'Profile'];
+  final tabsTitle = [' ', 'Tìm kiếm', 'Yêu thích', 'Chat', 'Hồ sơ'];
   int indexScreen = 0;
   bool _isLogging;
+  String isUid = '';
   final pageController = PageController();
   final PageStorageBucket bucket = PageStorageBucket();
 
@@ -41,6 +42,7 @@ class _CustomerHomeViewState extends State<CustomerHomeView> {
         _isLogging = false;
       }
     });
+
     super.initState();
   }
 
@@ -63,6 +65,7 @@ class _CustomerHomeViewState extends State<CustomerHomeView> {
                 IconButton(
                   icon: Icon(
                     FontAwesomeIcons.shoppingBag,
+                    color: kColorGreen,
                   ),
                   onPressed: () {
                     Navigator.pushNamed(context, 'customer_cart_page');
@@ -110,24 +113,28 @@ class _CustomerHomeViewState extends State<CustomerHomeView> {
               icon: Icon(
                 Icons.home,
                 size: ConstScreen.sizeXXL,
+                color: kColorGreen,
               ),
               title: Text('Home')),
           BottomNavigationBarItem(
               icon: Icon(
                 FontAwesomeIcons.search,
                 size: ConstScreen.sizeXL,
+                color: kColorGreen,
               ),
               title: Text('Search')),
           BottomNavigationBarItem(
               icon: Icon(
                 Icons.favorite,
                 size: ConstScreen.sizeXL,
+                color: kColorRed,
               ),
               title: Text('Wishlist')),
           BottomNavigationBarItem(
               icon: Icon(
                 Icons.chat,
                 size: ConstScreen.sizeXL,
+                color: kColorBlue,
               ),
               title: Text('Chat')),
           BottomNavigationBarItem(

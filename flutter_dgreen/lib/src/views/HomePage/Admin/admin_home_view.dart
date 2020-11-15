@@ -12,7 +12,7 @@ import 'package:flutter_dgreen/src/widgets/card_dashboard.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'ChartRevenue/chart_admin_view.dart';
-import 'OrderAndSold/sold_and_order_view.dart';
+import 'ConfirmOrder/sold_and_order_view.dart';
 
 class AdminHomeView extends StatefulWidget {
   @override
@@ -179,7 +179,7 @@ class _AdminHomeViewState extends State<AdminHomeView> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => SoldAndOrderView(
-                                      title: 'Order List',
+                                      title: 'Đơn hàng',
                                     )));
                       },
                     ),
@@ -213,8 +213,7 @@ class _AdminHomeViewState extends State<AdminHomeView> {
                       icon: Icons.done_outline,
                       value: _soldCount,
                       onPress: () {
-                        Navigator.pushNamed(
-                            context, 'admin_bill_history_screen');
+                        Navigator.pushNamed(context, 'admin_bill_view');
                       },
                     ),
                   ),

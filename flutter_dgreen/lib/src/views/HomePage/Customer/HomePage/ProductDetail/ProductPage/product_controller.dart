@@ -14,15 +14,11 @@ class ProductController {
   //TODO: add product to cart
   addProductToCart({
     @required int color,
-    @required String size,
     @required Product product,
   }) async {
     _sizeStreamController.add('');
     int countError = 0;
-    if (size == null || size == '') {
-      _sizeStreamController.addError('Picking your clothing size.');
-      countError++;
-    }
+
     print(countError);
     //TODO: Add Product to Your Cart
     if (countError == 0) {
@@ -38,7 +34,6 @@ class ProductController {
         'name': product.productName,
         'image': product.imageList[0],
         'categogy': product.category,
-        'size': size,
         'color': color,
         'price': product.price,
         'sale_price': product.salePrice,
@@ -58,7 +53,7 @@ class ProductController {
   addProductToWishlist({@required Product product}) async {
     String userUid = await StorageUtil.getUid();
     await FirebaseFirestore.instance
-        .collection('Wishlists')
+        .collection('WishLists')
         .doc(userUid)
         .collection(userUid)
         .doc(product.id)

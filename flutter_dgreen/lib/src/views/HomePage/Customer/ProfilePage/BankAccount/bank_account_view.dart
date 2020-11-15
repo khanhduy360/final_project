@@ -39,7 +39,7 @@ class _BankAccountViewState extends State<BankAccountView> {
       key: widget._globalKey,
       appBar: AppBar(
         title: Text(
-          'Bank Cards',
+          'Thẻ ngân hàng',
           style: kBoldTextStyle.copyWith(
             fontSize: FontSize.setTextSize(32),
           ),

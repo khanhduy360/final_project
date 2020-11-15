@@ -34,9 +34,9 @@ class _CusRaisedButtonState extends State<CusRaisedButton> {
               widget.title,
               style: TextStyle(
                   fontSize: FontSize.s27,
-                  color: (widget.backgroundColor == kColorBlack)
+                  color: (widget.backgroundColor == kColorBlue)
                       ? kColorWhite
-                      : kColorBlack),
+                      : kColorGreen),
             )
           : CircularProgressIndicator(
               backgroundColor: kColorWhite,

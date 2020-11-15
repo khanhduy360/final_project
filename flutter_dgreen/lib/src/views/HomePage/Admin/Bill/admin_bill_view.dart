@@ -4,12 +4,14 @@ import 'package:flutter_dgreen/src/helpers/colors_constant.dart';
 import 'package:flutter_dgreen/src/helpers/screen.dart';
 import 'package:flutter_dgreen/src/views/HomePage/Customer/ProfilePage/OrderAndBill/order_and_bill_view.dart';
 
-class AdminBillHistoryView extends StatefulWidget {
+class AdminBillView extends StatefulWidget {
+  AdminBillView({this.isAdmin = false});
+  final bool isAdmin;
   @override
-  _AdminBillHistoryViewState createState() => _AdminBillHistoryViewState();
+  _AdminBillViewState createState() => _AdminBillViewState();
 }
 
-class _AdminBillHistoryViewState extends State<AdminBillHistoryView>
+class _AdminBillViewState extends State<AdminBillView>
     with SingleTickerProviderStateMixin {
   TabController _tabController;
   @override
@@ -66,12 +68,13 @@ class _AdminBillHistoryViewState extends State<AdminBillHistoryView>
       ),
       body: TabBarView(
         children: [
+          //TODO: Bill
           OrderAndBillView(
-            status: 'Hoàn thành',
+            status: 'Completed',
             isAdmin: true,
           ),
           OrderAndBillView(
-            status: 'Đã hủy',
+            status: 'Canceled',
             isAdmin: true,
           ),
         ],

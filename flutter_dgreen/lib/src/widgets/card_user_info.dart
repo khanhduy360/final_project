@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dgreen/src/component/size_box_component.dart';
+import 'package:flutter_dgreen/src/component/textline_between.dart';
 import 'package:flutter_dgreen/src/helpers/TextStyle.dart';
 import 'package:flutter_dgreen/src/helpers/colors_constant.dart';
 import 'package:flutter_dgreen/src/helpers/screen.dart';
@@ -30,8 +32,8 @@ class UserInfoCard extends StatelessWidget {
       child: Card(
         child: Padding(
           padding: EdgeInsets.symmetric(
-              vertical: ConstScreen.setSizeHeight(10),
-              horizontal: ConstScreen.setSizeWidth(10)),
+              vertical: ConstScreen.setSizeHeight(30),
+              horizontal: ConstScreen.setSizeWidth(20)),
           child: Column(
             children: <Widget>[
               Container(
@@ -51,35 +53,31 @@ class UserInfoCard extends StatelessWidget {
                   ),
                 ),
               ),
+              SizeBoxHeight(size: 30),
               //TODO: id
-              TitleWidget(
-                title: 'ID',
+              TextLineBetween(
+                label: 'ID',
                 content: id,
-                isSpaceBetween: false,
               ),
               //TODO: Username
-              TitleWidget(
-                title: 'Username',
+              TextLineBetween(
+                label: 'Tên người dùng',
                 content: username,
-                isSpaceBetween: false,
               ),
               //TODO: full name
-              TitleWidget(
-                title: 'Full name',
+              TextLineBetween(
+                label: 'Họ tên',
                 content: fullname,
-                isSpaceBetween: false,
               ),
               //TODO: phone number
-              TitleWidget(
-                title: 'Phone number',
+              TextLineBetween(
+                label: 'Phone',
                 content: phone,
-                isSpaceBetween: false,
               ),
               //TODO: Create at
-              TitleWidget(
-                title: 'Create at',
+              TextLineBetween(
+                label: 'Ngày tạo',
                 content: createAt,
-                isSpaceBetween: false,
               ),
             ],
           ),

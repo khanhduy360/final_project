@@ -70,7 +70,6 @@ class _WishListViewState extends State<WishListView>
                 productName: doc['name'],
                 imageList: doc['image'],
                 category: doc['categogy'],
-                sizeList: doc['size'],
                 colorList: doc['color'],
                 price: doc['price'],
                 salePrice: doc['sale_price'],
@@ -157,9 +156,9 @@ class _WishListViewState extends State<WishListView>
                               ),
                               Positioned(
                                 top: ConstScreen.setSizeHeight(680),
-                                left: ConstScreen.setSizeWidth(160),
+                                left: ConstScreen.setSizeWidth(50),
                                 child: Text(
-                                  'Sorry, No Product Found',
+                                  'Rất tiếc, không tìm thấy sản phẩm nào',
                                   style: kBoldTextStyle.copyWith(
                                       color: kColorBlack.withOpacity(0.8),
                                       fontSize: FontSize.s36,

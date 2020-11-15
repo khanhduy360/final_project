@@ -18,8 +18,8 @@ class DetailProfileView extends StatefulWidget {
 
 class _DetailProfileViewState extends State<DetailProfileView> {
   DateTime birthDay;
-  List<String> gender = ['Male', 'Female'];
-  String uid = '';
+  List<String> gender = ['Nam', 'Nữ'];
+
   //TODO: data
 
   @override
@@ -35,7 +35,7 @@ class _DetailProfileViewState extends State<DetailProfileView> {
         appBar: AppBar(
           centerTitle: true,
           title: Text(
-            'Detail',
+            'Thông tin chi tiết',
             style: kBoldTextStyle.copyWith(
               fontSize: FontSize.setTextSize(32),
             ),
@@ -60,9 +60,9 @@ class _DetailProfileViewState extends State<DetailProfileView> {
                 top: ConstScreen.setSizeHeight(50),
                 left: ConstScreen.setSizeWidth(30)),
             child: StreamBuilder(
-              stream: Firestore.instance
+              stream: FirebaseFirestore.instance
                   .collection('Users')
-                  .document(widget.uid)
+                  .doc(widget.uid)
                   .snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
@@ -70,27 +70,27 @@ class _DetailProfileViewState extends State<DetailProfileView> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
                       TitleWidget(
-                        title: 'Full name:',
+                        title: 'Họ tên:',
                         content: snapshot.data['fullname'],
                         isSpaceBetween: false,
                       ),
                       TitleWidget(
-                        title: 'Gender:',
+                        title: 'Giới tính:',
                         content: snapshot.data['gender'],
                         isSpaceBetween: false,
                       ),
                       TitleWidget(
-                        title: 'Phone:',
+                        title: 'Số điện thoại:',
                         content: snapshot.data['phone'],
                         isSpaceBetween: false,
                       ),
                       TitleWidget(
-                        title: 'Address:',
+                        title: 'Địa chỉ:',
                         content: snapshot.data['address'],
                         isSpaceBetween: false,
                       ),
                       TitleWidget(
-                        title: 'Birthday:',
+                        title: 'Ngày sinh:',
                         content: snapshot.data['birthday'],
                         isSpaceBetween: false,
                       ),
