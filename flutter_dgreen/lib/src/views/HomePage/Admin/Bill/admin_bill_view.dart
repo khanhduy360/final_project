@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dgreen/src/helpers/TextStyle.dart';
 import 'package:flutter_dgreen/src/helpers/colors_constant.dart';
 import 'package:flutter_dgreen/src/helpers/screen.dart';
+import 'package:flutter_dgreen/src/views/HomePage/Admin/Bill/bill_detail.dart';
 import 'package:flutter_dgreen/src/views/HomePage/Customer/ProfilePage/OrderAndBill/order_and_bill_view.dart';
 
 class AdminBillView extends StatefulWidget {
@@ -69,11 +70,11 @@ class _AdminBillViewState extends State<AdminBillView>
       body: TabBarView(
         children: [
           //TODO: Bill
-          OrderAndBillView(
+          BillDetail(
             status: 'Completed',
             isAdmin: true,
           ),
-          OrderAndBillView(
+          BillDetail(
             status: 'Canceled',
             isAdmin: true,
           ),

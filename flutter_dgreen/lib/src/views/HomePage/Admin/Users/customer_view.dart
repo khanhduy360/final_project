@@ -43,7 +43,7 @@ class _CustomerUserListViewState extends State<CustomerUserListView> {
                                 MaterialPageRoute(
                                     builder: (context) => ChatScreen(
                                           isAdmin: true,
-                                          uidCustomer: document.documentID,
+                                          uidCustomer: document.id,
                                         )));
                           },
                         ),

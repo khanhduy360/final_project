@@ -7,7 +7,7 @@ class CusRaisedButton extends StatefulWidget {
       {this.backgroundColor,
       @required this.title,
       this.onPress,
-      this.width = 650,
+      this.width = 710,
       this.height = 80,
       this.isDisablePress = true});
 

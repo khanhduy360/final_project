@@ -45,7 +45,7 @@ class _PriceVolatilityChartState extends State<PriceVolatilityChart> {
                         }
                         return ExpansionTile(
                           title: Text(
-                              'ID: ${document.data()['id']}\nProduct: ${document.data()['name']}'),
+                              'ID: ${document.data()['id']}\nSản phẩm: ${document.data()['name']}'),
                           children: listPriceVolatility.reversed.toList(),
                         );
                       }),

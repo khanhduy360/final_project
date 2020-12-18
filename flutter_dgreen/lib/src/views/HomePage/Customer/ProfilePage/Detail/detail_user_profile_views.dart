@@ -45,7 +45,7 @@ class _DetailProfileViewState extends State<DetailProfileView> {
           actions: <Widget>[
             IconButton(
               icon: Icon(FontAwesomeIcons.edit),
-              color: kColorBlack,
+              color: kColorGreen,
               iconSize: ConstScreen.setSizeWidth(35),
               onPressed: () {
                 Navigator.push(context,

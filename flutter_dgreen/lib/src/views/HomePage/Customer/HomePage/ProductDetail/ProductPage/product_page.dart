@@ -168,7 +168,7 @@ class _ProductPageState extends State<ProductPage>
                     Navigator.pop(context);
                   },
                   icon: Icon(Icons.arrow_back_ios,
-                      size: ConstScreen.setSizeWidth(40)),
+                      color: kColorWhite, size: ConstScreen.setSizeWidth(40)),
                 ),
               ),
               //TODO: Wistlist IconButton
@@ -219,7 +219,7 @@ class _ProductPageState extends State<ProductPage>
                   },
                   icon: Icon(
                     _isLoveCheck ? Icons.favorite : Icons.favorite_border,
-                    color: _isLoveCheck ? kColorRed : kColorGreen,
+                    color: _isLoveCheck ? kColorRed : kColorWhite,
                     size: ConstScreen.setSizeHeight(60),
                   ),
                 ),

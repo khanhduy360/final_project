@@ -52,7 +52,7 @@ class _DetailOfProductPageState extends State<DetailOfProductPage>
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                'Description:',
+                'Mô tả:',
                 style: TextStyle(
                     fontSize: FontSize.setTextSize(40),
                     fontWeight: FontWeight.bold),
@@ -77,7 +77,7 @@ class _DetailOfProductPageState extends State<DetailOfProductPage>
                         height: ConstScreen.setSizeHeight(10),
                       ),
                       AutoSizeText(
-                        'Brand: $brand.\nMade in: $madeIn.',
+                        'Thương hiệu: $brand.\nXuất xứ: $madeIn.',
                         style: TextStyle(fontSize: 18),
                         minFontSize: 14,
                         maxLines: 2,

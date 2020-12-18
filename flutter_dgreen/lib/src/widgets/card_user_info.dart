@@ -44,7 +44,7 @@ class UserInfoCard extends StatelessWidget {
                     padding: EdgeInsets.symmetric(
                         vertical: ConstScreen.setSizeHeight(10)),
                     child: Text(
-                      isAdmin ? 'ADMIN' : 'CUSTOMER',
+                      isAdmin ? 'Quản lý' : 'Khách hàng',
                       style: kBoldTextStyle.copyWith(
                         fontSize: FontSize.setTextSize(32),
                         color: kColorWhite,

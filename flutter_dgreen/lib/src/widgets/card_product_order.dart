@@ -79,7 +79,7 @@ class ProductOrderDetail extends StatelessWidget {
                     ),
                   ),
                   Expanded(
-                    flex: 7,
+                    flex: 3,
                     child: Container(),
                   ),
                 ],

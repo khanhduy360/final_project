@@ -27,7 +27,7 @@ class _OrderInfoViewState extends State<OrderInfoView> {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          'Order Info',
+          'Thông tin đơn hàng',
           style: kBoldTextStyle.copyWith(
             fontSize: FontSize.setTextSize(32),
           ),
@@ -50,46 +50,47 @@ class _OrderInfoViewState extends State<OrderInfoView> {
                 children: <Widget>[
                   //TODO: Order ID
                   TitleWidget(
-                    title: 'Oder Id',
+                    title: 'ID Khách Hàng',
                     content: widget.id,
                   ),
                   TitleWidget(
-                    title: 'Date',
+                    title: 'Ngày đặt',
                     content: widget.orderInfo.createAt,
                   ),
                   TitleWidget(
-                    title: 'Customer',
+                    title: 'Tên khách',
                     content: widget.orderInfo.customerName,
                   ),
                   TitleWidget(
-                    title: 'Receiver',
+                    title: 'Người nhận',
                     content: widget.orderInfo.receiverName,
                   ),
                   TitleWidget(
-                    title: 'Status',
+                    title: 'Trạng thái',
                     content: widget.orderInfo.status,
                   ),
                   TitleWidget(
-                    title: 'SubTotal',
+                    title: 'Giá sản phẩm',
                     content:
                         '${Util.intToMoneyType(int.parse(widget.orderInfo.total) + int.parse(widget.orderInfo.shipping) + int.parse(widget.orderInfo.maxBillingAmount))} VND',
                   ),
                   TitleWidget(
-                    title: 'Shipping',
+                    title: 'Phí vận chuyển',
                     content:
                         '+${Util.intToMoneyType(int.parse(widget.orderInfo.shipping))} VND',
                   ),
                   TitleWidget(
-                    title: 'Coupon',
+                    title: 'Mã giảm giá',
                     content:
-                        'Discount: ${widget.orderInfo.discount}% \n-${Util.intToMoneyType(int.parse(widget.orderInfo.discountPrice))} VND',
+                        'Giảm giá: ${widget.orderInfo.discount}% \n-${Util.intToMoneyType(int.parse(widget.orderInfo.discountPrice))} VND',
                   ),
 
                   // TODO: Err total 200,000
                   Card(
                     child: TitleWidget(
-                        title: 'Total',
-                        content: '${widget.orderInfo.total} VND'),
+                        title: 'Tổng cộng',
+                        content:
+                            '${Util.intToMoneyType(int.parse(widget.orderInfo.total))} VND'),
                   ),
                 ],
               ),
@@ -105,7 +106,7 @@ class _OrderInfoViewState extends State<OrderInfoView> {
                       child: Align(
                         alignment: Alignment.centerLeft,
                         child: AutoSizeText(
-                          'Order Was Cancelled!',
+                          'Đơn đã bị hủy!',
                           maxLines: 1,
                           minFontSize: 10,
                           style: kBoldTextStyle.copyWith(
@@ -191,7 +192,7 @@ class _OrderInfoViewState extends State<OrderInfoView> {
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: AutoSizeText(
-                    'Phone Number',
+                    'Số điện thoại',
                     maxLines: 1,
                     minFontSize: 10,
                     style: kBoldTextStyle.copyWith(
@@ -222,7 +223,7 @@ class _OrderInfoViewState extends State<OrderInfoView> {
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: AutoSizeText(
-                    'Shipping Address',
+                    'Địa chỉ giao hàng',
                     maxLines: 1,
                     minFontSize: 10,
                     style: kBoldTextStyle.copyWith(

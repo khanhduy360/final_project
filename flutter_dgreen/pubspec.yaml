@@ -59,6 +59,10 @@ dependencies:
   fl_chart: ^0.9.3
   http: ^0.12.0+4
   flutter_swiper: ^1.1.6
+  speech_to_text: ^3.0.1
+  avatar_glow: ^1.2.0
+  curved_navigation_bar: ^0.3.4
+  firebase_messaging: ^7.0.3
 flutter_datetime_picker:
   git:
     url: https://github.com/derohimat/flutter_datetime_picker.git

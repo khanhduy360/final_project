@@ -75,7 +75,7 @@ class _RatingProductPageState extends State<RatingProductPage>
                         StreamBuilder(
                             stream: _controller.averageStream,
                             builder: (context, snapshot) {
-                              return RatingBar(
+                              return RatingBar.builder(
                                 allowHalfRating: true,
                                 initialRating:
                                     snapshot.hasData ? snapshot.data : 0,
@@ -96,8 +96,8 @@ class _RatingProductPageState extends State<RatingProductPage>
                             builder: (context, snapshot) {
                               return Text(
                                 snapshot.hasData
-                                    ? '${snapshot.data} Reviews'
-                                    : '0 Reviews',
+                                    ? '${snapshot.data} Đánh giá'
+                                    : '0 Đánh giá',
                                 style: TextStyle(
                                     fontSize: FontSize.s30,
                                     fontWeight: FontWeight.bold),
@@ -146,7 +146,7 @@ class _RatingProductPageState extends State<RatingProductPage>
                                                   Expanded(
                                                     flex: 1,
                                                     child: Text(
-                                                      'Rating:',
+                                                      'Điểm:',
                                                       style: TextStyle(
                                                           fontSize:
                                                               FontSize.s36,
@@ -157,7 +157,7 @@ class _RatingProductPageState extends State<RatingProductPage>
                                                   Expanded(
                                                     flex: 3,
                                                     child: Center(
-                                                      child: RatingBar(
+                                                      child: RatingBar.builder(
                                                         itemCount: 5,
                                                         onRatingUpdate:
                                                             (value) {
@@ -187,7 +187,7 @@ class _RatingProductPageState extends State<RatingProductPage>
                                             ),
                                             // Comment
                                             Text(
-                                              'Comment:',
+                                              'Bình luận:',
                                               style: TextStyle(
                                                   fontSize: FontSize.s36,
                                                   fontWeight: FontWeight.bold),
@@ -233,7 +233,7 @@ class _RatingProductPageState extends State<RatingProductPage>
                                                   //TODO: Save Button
                                                   Expanded(
                                                     child: CusRaisedButton(
-                                                      title: 'ADD',
+                                                      title: 'Thêm',
                                                       isDisablePress: true,
                                                       onPress: () {
                                                         StorageUtil
@@ -269,7 +269,7 @@ class _RatingProductPageState extends State<RatingProductPage>
                                                   // Button Add
                                                   Expanded(
                                                     child: CusRaisedButton(
-                                                      title: 'CANCEL',
+                                                      title: 'Hủy',
                                                       onPress: () {
                                                         Navigator.pop(context);
                                                       },

@@ -156,9 +156,9 @@ class _WishListViewState extends State<WishListView>
                               ),
                               Positioned(
                                 top: ConstScreen.setSizeHeight(680),
-                                left: ConstScreen.setSizeWidth(50),
+                                left: ConstScreen.setSizeWidth(150),
                                 child: Text(
-                                  'Rất tiếc, không tìm thấy sản phẩm nào',
+                                  'Không có sản phẩm nào',
                                   style: kBoldTextStyle.copyWith(
                                       color: kColorBlack.withOpacity(0.8),
                                       fontSize: FontSize.s36,

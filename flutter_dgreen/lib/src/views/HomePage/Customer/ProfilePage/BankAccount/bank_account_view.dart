@@ -48,7 +48,7 @@ class _BankAccountViewState extends State<BankAccountView> {
         actions: <Widget>[
           IconButton(
             icon: Icon(FontAwesomeIcons.edit),
-            color: kColorBlack,
+            color: kColorGreen,
             iconSize: ConstScreen.setSizeWidth(35),
             onPressed: () {
               Navigator.push(

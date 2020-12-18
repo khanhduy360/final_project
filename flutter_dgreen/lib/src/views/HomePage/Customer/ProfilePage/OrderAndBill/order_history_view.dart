@@ -8,6 +8,7 @@ import 'order_and_bill_view.dart';
 class OrderHistoryView extends StatefulWidget {
   OrderHistoryView({this.isAdmin = false});
   final bool isAdmin;
+
   @override
   _OrderHistoryViewState createState() => _OrderHistoryViewState();
 }
@@ -15,9 +16,11 @@ class OrderHistoryView extends StatefulWidget {
 class _OrderHistoryViewState extends State<OrderHistoryView>
     with SingleTickerProviderStateMixin {
   TabController _tabController;
+
   @override
   void initState() {
     _tabController = new TabController(length: 3, vsync: this);
+
     super.initState();
   }
 
@@ -32,7 +35,7 @@ class _OrderHistoryViewState extends State<OrderHistoryView>
         title: Text(
           'Lịch sử mua hàng',
           style: TextStyle(
-              color: kColorBlack,
+              color: kColorGreen,
               fontSize: FontSize.setTextSize(32),
               fontWeight: FontWeight.w500),
         ),

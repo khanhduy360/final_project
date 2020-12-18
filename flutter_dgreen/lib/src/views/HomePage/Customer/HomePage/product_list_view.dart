@@ -26,7 +26,7 @@ class _DetailBannerScreenState extends State<ProductListView> {
   getFirestoreSnapshot() {
     if (widget.search == 'sale') {
       setState(() {
-        title = 'SALE';
+        title = 'Giảm giá';
       });
       return FirebaseFirestore.instance
           .collection('Products')
@@ -34,7 +34,7 @@ class _DetailBannerScreenState extends State<ProductListView> {
           .snapshots();
     } else if (widget.search != '') {
       setState(() {
-        title = 'SEARCHING';
+        title = 'Đang tìm';
       });
       return FirebaseFirestore.instance
           .collection('Products')
@@ -43,7 +43,7 @@ class _DetailBannerScreenState extends State<ProductListView> {
           .snapshots();
     } else {
       setState(() {
-        title = 'NEW IN';
+        title = 'Mới nhập';
       });
       return FirebaseFirestore.instance
           .collection('Products')
@@ -58,15 +58,15 @@ class _DetailBannerScreenState extends State<ProductListView> {
     super.initState();
     if (widget.search == 'sale') {
       setState(() {
-        title = 'SALE';
+        title = 'Khuyến mãi';
       });
     } else if (widget.search != '') {
       setState(() {
-        title = 'SEARCH';
+        title = 'Tìm kiếm';
       });
     } else {
       setState(() {
-        title = 'NEW IN';
+        title = 'Mới nhập';
       });
     }
   }

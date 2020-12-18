@@ -16,30 +16,32 @@ class RevenueChart extends StatefulWidget {
 
 class _RevenueChartState extends State<RevenueChart> {
   int totalSale = 0;
-  String selectedDate;
+
+  DateTime yearPick;
   TextEditingController yController = TextEditingController();
 
   List<OrdinalSales> chartData = [
-    new OrdinalSales('Jan', 0),
-    new OrdinalSales('Feb', 0),
-    new OrdinalSales('Mar', 0),
-    new OrdinalSales('Apr', 0),
-    new OrdinalSales('May', 0),
-    new OrdinalSales('Jun', 0),
-    new OrdinalSales('Jul', 0),
-    new OrdinalSales('Aug', 0),
-    new OrdinalSales('Sep', 0),
-    new OrdinalSales('Oct', 0),
-    new OrdinalSales('Nov', 0),
-    new OrdinalSales('Dec', 0),
+    new OrdinalSales('1', 0),
+    new OrdinalSales('2', 0),
+    new OrdinalSales('3', 0),
+    new OrdinalSales('4', 0),
+    new OrdinalSales('5', 0),
+    new OrdinalSales('6', 0),
+    new OrdinalSales('7', 0),
+    new OrdinalSales('8', 0),
+    new OrdinalSales('9', 0),
+    new OrdinalSales('10', 0),
+    new OrdinalSales('11', 0),
+    new OrdinalSales('12', 0),
   ];
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    selectedDate = DateTime.now().year.toString();
-    getDataForChart(int.parse(selectedDate));
+
+    yearPick = DateTime.now();
+    getDataForChart(yearPick.year);
   }
 
   //TODO: Chart Data
@@ -106,7 +108,7 @@ class _RevenueChartState extends State<RevenueChart> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(
-                    'TOTAL: ',
+                    'Tổng thu: ',
                     style: kBoldTextStyle.copyWith(fontSize: FontSize.s30),
                     textAlign: TextAlign.center,
                   ),
@@ -156,7 +158,7 @@ class _RevenueChartState extends State<RevenueChart> {
                     width: ConstScreen.setSizeWidth(10),
                   ),
                   Text(
-                    'Year Picker:',
+                    'Chọn năm:',
                     style: kBoldTextStyle.copyWith(fontSize: FontSize.s36),
                     textAlign: TextAlign.start,
                   ),
@@ -164,33 +166,21 @@ class _RevenueChartState extends State<RevenueChart> {
                   Container(
                     height: ConstScreen.setSizeHeight(300),
                     width: ConstScreen.setSizeWidth(300),
-                    margin: new EdgeInsets.symmetric(
-                        vertical: 40.0, horizontal: 10.0),
-                    child: GestureDetector(
-                      onTap: yearPicker,
-                      child: AbsorbPointer(
-                        child: TextFormField(
-                          controller: yController,
-                          decoration: InputDecoration(
-                            labelText: 'Pick Year',
-                            border: OutlineInputBorder(),
-                            filled: true,
-                          ),
-                          onSaved: (val) {
-                            selectedDate = yController.text;
-                          },
-                          validator: (val) {
-                            if (val == null || val.isEmpty) {
-                              return 'Year is necessary';
-                            }
-                            return null;
-                          },
-                        ),
-                      ),
+                    child: YearPicker(
+                      dragStartBehavior: DragStartBehavior.start,
+                      firstDate: DateTime.utc(2010),
+                      lastDate: DateTime.now(),
+                      selectedDate: yearPick,
+                      onChanged: (date) {
+                        setState(() {
+                          yearPick = date;
+                          getDataForChart(yearPick.year);
+                        });
+                      },
                     ),
                   ),
                   Text(
-                    'CURRENT \n $selectedDate',
+                    'Hiện là \n ${yearPick.year}',
                     style: kBoldTextStyle.copyWith(fontSize: FontSize.s30),
                     textAlign: TextAlign.center,
                   ),

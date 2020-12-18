@@ -1,15 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dgreen/src/helpers/global_provider.dart';
-
 import 'package:flutter_dgreen/src/helpers/image_constant.dart';
-import 'package:flutter_dgreen/src/helpers/screen.dart';
 import 'package:flutter_dgreen/src/helpers/shared_preferrence.dart';
 import 'package:flutter_dgreen/src/helpers/utils.dart';
 import 'package:flutter_dgreen/src/model/user.dart';
 import 'package:flutter_dgreen/src/widgets/header_widget.dart';
+import 'package:flutter_dgreen/src/widgets/offer_widget.dart';
 
-import 'package:provider/provider.dart';
+import 'menu_widget.dart';
 
 class CustomerHomePageView extends StatefulWidget {
   @override
@@ -20,6 +18,47 @@ class _CustomerHomePageViewState extends State<CustomerHomePageView>
     with AutomaticKeepAliveClientMixin {
   Future<String> uid;
   Future<UserApp> userApp;
+  List<ItemModel> _menus = [
+    ItemModel(
+      image: 'sale.png',
+      title: 'Giảm giá',
+    ),
+    ItemModel(
+      image: 'shipping.png',
+      title: 'Free ship',
+    ),
+    ItemModel(
+      image: 'sale.png',
+      title: 'Giảm giá',
+    ),
+    ItemModel(
+      image: 'sale.png',
+      title: 'Giảm giá',
+    ),
+    ItemModel(
+      image: 'sale.png',
+      title: 'Giảm giá',
+    ),
+    ItemModel(
+      image: 'sale.png',
+      title: 'Giảm giá',
+    ),
+  ];
+  List<Map<String, dynamic>> _offer = [
+    {
+      'img': 'offer1.png',
+      'description': 'Cho 5 sản phẩm đầu tiên của bạn',
+      'textBtn': 'Đặt ngay',
+      'offer': 25
+    },
+    {
+      'img': 'offer2.png',
+      'description':
+          'Khi chia sẻ với bạn bè của bạn. Áp dụng khi chia sẻ với mọi người',
+      'textBtn': 'Chia sẻ ngay',
+      'offer': 20
+    },
+  ];
 
   @override
   void initState() {
@@ -37,8 +76,10 @@ class _CustomerHomePageViewState extends State<CustomerHomePageView>
       );
 
   Widget _buildWidget(UserApp userApp) {
-    ConstScreen.setScreen(context);
     return Scaffold(
+      // appBar: AppBar(
+      //   backgroundColor: kColorOrange,
+      // ),
       body: Stack(
         fit: StackFit.loose,
         children: <Widget>[
@@ -55,7 +96,12 @@ class _CustomerHomePageViewState extends State<CustomerHomePageView>
                   Expanded(
                     child: ListView(
                       shrinkWrap: true,
-                      children: <Widget>[],
+                      children: <Widget>[
+                        MenuHomeWidget(menuList: _menus),
+                        OfferList(
+                          offer: _offer,
+                        ),
+                      ],
                     ),
                   )
                 ],
@@ -69,13 +115,12 @@ class _CustomerHomePageViewState extends State<CustomerHomePageView>
 
   Widget headerContent(BuildContext context) {
     double _height = MediaQuery.of(context).size.height * 1 / 3;
-    double _width = MediaQuery.of(context).size.width * 1.1;
+    double _width = MediaQuery.of(context).size.width * 2;
     return Container(
       child: Image.asset(
         kImgHeader,
-        alignment: Alignment.topCenter,
-        fit: BoxFit.fitWidth,
-        width: _width,
+        fit: BoxFit.fill,
+        width: setWidthSize(size: _width),
         height: setHeightSize(size: _height),
       ),
       height: setHeightSize(size: _height),

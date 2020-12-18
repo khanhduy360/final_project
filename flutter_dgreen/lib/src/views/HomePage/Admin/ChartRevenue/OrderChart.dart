@@ -122,12 +122,12 @@ class _OrderChartState extends State<OrderChart>
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    'Total Order & Bill: $totalOrder',
+                    'Tổng đơn: $totalOrder',
                     style: kBoldTextStyle.copyWith(fontSize: FontSize.s30),
                   ),
                   Indicator(
                     color: Color(0xff0293ee),
-                    text: 'Pending',
+                    text: 'Đang chờ',
                     isSquare: true,
                     value: pending,
                   ),
@@ -136,7 +136,7 @@ class _OrderChartState extends State<OrderChart>
                   ),
                   Indicator(
                     color: Colors.redAccent,
-                    text: 'Cancelled',
+                    text: 'Đã bị hủy',
                     isSquare: true,
                     value: cancelled,
                   ),
@@ -145,7 +145,7 @@ class _OrderChartState extends State<OrderChart>
                   ),
                   Indicator(
                     color: Color(0xff13d38e),
-                    text: 'Completed',
+                    text: 'Hoàn thành',
                     isSquare: true,
                     value: completed,
                   ),
@@ -170,7 +170,7 @@ class _OrderChartState extends State<OrderChart>
                 width: ConstScreen.setSizeWidth(50),
               ),
               Text(
-                'Year Picker:',
+                'Chọn năm:',
                 style: kBoldTextStyle.copyWith(fontSize: FontSize.s36),
               ),
               //TODO: Year picker
@@ -193,7 +193,7 @@ class _OrderChartState extends State<OrderChart>
                 ),
               ),
               Text(
-                'CURRENT \n ${yearPick.year}',
+                'Hiện là \n ${yearPick.year}',
                 style: kBoldTextStyle.copyWith(fontSize: FontSize.s30),
                 textAlign: TextAlign.center,
               ),
@@ -224,8 +224,8 @@ class _OrderChartState extends State<OrderChart>
           //TODO: Completed
           return PieChartSectionData(
             color: const Color(0xff0293ee),
-            value: completed,
-            title: '${completed.toStringAsFixed(2)}%',
+            value: pending,
+            title: '${pending.toStringAsFixed(2)}%',
             radius: radius,
             titleStyle: TextStyle(
                 fontSize: fontSize,
@@ -248,8 +248,8 @@ class _OrderChartState extends State<OrderChart>
         case 2:
           return PieChartSectionData(
             color: Color(0xff13d38e),
-            value: pending,
-            title: '${pending.toStringAsFixed(2)}%',
+            value: completed,
+            title: '${completed.toStringAsFixed(2)}%',
             radius: radius,
             titleStyle: TextStyle(
                 fontSize: fontSize,
