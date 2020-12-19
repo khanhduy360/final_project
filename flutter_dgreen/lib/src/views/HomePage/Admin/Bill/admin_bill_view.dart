@@ -2,14 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dgreen/src/helpers/TextStyle.dart';
 import 'package:flutter_dgreen/src/helpers/colors_constant.dart';
 import 'package:flutter_dgreen/src/helpers/screen.dart';
+import 'package:flutter_dgreen/src/views/HomePage/Admin/Bill/bill_detail.dart';
 import 'package:flutter_dgreen/src/views/HomePage/Customer/ProfilePage/OrderAndBill/order_and_bill_view.dart';
 
-class AdminBillHistoryView extends StatefulWidget {
+class AdminBillView extends StatefulWidget {
+  AdminBillView({this.isAdmin = false});
+  final bool isAdmin;
   @override
-  _AdminBillHistoryViewState createState() => _AdminBillHistoryViewState();
+  _AdminBillViewState createState() => _AdminBillViewState();
 }
 
-class _AdminBillHistoryViewState extends State<AdminBillHistoryView>
+class _AdminBillViewState extends State<AdminBillView>
     with SingleTickerProviderStateMixin {
   TabController _tabController;
   @override
@@ -27,7 +30,7 @@ class _AdminBillHistoryViewState extends State<AdminBillHistoryView>
         backgroundColor: kColorWhite,
         // TODO: Quantity Items
         title: Text(
-          'Bill History',
+          'Hóa đơn',
           style: TextStyle(
               color: kColorBlack,
               fontSize: FontSize.setTextSize(32),
@@ -47,7 +50,7 @@ class _AdminBillHistoryViewState extends State<AdminBillHistoryView>
                 size: ConstScreen.setSizeHeight(30),
               ),
               child: Text(
-                'Completed',
+                'Hoàn thành',
                 style: kBoldTextStyle.copyWith(fontSize: FontSize.s28),
               ),
             ),
@@ -57,7 +60,7 @@ class _AdminBillHistoryViewState extends State<AdminBillHistoryView>
                 size: ConstScreen.setSizeHeight(30),
               ),
               child: Text(
-                'Canceled',
+                'Đã hủy',
                 style: kBoldTextStyle.copyWith(fontSize: FontSize.s28),
               ),
             )
@@ -66,11 +69,12 @@ class _AdminBillHistoryViewState extends State<AdminBillHistoryView>
       ),
       body: TabBarView(
         children: [
-          OrderAndBillView(
+          //TODO: Bill
+          BillDetail(
             status: 'Completed',
             isAdmin: true,
           ),
-          OrderAndBillView(
+          BillDetail(
             status: 'Canceled',
             isAdmin: true,
           ),

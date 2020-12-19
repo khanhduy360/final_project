@@ -41,7 +41,7 @@ class RatingController {
       print(ratingPoint);
       print(comment);
       String type = await StorageUtil.getAccountType();
-      await Firestore.instance.collection('Comments').document().setData({
+      await FirebaseFirestore.instance.collection('Comments').doc().set({
         'product_id': productId,
         'name': username,
         'point': ratingPoint,

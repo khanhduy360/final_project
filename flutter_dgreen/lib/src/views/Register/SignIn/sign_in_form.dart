@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dgreen/src/helpers/TextStyle.dart';
 import 'package:flutter_dgreen/src/helpers/colors_constant.dart';
@@ -22,6 +23,7 @@ class _SignInViewState extends State<SignInView> {
   bool obscureText = true;
   bool _isAdmin = false;
   bool isLoading = false;
+  final _auth = FirebaseAuth.instance;
   SignInController signInController = new SignInController();
   String _email = '';
   String _password = '';
@@ -49,7 +51,7 @@ class _SignInViewState extends State<SignInView> {
         StreamBuilder(
           stream: signInController.passwordStream,
           builder: (context, snapshot) => InputText(
-            title: 'Password',
+            title: 'Mật Khẩu',
             isPassword: true,
             errorText: snapshot.hasError ? snapshot.error : '',
             onValueChange: (value) {
@@ -72,7 +74,7 @@ class _SignInViewState extends State<SignInView> {
                 height: ConstScreen.setSizeHeight(90),
                 color: _isAdmin ? kColorOrange : kColorWhite,
                 child: Text(
-                  'MANAGER',
+                  'Quản lý',
                   style: TextStyle(
                       color: _isAdmin ? kColorWhite : kColorOrange,
                       fontSize: FontSize.s30),
@@ -80,6 +82,7 @@ class _SignInViewState extends State<SignInView> {
                 onPressed: () {
                   setState(() {
                     _isAdmin = true;
+                    print('Admin' + _isAdmin.toString());
                   });
                 },
               ),
@@ -92,7 +95,7 @@ class _SignInViewState extends State<SignInView> {
                 height: ConstScreen.setSizeHeight(90),
                 color: _isAdmin ? kColorWhite : kColorOrange,
                 child: Text(
-                  'CUSTOMER',
+                  'Khách Hàng',
                   style: TextStyle(
                       color: _isAdmin ? kColorOrange : kColorWhite,
                       fontSize: FontSize.s30),
@@ -100,6 +103,7 @@ class _SignInViewState extends State<SignInView> {
                 onPressed: () {
                   setState(() {
                     _isAdmin = false;
+                    print('customer' + _isAdmin.toString());
                   });
                 },
               ),
@@ -114,10 +118,9 @@ class _SignInViewState extends State<SignInView> {
             stream: signInController.btnLoadingStream,
             builder: (context, snapshot) {
               return ButtonNormal(
-                isLoading: isLoading,
                 // hasSuffixIcon: true,
                 isBtnColor: true,
-                text: 'SIGN IN',
+                text: 'ĐĂNG NHẬP',
                 onPress: () async {
                   FocusScopeNode currentFocus = FocusScope.of(context);
                   if (!currentFocus.hasPrimaryFocus) {
@@ -125,10 +128,11 @@ class _SignInViewState extends State<SignInView> {
                   }
                   var result = await signInController.onSubmitSignIn(
                       email: _email, password: _password, isAdmin: _isAdmin);
+
                   print('Screen' + result.toString());
 
                   if (result != '') {
-                    Navigator.pushNamed(context, result);
+                    Navigator.pushNamed(context, result.toString());
                     SignInController().dispose();
                   } else {
                     Scaffold.of(context).showSnackBar(SnackBar(
@@ -145,7 +149,7 @@ class _SignInViewState extends State<SignInView> {
                           ),
                           Expanded(
                             child: Text(
-                              'Sign In failed.',
+                              'Đăng nhập thất bại.',
                               style: kBoldTextStyle.copyWith(
                                   fontSize: FontSize.s28),
                             ),

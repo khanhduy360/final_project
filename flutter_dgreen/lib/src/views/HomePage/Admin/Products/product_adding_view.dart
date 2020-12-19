@@ -24,11 +24,10 @@ class ProductAddingView extends StatefulWidget {
 
 class _ProductAddingViewState extends State<ProductAddingView> {
   ProductManagerController _controller = new ProductManagerController();
-  List<String> category = ['Clothings', 'Shoes', 'Accessories'];
-  List<String> sizeType = ['None', 'Top', 'Bottom', 'Shoes'];
+  List<String> category = ['Trong nhà', 'Ngoài trời', 'Chậu treo'];
   int indexSubCategory = 1;
   int indexSizeType = 0;
-  String mainCategory = 'Clothings';
+  String mainCategory = 'Trong nhà';
 
   final _nameController = new TextEditingController();
   final _priceController = new TextEditingController();
@@ -38,8 +37,7 @@ class _ProductAddingViewState extends State<ProductAddingView> {
   final _quantityController = new TextEditingController();
   final _descriptionController = new TextEditingController();
   List<Asset> images = List<Asset>();
-  String subCategory = 'Choosing Category';
-  String sizeTypeValue = 'Choosing type';
+  String subCategory = 'Chọn loại';
   List<String> sizeList = [];
   List<String> colorList = [];
 
@@ -55,8 +53,6 @@ class _ProductAddingViewState extends State<ProductAddingView> {
     images.clear();
     sizeList.clear();
     colorList.clear();
-    String subCategory = 'Choosing Category';
-    String sizeTypeValue = 'Choosing type';
   }
 
   //TODO: Image product holder
@@ -110,13 +106,13 @@ class _ProductAddingViewState extends State<ProductAddingView> {
       case 0:
         break;
       case 1:
-        subCategoryList = Category.Clothing;
+        subCategoryList = Category.InSide;
         break;
       case 2:
-        subCategoryList = Category.Shoes;
+        subCategoryList = Category.OutSide;
         break;
       case 3:
-        subCategoryList = Category.Accessories;
+        subCategoryList = Category.Handing;
         break;
     }
     return subCategoryList.map((value) {
@@ -130,25 +126,6 @@ class _ProductAddingViewState extends State<ProductAddingView> {
     }).toList();
   }
 
-  //TODO: get size type
-  List<String> getSizeType(int index) {
-    List<String> sizeTypeList = [];
-    switch (index) {
-      case 0:
-        break;
-      case 1:
-        sizeTypeList = ClothingPickingList.TeeSize;
-        break;
-      case 2:
-        sizeTypeList = ClothingPickingList.PantSize;
-        break;
-      case 3:
-        sizeTypeList = ClothingPickingList.ShoesSize;
-        break;
-    }
-    return sizeTypeList;
-  }
-
   @override
   Widget build(BuildContext context) {
     ConstScreen.setScreen(context);
@@ -157,7 +134,7 @@ class _ProductAddingViewState extends State<ProductAddingView> {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          'Adding Product',
+          'Thêm sản phẩm',
           style: kBoldTextStyle.copyWith(
             fontSize: FontSize.setTextSize(32),
           ),
@@ -176,7 +153,7 @@ class _ProductAddingViewState extends State<ProductAddingView> {
             StreamBuilder(
               stream: _controller.productNameStream,
               builder: (context, snapshot) => InputText(
-                title: 'Product Name',
+                title: 'Tên sản phẩm',
                 controller: _nameController,
                 errorText: snapshot.hasError ? snapshot.error : '',
                 inputType: TextInputType.text,
@@ -187,7 +164,7 @@ class _ProductAddingViewState extends State<ProductAddingView> {
             ),
             //TODO: Image product
             Text(
-              'Product Images:',
+              'Hình ảnh sản phẩm:',
               style:
                   kBoldTextStyle.copyWith(fontSize: FontSize.setTextSize(34)),
             ),
@@ -197,7 +174,7 @@ class _ProductAddingViewState extends State<ProductAddingView> {
             imageGridView(),
             RaisedButton(
               child: Text(
-                "Pick images",
+                "Chọn ảnh",
                 style: kBoldTextStyle.copyWith(fontSize: FontSize.s25),
               ),
               onPressed: loadAssets,
@@ -240,18 +217,18 @@ class _ProductAddingViewState extends State<ProductAddingView> {
                     onChanged: (value) {
                       setState(() {
                         mainCategory = value;
-                        subCategory = 'Chossing Category';
+                        subCategory = 'Chọn loại cây';
                         switch (mainCategory) {
                           case 'Main Category':
                             indexSubCategory = 0;
                             break;
-                          case 'Clothings':
+                          case 'Trong nhà':
                             indexSubCategory = 1;
                             break;
-                          case 'Shoes':
+                          case 'Ngoài trời':
                             indexSubCategory = 2;
                             break;
-                          case 'Accessories':
+                          case 'Chậu treo':
                             indexSubCategory = 3;
                             break;
                         }
@@ -293,60 +270,6 @@ class _ProductAddingViewState extends State<ProductAddingView> {
                     fontSize: FontSize.s28, color: kColorRed),
               )),
             ),
-            //TODO: Size type
-            Row(
-              children: <Widget>[
-                Expanded(
-                  flex: 1,
-                  child: Text(
-                    'Size Type Picker:',
-                    style: kBoldTextStyle.copyWith(fontSize: FontSize.s30),
-                  ),
-                ),
-                //TODO: picker size type
-                Expanded(
-                  flex: 1,
-                  child: DropdownButton(
-                    isExpanded: true,
-                    hint: AutoSizeText(
-                      sizeTypeValue,
-                      style: kBoldTextStyle.copyWith(fontSize: FontSize.s28),
-                      minFontSize: 10,
-                      maxLines: 1,
-                    ),
-                    items: sizeType.map((value) {
-                      return DropdownMenuItem(
-                        value: value,
-                        child: Text(
-                          value,
-                          style:
-                              kNormalTextStyle.copyWith(fontSize: FontSize.s28),
-                        ),
-                      );
-                    }).toList(),
-                    onChanged: (value) {
-                      setState(() {
-                        sizeTypeValue = value;
-                        switch (sizeTypeValue) {
-                          case 'None':
-                            indexSizeType = 0;
-                            break;
-                          case 'Top':
-                            indexSizeType = 1;
-                            break;
-                          case 'Bottom':
-                            indexSizeType = 2;
-                            break;
-                          case 'Shoes':
-                            indexSizeType = 3;
-                            break;
-                        }
-                      });
-                    },
-                  ),
-                ),
-              ],
-            ),
             SizedBox(
               height: ConstScreen.setSizeHeight(20),
             ),
@@ -355,48 +278,18 @@ class _ProductAddingViewState extends State<ProductAddingView> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                // TODO: Size
                 Expanded(
                   flex: 1,
                   child: Column(
                     children: <Widget>[
                       Text(
-                        'Multi Size Picker',
+                        'Chọn màu',
                         style: kBoldTextStyle.copyWith(fontSize: FontSize.s30),
                       ),
                       CheckboxGroup(
                           labelStyle:
                               kNormalTextStyle.copyWith(fontSize: FontSize.s28),
-                          labels: getSizeType(indexSizeType),
-                          onSelected: (List<String> checked) {
-                            sizeList = checked;
-                          }),
-                      //TODO: Size Error
-                      StreamBuilder(
-                        stream: _controller.sizeListStream,
-                        builder: (context, snapshot) => Center(
-                            child: Text(
-                          snapshot.hasError ? 'Error: ' + snapshot.error : '',
-                          style: kBoldTextStyle.copyWith(
-                              fontSize: FontSize.s25, color: kColorRed),
-                        )),
-                      ),
-                    ],
-                  ),
-                ),
-                // TODO: Color
-                Expanded(
-                  flex: 1,
-                  child: Column(
-                    children: <Widget>[
-                      Text(
-                        'Multi Color Picker',
-                        style: kBoldTextStyle.copyWith(fontSize: FontSize.s30),
-                      ),
-                      CheckboxGroup(
-                          labelStyle:
-                              kNormalTextStyle.copyWith(fontSize: FontSize.s28),
-                          labels: ClothingPickingList.ColorList,
+                          labels: TreePickingList.ColorList,
                           onSelected: (List<String> checked) {
                             colorList = checked;
                           }),
@@ -427,7 +320,7 @@ class _ProductAddingViewState extends State<ProductAddingView> {
                   child: StreamBuilder(
                     stream: _controller.priceStream,
                     builder: (context, snapshot) => InputText(
-                      title: 'Price',
+                      title: 'Giá',
                       controller: _priceController,
                       errorText: snapshot.hasError ? snapshot.error : '',
                       inputType: TextInputType.number,
@@ -443,7 +336,7 @@ class _ProductAddingViewState extends State<ProductAddingView> {
                   child: StreamBuilder(
                     stream: _controller.salePriceStream,
                     builder: (context, snapshot) => InputText(
-                      title: 'Sale Price',
+                      title: 'Giá khuyến mãi',
                       controller: _salePriceController,
                       errorText: snapshot.hasError ? snapshot.error : '',
                       inputType: TextInputType.number,
@@ -459,7 +352,7 @@ class _ProductAddingViewState extends State<ProductAddingView> {
             StreamBuilder(
               stream: _controller.brandStream,
               builder: (context, snapshot) => InputText(
-                title: 'Brand',
+                title: 'Thương hiệu',
                 controller: _brandController,
                 errorText: snapshot.hasError ? snapshot.error : '',
                 inputType: TextInputType.text,
@@ -472,7 +365,7 @@ class _ProductAddingViewState extends State<ProductAddingView> {
             StreamBuilder(
               stream: _controller.madeInStream,
               builder: (context, snapshot) => InputText(
-                title: 'Made In',
+                title: 'Xuất xứ',
                 controller: _madeInController,
                 errorText: snapshot.hasError ? snapshot.error : '',
                 inputType: TextInputType.text,
@@ -485,7 +378,7 @@ class _ProductAddingViewState extends State<ProductAddingView> {
             StreamBuilder(
               stream: _controller.quantityStream,
               builder: (context, snapshot) => InputText(
-                title: 'Quantity',
+                title: 'Số lượng',
                 controller: _quantityController,
                 errorText: snapshot.hasError ? snapshot.error : '',
                 inputType: TextInputType.number,
@@ -501,7 +394,7 @@ class _ProductAddingViewState extends State<ProductAddingView> {
                 controller: _descriptionController,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'Description',
+                  labelText: 'Mô tả',
                   focusColor: Colors.black,
                   labelStyle: kBoldTextStyle.copyWith(fontSize: FontSize.s30),
                   errorText: snapshot.hasError ? snapshot.error : null,
@@ -518,24 +411,23 @@ class _ProductAddingViewState extends State<ProductAddingView> {
           stream: _controller.btnLoadingStream,
           builder: (context, snapshot) {
             return CusRaisedButton(
-              title: 'Add Product',
+              title: 'Thêm sản phẩm',
               backgroundColor: kColorBlack,
               height: 100,
               isDisablePress: snapshot.hasData ? snapshot.data : true,
               onPress: () async {
                 bool result = await _controller.onAddProduct(
-                    productName: _nameController.text,
-                    imageList: images,
-                    category: subCategory,
-                    sizeList: sizeList,
-                    colorList: colorList,
-                    price: _priceController.text,
-                    salePrice: _salePriceController.text,
-                    brand: _brandController.text,
-                    madeIn: _madeInController.text,
-                    quantity: _quantityController.text,
-                    description: _descriptionController.text,
-                    sizeType: sizeTypeValue);
+                  productName: _nameController.text,
+                  imageList: images,
+                  category: subCategory,
+                  colorList: colorList,
+                  price: _priceController.text,
+                  salePrice: _salePriceController.text,
+                  brand: _brandController.text,
+                  madeIn: _madeInController.text,
+                  quantity: _quantityController.text,
+                  description: _descriptionController.text,
+                );
                 if (result) {
                   widget._scaffoldKey.currentState.showSnackBar(SnackBar(
                     backgroundColor: kColorWhite,
@@ -551,7 +443,7 @@ class _ProductAddingViewState extends State<ProductAddingView> {
                         ),
                         Expanded(
                           child: Text(
-                            'Product has been adding.',
+                            'Sản phẩm đã được thêm vào.',
                             style:
                                 kBoldTextStyle.copyWith(fontSize: FontSize.s28),
                           ),

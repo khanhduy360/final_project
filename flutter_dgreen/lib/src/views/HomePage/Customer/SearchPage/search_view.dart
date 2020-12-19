@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_dgreen/src/helpers/colors_constant.dart';
 import 'package:flutter_dgreen/src/helpers/screen.dart';
 import 'package:flutter_dgreen/src/model/product.dart';
@@ -9,6 +10,8 @@ import 'package:flutter_dgreen/src/views/HomePage/Customer/HomePage/ProductDetai
 import 'package:flutter_dgreen/src/views/HomePage/Customer/HomePage/product_list_view.dart';
 import 'package:flutter_dgreen/src/widgets/card_product.dart';
 import 'package:flutter_dgreen/src/widgets/category_item.dart';
+import 'package:speech_to_text/speech_to_text.dart' as stt;
+import 'package:avatar_glow/avatar_glow.dart';
 
 class SearchView extends StatefulWidget {
   @override
@@ -20,7 +23,16 @@ class _SearchViewState extends State<SearchView>
   List queryResultSet = [];
   List tempSearchStore = [];
   bool isSearch = false;
+  bool isVoiceSearch = false;
+  stt.SpeechToText _speech;
+  bool _isListening = false;
+
   TextEditingController textController = new TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+    _speech = stt.SpeechToText();
+  }
 
   //TODO: Search function
   searching(String value) {
@@ -33,19 +45,19 @@ class _SearchViewState extends State<SearchView>
     }
     var capitalizedValue =
         value.substring(0, 1).toUpperCase() + value.substring(1);
+
     if (queryResultSet.length == 0 && value.length == 1) {
-      Firestore.instance
+      FirebaseFirestore.instance
           .collection('Products')
           .where('search_key', isEqualTo: value.substring(0, 1).toUpperCase())
-          .getDocuments()
+          .get()
           .then((snapshot) {
-        for (var document in snapshot.documents) {
+        for (var document in snapshot.docs) {
           Product product = new Product(
             id: document['id'],
             productName: document['name'],
             imageList: document['image'],
             category: document['categogy'],
-            sizeList: document['size'],
             colorList: document['color'],
             price: document['price'],
             salePrice: document['sale_price'],
@@ -68,6 +80,47 @@ class _SearchViewState extends State<SearchView>
         if (element.productName.toString().startsWith(capitalizedValue)) {
           setState(() {
             tempSearchStore.add(element);
+          });
+        }
+      });
+    }
+  }
+
+//TODO: search voice function
+  voiceSearching(String value) {
+    if (value.length == 0) {
+      setState(() {
+        isVoiceSearch = false;
+        queryResultSet = [];
+        tempSearchStore = [];
+      });
+    }
+    if ((value != null && isVoiceSearch == false && _isListening == true) ||
+        isVoiceSearch == false && _isListening == true) {
+      FirebaseFirestore.instance
+          .collection('Products')
+          .where('name', isEqualTo: value)
+          .get()
+          .then((snapshot) {
+        for (var document in snapshot.docs) {
+          Product product = new Product(
+            id: document['id'],
+            productName: document['name'],
+            imageList: document['image'],
+            category: document['categogy'],
+            colorList: document['color'],
+            price: document['price'],
+            salePrice: document['sale_price'],
+            brand: document['brand'],
+            madeIn: document['made_in'],
+            quantityMain: document['quantity'],
+            quantity: '',
+            description: document['description'],
+            rating: document['rating'],
+          );
+          queryResultSet.add(product);
+          setState(() {
+            tempSearchStore = queryResultSet;
           });
         }
       });
@@ -119,63 +172,27 @@ class _SearchViewState extends State<SearchView>
       children: <Widget>[
         //TODO: Clothing
         ExpansionTile(
-          title: Text('CLOTHING',
+          title: Text('Trong nhà',
               style: TextStyle(
                   fontSize: FontSize.setTextSize(32),
                   fontWeight: FontWeight.w400)),
           children: <Widget>[
             CategoryItem(
-              title: 'Tees',
+              title: 'Sen đá',
               onTap: () {
-                navigatorTo('Tees');
+                navigatorTo('Sen');
               },
             ),
             CategoryItem(
-              title: 'Hoodies & Sweatshirts',
+              title: 'Xương rồng',
               onTap: () {
-                navigatorTo('Hoodies & Sweatshirts');
+                navigatorTo('Xương rồng');
               },
             ),
             CategoryItem(
-              title: 'Shirts',
+              title: 'Cỏ',
               onTap: () {
-                navigatorTo('Shirts');
-              },
-            ),
-            CategoryItem(
-              title: 'Jacket',
-              onTap: () {
-                navigatorTo('Jacket');
-              },
-            ),
-            CategoryItem(
-              title: 'Shorts',
-              onTap: () {
-                navigatorTo('Shorts');
-              },
-            ),
-            CategoryItem(
-              title: 'Pants',
-              onTap: () {
-                navigatorTo('Pants');
-              },
-            ),
-            CategoryItem(
-              title: 'Sweatpants',
-              onTap: () {
-                navigatorTo('Sweatpants');
-              },
-            ),
-            CategoryItem(
-              title: 'Jeans',
-              onTap: () {
-                navigatorTo('Jeans');
-              },
-            ),
-            CategoryItem(
-              title: 'Joggers',
-              onTap: () {
-                navigatorTo('Joggers');
+                navigatorTo('Cỏ');
               },
             ),
           ],
@@ -183,73 +200,47 @@ class _SearchViewState extends State<SearchView>
         //TODO: Shoes
         ExpansionTile(
           title: Text(
-            'SHOES',
+            'Ngoài trời',
             style: TextStyle(
                 fontSize: FontSize.setTextSize(32),
-                color: kColorBlack,
                 fontWeight: FontWeight.w400),
           ),
           children: <Widget>[
             CategoryItem(
-              title: 'Athletic Shoes',
+              title: 'Cao kiểng',
               onTap: () {
-                navigatorTo('Athletic Shoes');
+                navigatorTo('Cao kiểng');
               },
             ),
             CategoryItem(
-              title: 'Causual Shoes',
+              title: 'Hoa',
               onTap: () {
-                navigatorTo('Causual Shoes');
+                navigatorTo('Hoa');
               },
             ),
-            CategoryItem(
-              title: 'Sandals & Slides',
-              onTap: () {
-                navigatorTo('Sandals & Slides');
-              },
-            )
           ],
         ),
         //TODO: Accessories
         ExpansionTile(
           title: Text(
-            'ACCESSORIES',
+            'Chậu treo',
             style: TextStyle(
                 fontSize: FontSize.setTextSize(32),
-                color: kColorBlack,
                 fontWeight: FontWeight.w400),
           ),
           children: <Widget>[
             CategoryItem(
-              title: 'Hats',
+              title: 'Lan',
               onTap: () {
-                navigatorTo('Hats');
+                navigatorTo('Lan');
               },
             ),
             CategoryItem(
-              title: 'Backpacks',
+              title: 'Lan rừng',
               onTap: () {
-                navigatorTo('Backpacks');
+                navigatorTo('Lan rừng');
               },
             ),
-            CategoryItem(
-              title: 'Sunglasses',
-              onTap: () {
-                navigatorTo('Sunglasses');
-              },
-            ),
-            CategoryItem(
-              title: 'Belts',
-              onTap: () {
-                navigatorTo('Belts');
-              },
-            ),
-            CategoryItem(
-              title: 'Watches',
-              onTap: () {
-                navigatorTo('Watches');
-              },
-            )
           ],
         ),
       ],
@@ -269,72 +260,148 @@ class _SearchViewState extends State<SearchView>
   @override
   Widget build(BuildContext context) {
     ConstScreen.setScreen(context);
-    return GestureDetector(
-      onTap: () {
-        FocusScopeNode currentFocus = FocusScope.of(context);
-        if (!currentFocus.hasPrimaryFocus) {
-          currentFocus.unfocus();
-        }
-      },
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          // TODO: Search Bar
-          Expanded(
-            flex: 1,
-            child: Container(
-              decoration: BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(
-                    color: kColorBlack.withOpacity(0.6),
-                  ),
-                ),
-              ),
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                    vertical: ConstScreen.setSizeHeight(15),
-                    horizontal: ConstScreen.setSizeWidth(20)),
-                child: TextField(
-                  controller: textController,
-                  textAlignVertical: TextAlignVertical.center,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: kColorGreen,
+        automaticallyImplyLeading: false,
+        title: Text('Tìm kiếm'),
+        centerTitle: true,
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      floatingActionButton: AvatarGlow(
+        animate: _isListening,
+        glowColor: kColorGreen,
+        endRadius: 75.0,
+        duration: const Duration(milliseconds: 2000),
+        repeatPauseDuration: const Duration(milliseconds: 100),
+        repeat: true,
+        child: FloatingActionButton(
+          backgroundColor: kColorGreen,
+          onPressed: _listen,
+          child: Icon((_isListening) ? Icons.mic : Icons.mic_none),
+        ),
+      ),
+      body: SingleChildScrollView(
+        child: GestureDetector(
+          onTap: () {
+            FocusScopeNode currentFocus = FocusScope.of(context);
+            if (!currentFocus.hasPrimaryFocus) {
+              currentFocus.unfocus();
+            }
+          },
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              // TODO: Search Bar
+              Flexible(
+                flex: 1,
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(
                         color: kColorBlack.withOpacity(0.6),
                       ),
                     ),
-                    hintText: 'SEARCH',
-                    hintStyle: TextStyle(
-                        fontSize: FontSize.s30,
-                        color: kColorBlack,
-                        fontWeight: FontWeight.bold),
-                    // TODO: Search Button
-                    suffixIcon: Icon(
-                      Icons.search,
-                      color: kColorBlack.withOpacity(0.8),
-                      size: ConstScreen.setSizeWidth(45),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                        vertical: ConstScreen.setSizeHeight(15),
+                        horizontal: ConstScreen.setSizeWidth(20)),
+                    child: TextField(
+                      controller: textController,
+                      textAlignVertical: TextAlignVertical.center,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: kColorBlack.withOpacity(0.6),
+                          ),
+                        ),
+                        hintText: 'Nhập tên sản phẩm để tìm kiếm',
+                        hintStyle: TextStyle(
+                            fontSize: FontSize.s30,
+                            color: kColorBlack,
+                            fontWeight: FontWeight.w100),
+                        // TODO: Search Button
+                        suffixIcon: Icon(
+                          Icons.search,
+                          color: kColorBlack.withOpacity(0.8),
+                          size: ConstScreen.setSizeWidth(45),
+                        ),
+                      ),
+                      style:
+                          TextStyle(fontSize: FontSize.s30, color: kColorBlack),
+                      maxLines: 1,
+                      onChanged: (value) {
+                        searching(value);
+                        setState(() {
+                          isSearch = true;
+                        });
+                      },
                     ),
                   ),
-                  style: TextStyle(fontSize: FontSize.s30, color: kColorBlack),
-                  maxLines: 1,
-                  onChanged: (value) {
-                    searching(value);
-                    setState(() {
-                      isSearch = true;
-                    });
-                  },
                 ),
               ),
-            ),
+              //TODO: Category
+              Flexible(
+                flex: 9,
+                child: (isSearch || isVoiceSearch)
+                    ? searchingResult()
+                    : category(),
+              ),
+              // Text(
+              //   voiceSearch,
+              //   style: TextStyle(
+              //     fontSize: 32.0,
+              //     color: Colors.black,
+              //     fontWeight: FontWeight.w400,
+              //   ),
+              // ),
+            ],
           ),
-          //TODO: Category
-          Expanded(
-            flex: 9,
-            child: (isSearch) ? searchingResult() : category(),
-          )
-        ],
+        ),
       ),
     );
+  }
+
+  void _listen() async {
+    if (!_isListening) {
+      bool available = await _speech.initialize(
+        onStatus: (val) => print('onStatus: $val'),
+        onError: (val) => print('onError: $val'),
+      );
+
+      if (available) {
+        setState(() {
+          _isListening = true;
+          isVoiceSearch = false;
+          textController.text = '';
+
+          FocusScopeNode currentFocus = FocusScope.of(context);
+          if (!currentFocus.hasPrimaryFocus) {
+            currentFocus.unfocus();
+          }
+        });
+        _speech.listen(
+          onResult: (val) => setState(() {
+            textController.text =
+                val.recognizedWords.substring(0, 1).toUpperCase() +
+                    val.recognizedWords.substring(1);
+            print(textController.text);
+          }),
+        );
+        return voiceSearching(textController.text);
+      }
+    }
+
+    if (_isListening == true &&
+        // _isListening == true &&
+        voiceSearching(textController.text) != '') {
+      setState(() {
+        _isListening = false;
+        isVoiceSearch = true;
+      });
+      _speech.stop();
+    }
   }
 
   @override

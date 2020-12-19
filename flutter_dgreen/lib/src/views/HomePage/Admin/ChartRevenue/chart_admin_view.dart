@@ -30,7 +30,7 @@ class _AdminChartView extends State with SingleTickerProviderStateMixin {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          'Chart',
+          'Thống kê',
           style: kBoldTextStyle.copyWith(
             fontSize: FontSize.setTextSize(32),
           ),
@@ -50,7 +50,8 @@ class _AdminChartView extends State with SingleTickerProviderStateMixin {
                 size: ConstScreen.setSizeHeight(30),
               ),
               child: Text(
-                'Revenue',
+                'Doanh thu',
+                textAlign: TextAlign.center,
                 style: kBoldTextStyle.copyWith(fontSize: FontSize.s28),
               ),
             ),
@@ -60,7 +61,8 @@ class _AdminChartView extends State with SingleTickerProviderStateMixin {
                 size: ConstScreen.setSizeHeight(30),
               ),
               child: Text(
-                'Order & Bill',
+                'Hóa đơn',
+                textAlign: TextAlign.center,
                 style: kBoldTextStyle.copyWith(fontSize: FontSize.s28),
               ),
             ),
@@ -70,7 +72,8 @@ class _AdminChartView extends State with SingleTickerProviderStateMixin {
                 size: ConstScreen.setSizeHeight(30),
               ),
               child: Text(
-                'Price Volatility',
+                'Biến động giá',
+                textAlign: TextAlign.center,
                 style: kBoldTextStyle.copyWith(fontSize: FontSize.s28),
               ),
             )

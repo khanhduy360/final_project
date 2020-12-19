@@ -9,10 +9,11 @@ import 'package:flutter_dgreen/src/helpers/chat_const.dart';
 import 'package:flutter_dgreen/src/helpers/colors_constant.dart';
 import 'package:flutter_dgreen/src/helpers/screen.dart';
 import 'package:flutter_dgreen/src/helpers/shared_preferrence.dart';
+import 'package:flutter_dgreen/src/model/user.dart';
 import 'package:flutter_dgreen/src/widgets/message_bubble.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
 
-FirebaseUser loggedInUser;
+User loggedInUser;
 
 class ChatScreen extends StatefulWidget {
   ChatScreen({this.isAdmin = false, this.uidCustomer = '', this.type});
@@ -32,7 +33,7 @@ class _ChatScreenState extends State<ChatScreen>
   String uid = '';
   List<Asset> images = [];
   StreamController _controller = new StreamController();
-
+  Future<UserApp> userApp;
   void dispose() {
     super.dispose();
     _controller.close();
@@ -51,6 +52,7 @@ class _ChatScreenState extends State<ChatScreen>
       });
     }
     getCurrentUser();
+    userApp = getUser();
   }
 
   void getCurrentUser() async {
@@ -111,7 +113,7 @@ class _ChatScreenState extends State<ChatScreen>
     for (var value in asset) {
       String fileName = DateTime.now().millisecondsSinceEpoch.toString();
       Reference ref = FirebaseStorage.instance.ref().child(fileName);
-      ByteData byteData = await value.requestOriginal(quality: 70);
+      ByteData byteData = await value.getByteData(quality: 70);
       var imageData = byteData.buffer.asUint8List();
       uploadTask = ref.putData(imageData);
       String imageUrl;
@@ -151,7 +153,13 @@ class _ChatScreenState extends State<ChatScreen>
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) => FutureBuilder(
+        future: getUser(),
+        builder: (context, snapshot) =>
+            snapshot.hasData ? _buildWidget(snapshot.data) : const SizedBox(),
+      );
+  @override
+  Widget _buildWidget(UserApp userApp) {
     ConstScreen.setScreen(context);
     return GestureDetector(
       onTap: () {
@@ -186,9 +194,9 @@ class _ChatScreenState extends State<ChatScreen>
                 builder: (context, mainSnapshot) {
                   if (mainSnapshot.hasData) {
                     return StreamBuilder<QuerySnapshot>(
-                      stream: Firestore.instance
+                      stream: FirebaseFirestore.instance
                           .collection('Chat')
-                          .document(mainSnapshot.data)
+                          .doc(mainSnapshot.data)
                           .collection(mainSnapshot.data)
                           .orderBy('timestamp')
                           .snapshots(),
@@ -197,13 +205,13 @@ class _ChatScreenState extends State<ChatScreen>
                         if (!snapshot.hasData || !mainSnapshot.hasData) {
                           return Container();
                         }
-                        final messages = snapshot.data.documents.reversed;
+                        final messages = snapshot.data.docs.reversed;
                         messageBubbles = [];
                         for (var message in messages) {
                           final messageText = message.data()['text'];
                           final messageSender = message.data()['sender'];
                           final List<dynamic> images = message.data()['image'];
-                          final currentUser = loggedInUser.email;
+                          final currentUser = userApp.fullName;
 
                           final messageBubble = MessageBubble(
                             context: context,
@@ -251,10 +259,10 @@ class _ChatScreenState extends State<ChatScreen>
                       },
                       child: Padding(
                         padding: EdgeInsets.symmetric(
-                            horizontal: ConstScreen.setSizeWidth(15)),
+                            horizontal: ConstScreen.setSizeWidth(5)),
                         child: Icon(
                           Icons.image,
-                          color: kColorBlue,
+                          color: kColorGreen,
                           size: ConstScreen.setSizeHeight(50),
                         ),
                       ),
@@ -270,32 +278,37 @@ class _ChatScreenState extends State<ChatScreen>
                     ),
                     //TODO: sent message
                     FlatButton(
+                      padding: EdgeInsets.symmetric(
+                          vertical: 4.0,
+                          horizontal: 8.0), //adds padding inside the button
+                      materialTapTargetSize: MaterialTapTargetSize
+                          .shrinkWrap, //limits the touch area to the button area
                       onPressed: () async {
                         if (images.length != 0) {
                           List<String> listImages = await saveImage(images);
-                          Firestore.instance
+                          FirebaseFirestore.instance
                               .collection('Chat')
-                              .document(uid)
+                              .doc(uid)
                               .collection(uid)
                               .add({
                             'roomId': uid,
                             'text': messageText,
                             'is_admin': widget.isAdmin ? true : false,
-                            'sender': loggedInUser.email,
+                            'sender': userApp.fullName,
                             'image': listImages,
                             'timestamp':
                                 DateTime.now().toUtc().millisecondsSinceEpoch
                           });
                         } else {
-                          Firestore.instance
+                          FirebaseFirestore.instance
                               .collection('Chat')
-                              .document(uid)
+                              .doc(uid)
                               .collection(uid)
                               .add({
                             'roomId': uid,
                             'text': messageText,
                             'is_admin': widget.isAdmin ? true : false,
-                            'sender': loggedInUser.email,
+                            'sender': userApp.fullName,
                             'image': [],
                             'timestamp':
                                 DateTime.now().toUtc().millisecondsSinceEpoch
@@ -306,11 +319,7 @@ class _ChatScreenState extends State<ChatScreen>
                           images.clear();
                         });
                       },
-                      child: Text(
-                        'Send',
-                        style: kSendButtonTextStyle.copyWith(
-                            fontSize: FontSize.s36),
-                      ),
+                      child: Icon(Icons.send, size: 30, color: kColorGreen),
                     ),
                   ],
                 ),
@@ -322,6 +331,10 @@ class _ChatScreenState extends State<ChatScreen>
     );
   }
 
+  Future<UserApp> getUser() => Future.delayed(Duration(seconds: 1), () {
+        userApp = StorageUtil.getUserInfo();
+        return userApp;
+      });
   @override
   // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;

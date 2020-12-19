@@ -135,7 +135,7 @@ class ProductCard extends StatelessWidget {
                                   vertical: ConstScreen.setSizeHeight(5),
                                   horizontal: ConstScreen.setSizeHeight(10)),
                               child: AutoSizeText(
-                                'SOLD OUT',
+                                'Hết hàng',
                                 maxLines: 1,
                                 style: TextStyle(
                                     fontSize: FontSize.s27,

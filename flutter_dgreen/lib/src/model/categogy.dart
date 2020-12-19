@@ -1,25 +1,15 @@
 class Category {
-  static const List Clothing = [
-    'Tees',
-    'Hoodies & Sweatshirts',
-    'Shirts',
-    'Shorts',
-    'Jacket',
-    'Pants',
-    'Jeans',
-    'Joggers',
-    'Sweatpants',
+  static const List InSide = [
+    'Sen',
+    'Xương rồng',
+    'Cỏ',
   ];
-  static const List Shoes = [
-    ' Athletic Shoes',
-    'Causual Shoes',
-    'Sandals & Slides',
+  static const List OutSide = [
+    'Cao kiểng',
+    'Hoa',
   ];
-  static const List Accessories = [
-    'Hats',
-    'Backpacks',
-    'Sunglasses',
-    'Belts',
-    'Watches',
+  static const List Handing = [
+    'Lan',
+    'Lan rừng',
   ];
 }

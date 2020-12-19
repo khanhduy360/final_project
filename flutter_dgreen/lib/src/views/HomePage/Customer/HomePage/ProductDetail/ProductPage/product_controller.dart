@@ -14,31 +14,26 @@ class ProductController {
   //TODO: add product to cart
   addProductToCart({
     @required int color,
-    @required String size,
     @required Product product,
   }) async {
     _sizeStreamController.add('');
     int countError = 0;
-    if (size == null || size == '') {
-      _sizeStreamController.addError('Picking your clothing size.');
-      countError++;
-    }
+
     print(countError);
     //TODO: Add Product to Your Cart
     if (countError == 0) {
       String userUid = await StorageUtil.getUid();
       print(userUid);
-      await Firestore.instance
+      await FirebaseFirestore.instance
           .collection('Carts')
-          .document(userUid)
+          .doc(userUid)
           .collection(userUid)
-          .document(product.id)
-          .setData({
+          .doc(product.id)
+          .set({
         'id': product.id,
         'name': product.productName,
         'image': product.imageList[0],
         'categogy': product.category,
-        'size': size,
         'color': color,
         'price': product.price,
         'sale_price': product.salePrice,
@@ -57,12 +52,12 @@ class ProductController {
   //TODO Add product to Wish list
   addProductToWishlist({@required Product product}) async {
     String userUid = await StorageUtil.getUid();
-    await Firestore.instance
-        .collection('Wishlists')
-        .document(userUid)
+    await FirebaseFirestore.instance
+        .collection('WishLists')
+        .doc(userUid)
         .collection(userUid)
-        .document(product.id)
-        .setData({
+        .doc(product.id)
+        .set({
       'id': product.id,
       'create_at': DateTime.now().toString()
     }).catchError((onError) {

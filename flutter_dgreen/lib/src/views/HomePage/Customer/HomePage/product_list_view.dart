@@ -26,26 +26,26 @@ class _DetailBannerScreenState extends State<ProductListView> {
   getFirestoreSnapshot() {
     if (widget.search == 'sale') {
       setState(() {
-        title = 'SALE';
+        title = 'Giảm giá';
       });
-      return Firestore.instance
+      return FirebaseFirestore.instance
           .collection('Products')
           .where('sale_price', isGreaterThan: '0')
           .snapshots();
     } else if (widget.search != '') {
       setState(() {
-        title = 'SEARCHING';
+        title = 'Đang tìm';
       });
-      return Firestore.instance
+      return FirebaseFirestore.instance
           .collection('Products')
           .orderBy('create_at')
           .where('categogy', isEqualTo: widget.search)
           .snapshots();
     } else {
       setState(() {
-        title = 'NEW IN';
+        title = 'Mới nhập';
       });
-      return Firestore.instance
+      return FirebaseFirestore.instance
           .collection('Products')
           .orderBy('create_at')
           .snapshots();
@@ -58,15 +58,15 @@ class _DetailBannerScreenState extends State<ProductListView> {
     super.initState();
     if (widget.search == 'sale') {
       setState(() {
-        title = 'SALE';
+        title = 'Khuyến mãi';
       });
     } else if (widget.search != '') {
       setState(() {
-        title = 'SEARCH';
+        title = 'Tìm kiếm';
       });
     } else {
       setState(() {
-        title = 'NEW IN';
+        title = 'Mới nhập';
       });
     }
   }
@@ -82,12 +82,14 @@ class _DetailBannerScreenState extends State<ProductListView> {
           centerTitle: true,
           title: Text(
             title,
-            style: kBoldTextStyle.copyWith(fontSize: FontSize.s36),
+            style: kBoldTextStyle.copyWith(
+                fontSize: FontSize.s36, color: kColorGreen),
           ),
           actions: <Widget>[
             IconButton(
               icon: Icon(
                 FontAwesomeIcons.shoppingBag,
+                color: kColorGreen,
               ),
               onPressed: () {
                 StorageUtil.getIsLogging().then((bool value) {
@@ -160,8 +162,8 @@ class _DetailBannerScreenState extends State<ProductListView> {
                         crossAxisSpacing: ConstScreen.setSizeHeight(30),
                         mainAxisSpacing: ConstScreen.setSizeHeight(40),
                         childAspectRatio: 66 / 110,
-                        children: snapshot.data.documents
-                            .map((DocumentSnapshot document) {
+                        children:
+                            snapshot.data.docs.map((DocumentSnapshot document) {
                           return ProductCard(
                             productName: document['name'],
                             image: document['image'][0],
@@ -176,7 +178,6 @@ class _DetailBannerScreenState extends State<ProductListView> {
                                 productName: document['name'],
                                 imageList: document['image'],
                                 category: document['categogy'],
-                                sizeList: document['size'],
                                 colorList: document['color'],
                                 price: document['price'],
                                 salePrice: document['sale_price'],

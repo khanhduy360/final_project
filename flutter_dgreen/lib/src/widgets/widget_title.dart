@@ -22,11 +22,11 @@ class TitleWidget extends StatelessWidget {
             : MainAxisAlignment.start,
         children: <Widget>[
           Expanded(
-            flex: 4,
+            flex: 6,
             child: AutoSizeText(
               title,
               maxLines: 1,
-              minFontSize: 10,
+              minFontSize: 15,
               style: kBoldTextStyle.copyWith(
                   fontSize: FontSize.s30, color: kColorBlack.withOpacity(0.6)),
             ),

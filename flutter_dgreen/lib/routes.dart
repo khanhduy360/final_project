@@ -1,5 +1,6 @@
+import 'package:flutter_dgreen/src/views/HomePage/Admin/Bill/admin_bill_view.dart';
+
 import 'src/views/HomePage/Admin/Coupon/admin_coupon_view.dart';
-import 'src/views/HomePage/Admin/OrderAndSold/admin_bill_history_view.dart';
 import 'src/views/HomePage/Admin/Products/product_adding_view.dart';
 import 'src/views/HomePage/Admin/Products/product_manager_view.dart';
 import 'src/views/HomePage/Admin/Users/admin_user_manager.dart';
@@ -36,7 +37,8 @@ var routes = {
   'admin_home_product_adding': (context) => ProductAddingView(),
   'admin_user_manager': (context) => UserManagerView(),
   'admin_coupon_manager': (context) => CouponAdminView(),
-  'admin_bill_history_screen': (context) => AdminBillHistoryView(),
+
+  'admin_bill_view': (context) => AdminBillView(),
 
   //CUSTOMER HOME VIEW
   'customer_home_screen': (context) => CustomerHomeView(),

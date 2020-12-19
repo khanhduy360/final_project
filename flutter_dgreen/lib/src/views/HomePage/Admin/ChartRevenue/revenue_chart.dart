@@ -7,6 +7,7 @@ import 'package:flutter_dgreen/src/helpers/TextStyle.dart';
 import 'package:flutter_dgreen/src/helpers/colors_constant.dart';
 import 'package:flutter_dgreen/src/helpers/screen.dart';
 import 'package:flutter_dgreen/src/helpers/utils.dart';
+import 'package:validators/sanitizers.dart';
 
 class RevenueChart extends StatefulWidget {
   @override
@@ -14,28 +15,31 @@ class RevenueChart extends StatefulWidget {
 }
 
 class _RevenueChartState extends State<RevenueChart> {
-  DateTime yearPick;
   int totalSale = 0;
 
+  DateTime yearPick;
+  TextEditingController yController = TextEditingController();
+
   List<OrdinalSales> chartData = [
-    new OrdinalSales('Jan', 0),
-    new OrdinalSales('Feb', 0),
-    new OrdinalSales('Mar', 0),
-    new OrdinalSales('Apr', 0),
-    new OrdinalSales('May', 0),
-    new OrdinalSales('Jun', 0),
-    new OrdinalSales('Jul', 0),
-    new OrdinalSales('Aug', 0),
-    new OrdinalSales('Sep', 0),
-    new OrdinalSales('Oct', 0),
-    new OrdinalSales('Nov', 0),
-    new OrdinalSales('Dec', 0),
+    new OrdinalSales('1', 0),
+    new OrdinalSales('2', 0),
+    new OrdinalSales('3', 0),
+    new OrdinalSales('4', 0),
+    new OrdinalSales('5', 0),
+    new OrdinalSales('6', 0),
+    new OrdinalSales('7', 0),
+    new OrdinalSales('8', 0),
+    new OrdinalSales('9', 0),
+    new OrdinalSales('10', 0),
+    new OrdinalSales('11', 0),
+    new OrdinalSales('12', 0),
   ];
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+
     yearPick = DateTime.now();
     getDataForChart(yearPick.year);
   }
@@ -77,7 +81,7 @@ class _RevenueChartState extends State<RevenueChart> {
   getDataForChart(int year) {
     totalSale = 0;
     for (int index = 0; index < 12; index++) {
-      getTotalPerMonth(index + 1, year).then((total) {
+      getTotalPerMonth(index + 1, year.toInt()).then((total) {
         setState(() {
           totalSale += total;
           chartData.elementAt(index).sales = total;
@@ -104,7 +108,7 @@ class _RevenueChartState extends State<RevenueChart> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(
-                    'TOTAL: ',
+                    'Tổng thu: ',
                     style: kBoldTextStyle.copyWith(fontSize: FontSize.s30),
                     textAlign: TextAlign.center,
                   ),
@@ -151,11 +155,12 @@ class _RevenueChartState extends State<RevenueChart> {
               child: Row(
                 children: <Widget>[
                   SizedBox(
-                    width: ConstScreen.setSizeWidth(50),
+                    width: ConstScreen.setSizeWidth(10),
                   ),
                   Text(
-                    'Year Picker:',
+                    'Chọn năm:',
                     style: kBoldTextStyle.copyWith(fontSize: FontSize.s36),
+                    textAlign: TextAlign.start,
                   ),
                   //TODO: Year picker
                   Container(
@@ -175,7 +180,7 @@ class _RevenueChartState extends State<RevenueChart> {
                     ),
                   ),
                   Text(
-                    'CURRENT \n ${yearPick.year}',
+                    'Hiện là \n ${yearPick.year}',
                     style: kBoldTextStyle.copyWith(fontSize: FontSize.s30),
                     textAlign: TextAlign.center,
                   ),
@@ -185,6 +190,37 @@ class _RevenueChartState extends State<RevenueChart> {
           ),
         ],
       ),
+    );
+  }
+
+  yearPicker() {
+    final year = DateTime.now().year;
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(
+            'Chọn năm',
+            textAlign: TextAlign.center,
+          ),
+          content: Container(
+            height: MediaQuery.of(context).size.height / 4.0,
+            width: MediaQuery.of(context).size.width,
+            color: Colors.grey[200],
+            child: CalendarDatePicker(
+              initialDate: DateTime(year - 10),
+              firstDate: DateTime(year - 10),
+              lastDate: DateTime(year + 10),
+              initialCalendarMode: DatePickerMode.year,
+              onDateChanged: (value) {
+                yController.text = value.toString().substring(0, 4);
+                Navigator.of(context).pop();
+              },
+            ),
+          ),
+        );
+      },
     );
   }
 }

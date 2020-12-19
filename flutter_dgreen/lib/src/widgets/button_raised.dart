@@ -7,7 +7,7 @@ class CusRaisedButton extends StatefulWidget {
       {this.backgroundColor,
       @required this.title,
       this.onPress,
-      this.width = 650,
+      this.width = 710,
       this.height = 80,
       this.isDisablePress = true});
 
@@ -34,9 +34,9 @@ class _CusRaisedButtonState extends State<CusRaisedButton> {
               widget.title,
               style: TextStyle(
                   fontSize: FontSize.s27,
-                  color: (widget.backgroundColor == kColorBlack)
+                  color: (widget.backgroundColor == kColorBlue)
                       ? kColorWhite
-                      : kColorBlack),
+                      : kColorGreen),
             )
           : CircularProgressIndicator(
               backgroundColor: kColorWhite,

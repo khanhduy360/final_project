@@ -14,14 +14,11 @@ class ProfileView extends StatefulWidget {
 
 class _ProfileViewState extends State<ProfileView>
     with AutomaticKeepAliveClientMixin {
-  String uid = '';
+  String uid = 'ziplhAd2PYZeesSIpWb0aoTX1tt2';
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    StorageUtil.getUid().then((onValue) {
-      uid = onValue;
-    });
   }
 
   @override
@@ -34,7 +31,7 @@ class _ProfileViewState extends State<ProfileView>
         children: <Widget>[
           //TODO: Detail
           CusRaisedButton(
-            title: 'Detail',
+            title: 'Thông tin chi tiết',
             backgroundColor: kColorWhite,
             height: 100,
             onPress: () {
@@ -48,7 +45,7 @@ class _ProfileViewState extends State<ProfileView>
           ),
           //TODO: Change password
           CusRaisedButton(
-            title: 'Change Password',
+            title: 'Đổi mật khẩu',
             backgroundColor: kColorWhite,
             height: 100,
             onPress: () {
@@ -57,7 +54,7 @@ class _ProfileViewState extends State<ProfileView>
           ),
           //TODO: Order and bill
           CusRaisedButton(
-            title: 'Orders History',
+            title: 'Lịch sử đặt hàng',
             backgroundColor: kColorWhite,
             height: 100,
             onPress: () {
@@ -66,7 +63,7 @@ class _ProfileViewState extends State<ProfileView>
           ),
           //TODO: Bank Account
           CusRaisedButton(
-            title: 'Bank Account',
+            title: 'Tài khoản ngân hàng',
             backgroundColor: kColorWhite,
             height: 100,
             onPress: () {
@@ -75,8 +72,8 @@ class _ProfileViewState extends State<ProfileView>
           ),
           // TODO: Sign Out
           CusRaisedButton(
-            title: 'Sign out',
-            backgroundColor: kColorBlack,
+            title: 'Đăng xuất',
+            backgroundColor: kColorRed,
             height: 100,
             onPress: () {
               StorageUtil.clear();

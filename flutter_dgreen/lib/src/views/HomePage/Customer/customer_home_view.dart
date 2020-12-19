@@ -1,4 +1,6 @@
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_dgreen/src/helpers/TextStyle.dart';
 import 'package:flutter_dgreen/src/helpers/colors_constant.dart';
 import 'package:flutter_dgreen/src/helpers/screen.dart';
@@ -24,9 +26,10 @@ class _CustomerHomeViewState extends State<CustomerHomeView> {
     ChatScreen(),
     ProfileView(),
   ];
-  final tabsTitle = [' ', 'Search', 'Wishlist', 'Chat', 'Profile'];
+  final tabsTitle = [' ', 'Tìm kiếm', 'Yêu thích', 'Chat', 'Hồ sơ'];
   int indexScreen = 0;
   bool _isLogging;
+  String isUid = '';
   final pageController = PageController();
   final PageStorageBucket bucket = PageStorageBucket();
 
@@ -41,13 +44,16 @@ class _CustomerHomeViewState extends State<CustomerHomeView> {
         _isLogging = false;
       }
     });
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     ConstScreen.setScreen(context);
+
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: (indexScreen > 1)
           ? AppBar(
               automaticallyImplyLeading: false,
@@ -63,6 +69,7 @@ class _CustomerHomeViewState extends State<CustomerHomeView> {
                 IconButton(
                   icon: Icon(
                     FontAwesomeIcons.shoppingBag,
+                    color: kColorGreen,
                   ),
                   onPressed: () {
                     Navigator.pushNamed(context, 'customer_cart_page');
@@ -71,29 +78,59 @@ class _CustomerHomeViewState extends State<CustomerHomeView> {
               ],
             )
           : null,
-      body: SafeArea(
-          child: PageStorage(
-        bucket: bucket,
-        child: PageView(
-          controller: pageController,
-          onPageChanged: (index) {
-            if (!_isLogging && index > 1) {
-              pageController.jumpToPage(--index);
-            } else {
-              setState(() {
-                indexScreen = index;
-              });
-            }
-          },
-          children: tabsScreen,
+      body: AnnotatedRegion<SystemUiOverlayStyle>(
+        value: SystemUiOverlayStyle.light.copyWith(
+          statusBarColor: kColorGreen,
         ),
-      )),
-      bottomNavigationBar: BottomNavigationBar(
-        unselectedItemColor: Colors.grey.shade500,
-        selectedFontSize: 1,
-        unselectedFontSize: 1,
-        selectedItemColor: kColorBlack,
-        currentIndex: indexScreen,
+        child: SafeArea(
+            child: PageStorage(
+          bucket: bucket,
+          child: PageView(
+            controller: pageController,
+            onPageChanged: (index) {
+              if (!_isLogging && index > 1) {
+                pageController.jumpToPage(--index);
+              } else {
+                setState(() {
+                  indexScreen = index;
+                });
+              }
+            },
+            children: tabsScreen,
+          ),
+        )),
+      ),
+      bottomNavigationBar: CurvedNavigationBar(
+        index: indexScreen,
+        height: 50.0,
+        items: <Widget>[
+          Icon(
+            Icons.home,
+            size: ConstScreen.sizeXXL,
+            color: kColorGreen,
+          ),
+          Icon(FontAwesomeIcons.search,
+              size: ConstScreen.sizeXL, color: kColorOrange),
+          Icon(
+            Icons.favorite,
+            size: ConstScreen.sizeXL,
+            color: kColorRed,
+          ),
+          Icon(
+            Icons.chat,
+            size: ConstScreen.sizeXL,
+            color: kColorBlue,
+          ),
+          Icon(
+            FontAwesomeIcons.userAlt,
+            size: ConstScreen.sizeXL,
+          ),
+        ],
+        color: Colors.white,
+        buttonBackgroundColor: Colors.white,
+        backgroundColor: kColorGreen,
+        animationCurve: Curves.decelerate,
+        animationDuration: Duration(milliseconds: 600),
         onTap: (index) {
           print('onTap ' + _isLogging.toString());
           if (_isLogging == false && index > 1) {
@@ -105,39 +142,6 @@ class _CustomerHomeViewState extends State<CustomerHomeView> {
             });
           }
         },
-        items: [
-          BottomNavigationBarItem(
-              icon: Icon(
-                Icons.home,
-                size: ConstScreen.sizeXXL,
-              ),
-              title: Text('Home')),
-          BottomNavigationBarItem(
-              icon: Icon(
-                FontAwesomeIcons.search,
-                size: ConstScreen.sizeXL,
-              ),
-              title: Text('Search')),
-          BottomNavigationBarItem(
-              icon: Icon(
-                Icons.favorite,
-                size: ConstScreen.sizeXL,
-              ),
-              title: Text('Wishlist')),
-          BottomNavigationBarItem(
-              icon: Icon(
-                Icons.chat,
-                size: ConstScreen.sizeXL,
-              ),
-              title: Text('Chat')),
-          BottomNavigationBarItem(
-              icon: Icon(
-                FontAwesomeIcons.userAlt,
-                size: ConstScreen.sizeXL,
-              ),
-              title: Text('Profile')),
-        ],
-        type: BottomNavigationBarType.fixed,
       ),
     );
   }

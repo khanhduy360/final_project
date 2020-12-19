@@ -27,7 +27,7 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          'Change My Password',
+          'Thay đổi mật khẩu',
           style: kBoldTextStyle.copyWith(
             fontSize: FontSize.setTextSize(32),
           ),
@@ -48,7 +48,7 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
                 stream: _controller.currentPwdStream,
                 builder: (context, snapshot) {
                   return InputText(
-                    title: 'Current password',
+                    title: 'Mật khẩu hiện tại',
                     errorText: snapshot.hasError ? snapshot.error : '',
                     isPassword: true,
                     onValueChange: (value) {
@@ -64,7 +64,7 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
                 stream: _controller.newPwdStream,
                 builder: (context, snapshot) {
                   return InputText(
-                    title: 'New password',
+                    title: 'Mật khẩu mới',
                     errorText: snapshot.hasError ? snapshot.error : '',
                     isPassword: true,
                     onValueChange: (value) {
@@ -80,7 +80,7 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
                 stream: _controller.confirmPwdStream,
                 builder: (context, snapshot) {
                   return InputText(
-                    title: 'Confirm new password',
+                    title: 'Xác nhận mật khẩu',
                     errorText: snapshot.hasError ? snapshot.error : '',
                     isPassword: true,
                     onValueChange: (value) {
@@ -97,7 +97,7 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
                 builder: (context, snapshot) {
                   return CusRaisedButton(
                     title: 'Save',
-                    backgroundColor: kColorBlack,
+                    backgroundColor: kColorBlue,
                     isDisablePress: snapshot.hasData ? snapshot.data : true,
                     onPress: () async {
                       setState(() {

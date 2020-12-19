@@ -36,7 +36,7 @@ class DashboardBox extends StatelessWidget {
           ),
           child: Padding(
             padding: EdgeInsets.symmetric(
-                horizontal: ConstScreen.setSizeWidth(10),
+                horizontal: ConstScreen.setSizeWidth(5),
                 vertical: ConstScreen.setSizeHeight(5)),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,

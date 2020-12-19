@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dgreen/src/helpers/colors_constant.dart';
 import 'package:flutter_dgreen/src/helpers/font_constant.dart';
@@ -17,13 +18,14 @@ class RegisterView extends StatefulWidget {
 
 class _RegisterViewState extends State<RegisterView> {
   bool _isSignIn = true;
+
   @override
   Widget build(BuildContext context) {
     ConstScreen.setScreen(context);
     return Container(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: kColorGreen,
+          backgroundColor: Colors.green,
         ),
         body: Container(
           width: double.infinity,
@@ -53,7 +55,7 @@ class _RegisterViewState extends State<RegisterView> {
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: <Widget>[
                           Text(
-                            _isSignIn ? 'Sign In' : 'Register',
+                            _isSignIn ? 'Đăng nhập' : 'Đăng kí',
                             style: TextStyle(
                                 fontSize: FontSize.setTextSize(60),
                                 fontWeight: FontWeight.bold),
@@ -73,7 +75,7 @@ class _RegisterViewState extends State<RegisterView> {
                           ButtonNormal(
                             // hasSuffixIcon: true,
                             isBtnColor: false,
-                            text: _isSignIn ? 'REGISTER' : 'SIGN IN',
+                            text: _isSignIn ? 'ĐĂNG KÍ' : 'ĐĂNG NHẬP',
                             onPress: () {
                               setState(() {
                                 _isSignIn = !_isSignIn;
@@ -81,46 +83,9 @@ class _RegisterViewState extends State<RegisterView> {
                             },
                           ),
                           SizedBox(height: setHeightSize(size: 25)),
-                          RichText(
-                            textAlign: TextAlign.center,
-                            text: new TextSpan(
-                              style: new TextStyle(
-                                fontSize: setFontSize(size: 14.0),
-                                height: 1.5,
-                                fontFamily: kFontMontserrat,
-                                color: kColorGrey,
-                              ),
-                              children: [
-                                new TextSpan(
-                                  text: 'Hoặc đăng ký với',
-                                ),
-                                WidgetSpan(
-                                    child: Icon(
-                                  Icons.keyboard_arrow_right,
-                                  color: kColorGrey,
-                                  size: setFontSize(size: 16.0),
-                                )),
-                              ],
-                            ),
-                          ),
+
                           SizedBox(height: setHeightSize(size: 10)),
                           SizedBox(height: setHeightSize(size: 10)),
-                          Row(
-                            children: <Widget>[
-                              Expanded(
-                                child: ButtonSocialAuth(
-                                  onPress: () {},
-                                ),
-                              ),
-                              SizedBox(width: setWidthSize(size: 10)),
-                              Expanded(
-                                child: ButtonSocialAuth(
-                                  isFacebook: true,
-                                  onPress: () {},
-                                ),
-                              )
-                            ],
-                          ),
                         ],
                       ),
                     ),

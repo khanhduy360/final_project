@@ -27,7 +27,6 @@ class _ProductPageState extends State<ProductPage>
     with AutomaticKeepAliveClientMixin {
   ProgressDialog pr;
   bool _isLogging = false;
-  List _sizeList = ['S', 'M', 'L', 'XL'];
   bool _isLoveCheck = false;
   bool _isAddBtnPress = true;
   int _isColorFocus = 1;
@@ -38,7 +37,6 @@ class _ProductPageState extends State<ProductPage>
   int _indexPage = 1;
   //TODO: value
   int colorValue;
-  String sizeValue;
 
   @override
   void initState() {
@@ -53,7 +51,7 @@ class _ProductPageState extends State<ProductPage>
       _listColorPicker.add(ColorInfo(id: i, color: Color(value)));
       i++;
     }
-    _sizeList = widget.product.sizeList;
+
     colorValue = _listColorPicker.elementAt(0).color.value;
 
     StorageUtil.getIsLogging().then((bool value) {
@@ -68,11 +66,11 @@ class _ProductPageState extends State<ProductPage>
   //TODO: Check isCheckWishList
   getIsCheckWishlist() async {
     String userUid = await StorageUtil.getUid();
-    final snapShot = await Firestore.instance
-        .collection('Wishlists')
-        .document(userUid)
+    final snapShot = await FirebaseFirestore.instance
+        .collection('WishLists')
+        .doc(userUid)
         .collection(userUid)
-        .document(widget.product.id)
+        .doc(widget.product.id)
         .get();
     bool isExists = snapShot.exists;
     if (isExists) {
@@ -170,7 +168,7 @@ class _ProductPageState extends State<ProductPage>
                     Navigator.pop(context);
                   },
                   icon: Icon(Icons.arrow_back_ios,
-                      size: ConstScreen.setSizeWidth(40)),
+                      color: kColorWhite, size: ConstScreen.setSizeWidth(40)),
                 ),
               ),
               //TODO: Wistlist IconButton
@@ -204,7 +202,7 @@ class _ProductPageState extends State<ProductPage>
                                   ),
                                   Expanded(
                                     child: Text(
-                                      'Product has been add to Wishlist.',
+                                      'Sản phẩm đã thêm vào Yêu thích.',
                                       style: kBoldTextStyle.copyWith(
                                           fontSize: FontSize.s28),
                                     ),
@@ -221,7 +219,7 @@ class _ProductPageState extends State<ProductPage>
                   },
                   icon: Icon(
                     _isLoveCheck ? Icons.favorite : Icons.favorite_border,
-                    color: _isLoveCheck ? kColorRed : kColorBlack,
+                    color: _isLoveCheck ? kColorRed : kColorWhite,
                     size: ConstScreen.setSizeHeight(60),
                   ),
                 ),
@@ -289,48 +287,13 @@ class _ProductPageState extends State<ProductPage>
                   SizedBox(
                     height: ConstScreen.setSizeHeight(5),
                   ),
-                  //TODO: Color and Size Picker
+                  //TODO: Color
                   Row(
                     children: <Widget>[
                       Expanded(
                         flex: 4,
                         child: renderColorBar(),
                       ),
-                      Expanded(
-                        flex: 2,
-                        child: StreamBuilder(
-                            stream: _controller.sizeStream,
-                            builder: (context, snapshot) {
-                              return DropdownButton(
-                                isExpanded: true,
-                                style: TextStyle(fontSize: FontSize.s30),
-                                value: sizeValue,
-                                hint: (snapshot.hasError)
-                                    ? Text(
-                                        snapshot.error,
-                                        style: kBoldTextStyle.copyWith(
-                                            color: kColorRed),
-                                      )
-                                    : Text('Select size'),
-                                onChanged: (value) {
-                                  setState(() {
-                                    sizeValue = value;
-                                  });
-                                },
-                                items: _sizeList.map((value) {
-                                  return DropdownMenuItem(
-                                    child: Text(
-                                      'Size ' + value,
-                                      style: TextStyle(
-                                          color: kColorBlack,
-                                          fontSize: FontSize.s30),
-                                    ),
-                                    value: value,
-                                  );
-                                }).toList(),
-                              );
-                            }),
-                      )
                     ],
                   ),
                   SizedBox(
@@ -340,8 +303,8 @@ class _ProductPageState extends State<ProductPage>
                   _isSoldOut
                       ? soldOutWidget()
                       : CusRaisedButton(
-                          title: 'ADD',
-                          backgroundColor: kColorBlack,
+                          title: 'Thêm vào giỏ',
+                          backgroundColor: kColorBlue,
                           isDisablePress: _isAddBtnPress,
                           onPress: () async {
                             //TODO: check logging
@@ -353,7 +316,6 @@ class _ProductPageState extends State<ProductPage>
                               await _controller
                                   .addProductToCart(
                                       color: colorValue,
-                                      size: sizeValue,
                                       product: widget.product)
                                   .then((isComplete) {
                                 if (isComplete != null) {
@@ -372,7 +334,7 @@ class _ProductPageState extends State<ProductPage>
                                           ),
                                           Expanded(
                                             child: Text(
-                                              'Product has been add to Your Cart.',
+                                              'Sản phẩm đã được thêm vào giỏ hàng.',
                                               style: kBoldTextStyle.copyWith(
                                                   fontSize: FontSize.s28),
                                             ),
@@ -395,7 +357,7 @@ class _ProductPageState extends State<ProductPage>
                                           ),
                                           Expanded(
                                             child: Text(
-                                              'Added error.',
+                                              'Lỗi.',
                                               style: kBoldTextStyle.copyWith(
                                                   fontSize: FontSize.s28),
                                             ),
@@ -425,7 +387,7 @@ class _ProductPageState extends State<ProductPage>
 
   Widget soldOutWidget() {
     return CusRaisedButton(
-      title: 'SOLD OUT',
+      title: 'Hết hàng',
       backgroundColor: kColorRed,
       onPress: () {},
     );

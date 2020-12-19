@@ -39,33 +39,32 @@ class _OrderChartState extends State<OrderChart>
 
   //TODO: get Total order
   Future<OrderState> getOrderState(int year) async {
-    var pending = await Firestore.instance
+    var pending = await FirebaseFirestore.instance
         .collection('Orders')
         .where('status', isEqualTo: 'Pending')
         .where('year', isEqualTo: year)
-        .getDocuments();
-    var cancelled = await Firestore.instance
+        .get();
+    var cancelled = await FirebaseFirestore.instance
         .collection('Orders')
         .where('status', isEqualTo: 'Canceled')
         .where('year', isEqualTo: year)
-        .getDocuments();
-    var completed = await Firestore.instance
+        .get();
+    var completed = await FirebaseFirestore.instance
         .collection('Orders')
         .where('status', isEqualTo: 'Completed')
         .where('year', isEqualTo: year)
-        .getDocuments();
+        .get();
     setState(() {
-      totalOrder = pending.documents.length +
-          cancelled.documents.length +
-          completed.documents.length;
-      this.pending = pending.documents.length;
-      this.cancelled = cancelled.documents.length;
-      this.completed = completed.documents.length;
+      totalOrder =
+          pending.docs.length + cancelled.docs.length + completed.docs.length;
+      this.pending = pending.docs.length;
+      this.cancelled = cancelled.docs.length;
+      this.completed = completed.docs.length;
     });
     return OrderState(
-        pending: pending.documents.length,
-        cancelled: cancelled.documents.length,
-        completed: completed.documents.length);
+        pending: pending.docs.length,
+        cancelled: cancelled.docs.length,
+        completed: completed.docs.length);
   }
 
   @override
@@ -109,6 +108,7 @@ class _OrderChartState extends State<OrderChart>
                               sectionsSpace: 0,
                               centerSpaceRadius: 40,
                               sections: showingSections(snapshot.data)),
+                          swapAnimationDuration: Duration(milliseconds: 1500),
                         );
                       } else {
                         return Center(child: CircularProgressIndicator());
@@ -122,12 +122,12 @@ class _OrderChartState extends State<OrderChart>
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    'Total Order & Bill: $totalOrder',
+                    'Tổng đơn: $totalOrder',
                     style: kBoldTextStyle.copyWith(fontSize: FontSize.s30),
                   ),
                   Indicator(
                     color: Color(0xff0293ee),
-                    text: 'Pending',
+                    text: 'Đang chờ',
                     isSquare: true,
                     value: pending,
                   ),
@@ -136,7 +136,7 @@ class _OrderChartState extends State<OrderChart>
                   ),
                   Indicator(
                     color: Colors.redAccent,
-                    text: 'Cancelled',
+                    text: 'Đã bị hủy',
                     isSquare: true,
                     value: cancelled,
                   ),
@@ -145,7 +145,7 @@ class _OrderChartState extends State<OrderChart>
                   ),
                   Indicator(
                     color: Color(0xff13d38e),
-                    text: 'Completed',
+                    text: 'Hoàn thành',
                     isSquare: true,
                     value: completed,
                   ),
@@ -170,7 +170,7 @@ class _OrderChartState extends State<OrderChart>
                 width: ConstScreen.setSizeWidth(50),
               ),
               Text(
-                'Year Picker:',
+                'Chọn năm:',
                 style: kBoldTextStyle.copyWith(fontSize: FontSize.s36),
               ),
               //TODO: Year picker
@@ -193,7 +193,7 @@ class _OrderChartState extends State<OrderChart>
                 ),
               ),
               Text(
-                'CURRENT \n ${yearPick.year}',
+                'Hiện là \n ${yearPick.year}',
                 style: kBoldTextStyle.copyWith(fontSize: FontSize.s30),
                 textAlign: TextAlign.center,
               ),
@@ -224,8 +224,8 @@ class _OrderChartState extends State<OrderChart>
           //TODO: Completed
           return PieChartSectionData(
             color: const Color(0xff0293ee),
-            value: completed,
-            title: '${completed.toStringAsFixed(2)}%',
+            value: pending,
+            title: '${pending.toStringAsFixed(2)}%',
             radius: radius,
             titleStyle: TextStyle(
                 fontSize: fontSize,
@@ -248,8 +248,8 @@ class _OrderChartState extends State<OrderChart>
         case 2:
           return PieChartSectionData(
             color: Color(0xff13d38e),
-            value: pending,
-            title: '${pending.toStringAsFixed(2)}%',
+            value: completed,
+            title: '${completed.toStringAsFixed(2)}%',
             radius: radius,
             titleStyle: TextStyle(
                 fontSize: fontSize,

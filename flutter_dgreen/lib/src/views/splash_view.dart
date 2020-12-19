@@ -50,7 +50,7 @@ class _SplashViewState extends State<SplashView> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              new IconInstacop(
+              new IconDgreen(
                 textSize: FontSize.setTextSize(80),
               ),
             ],

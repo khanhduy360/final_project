@@ -2,6 +2,7 @@ class UserApp {
   String fullName;
   String username;
   String password;
+  String avatar;
   String gender;
   String birthday;
   String phone;
@@ -19,12 +20,14 @@ class UserApp {
       this.address,
       this.create_at,
       this.id_scripe,
-      this.type);
+      this.type,
+      this.avatar);
 
   UserApp.fromJson(Map<String, dynamic> json) {
     fullName = json['fullName'];
     username = json['username'];
     password = json['password'];
+    avatar = json['avatar'];
     gender = json['gender'];
     birthday = json['birthday'];
     phone = json['phone'];
@@ -40,6 +43,7 @@ class UserApp {
     data['username'] = username;
     data['password'] = password;
     data['gender'] = gender;
+    data['avatar'] = avatar;
     data['birthday'] = birthday;
     data['phone'] = phone;
     data['address'] = address;

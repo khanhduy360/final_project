@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dgreen/src/component/textline_between.dart';
 import 'package:flutter_dgreen/src/helpers/TextStyle.dart';
 import 'package:flutter_dgreen/src/helpers/colors_constant.dart';
 import 'package:flutter_dgreen/src/helpers/screen.dart';
@@ -41,136 +42,59 @@ class OrderCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               // TODO: Order id
-              AutoSizeText.rich(
-                TextSpan(
-                  style: kBoldTextStyle.copyWith(
-                    fontSize: FontSize.s30,
-                  ),
-                  children: [
-                    TextSpan(
-                      text: 'Order Id: ',
-                    ),
-                    TextSpan(
-                      text: id,
-                      style: kNormalTextStyle.copyWith(
-                        fontSize: FontSize.s30,
-                      ),
-                    ),
-                  ],
-                ),
+              TextLineBetween(
+                label: 'ID:',
+                content: id,
+                contentStyle: kNormalTextStyle,
               ),
               SizedBox(
                 height: ConstScreen.setSizeHeight(10),
               ),
               //TODO: Order date
-              AutoSizeText.rich(
-                TextSpan(
-                  style: kBoldTextStyle.copyWith(
-                    fontSize: FontSize.s30,
-                  ),
-                  children: [
-                    TextSpan(
-                      text: 'Order Date: ',
-                    ),
-                    TextSpan(
-                      text: date,
-                      style: kNormalTextStyle.copyWith(
-                        fontSize: FontSize.s30,
-                      ),
-                    ),
-                  ],
-                ),
+
+              TextLineBetween(
+                label: 'Ngày duyệt',
+                content: date,
+                contentStyle: kNormalTextStyle,
               ),
               SizedBox(
                 height: ConstScreen.setSizeHeight(10),
               ),
               //TODO: Admin
-              AutoSizeText.rich(
-                TextSpan(
-                  style: kBoldTextStyle.copyWith(
-                    fontSize: FontSize.s30,
-                  ),
-                  children: [
-                    TextSpan(
-                      text: 'Admin: ',
-                    ),
-                    TextSpan(
-                      text: admin,
-                      style: kNormalTextStyle.copyWith(
-                        fontSize: FontSize.s30,
-                      ),
-                    ),
-                  ],
-                ),
+
+              TextLineBetween(
+                label: 'Người duyệt',
+                content: admin,
+                contentStyle: kNormalTextStyle,
               ),
               SizedBox(
                 height: ConstScreen.setSizeHeight(10),
               ),
               //TODO:Customer's Name
-              AutoSizeText.rich(
-                TextSpan(
-                  style: kBoldTextStyle.copyWith(
-                    fontSize: FontSize.s30,
-                  ),
-                  children: [
-                    TextSpan(
-                      text: 'Customer: ',
-                    ),
-                    TextSpan(
-                      text: customerName,
-                      style: kNormalTextStyle.copyWith(
-                        fontSize: FontSize.s30,
-                      ),
-                    ),
-                  ],
-                ),
+              TextLineBetween(
+                label: 'Khách hàng',
+                content: customerName,
+                contentStyle: kNormalTextStyle,
               ),
               SizedBox(
                 height: ConstScreen.setSizeHeight(10),
               ),
               // TODO: Status
-              AutoSizeText.rich(
-                TextSpan(
-                  style: kBoldTextStyle.copyWith(
-                    fontSize: FontSize.s30,
-                  ),
-                  children: [
-                    TextSpan(
-                      text: 'Status: ',
-                    ),
-                    TextSpan(
-                      text: status,
-                      style: kNormalTextStyle.copyWith(
-                        color: (status != 'Pending')
-                            ? (status == 'Canceled' ? kColorRed : kColorGreen)
-                            : kColorBlack,
-                        fontSize: FontSize.s30,
-                      ),
-                    ),
-                  ],
-                ),
+
+              TextLineBetween(
+                label: 'Trạng thái',
+                content: status,
+                contentStyle: kNormalTextStyle.copyWith(
+                    color: status == 'Completed' ? kColorGreen : kColorRed),
               ),
               SizedBox(
                 height: ConstScreen.setSizeHeight(10),
               ),
               //TODO: Total price
-              AutoSizeText.rich(
-                TextSpan(
-                  style: kBoldTextStyle.copyWith(
-                    fontSize: FontSize.s30,
-                  ),
-                  children: [
-                    TextSpan(
-                      text: 'Total: ',
-                    ),
-                    TextSpan(
-                      text: '$total VND',
-                      style: kNormalTextStyle.copyWith(
-                        fontSize: FontSize.s30,
-                      ),
-                    ),
-                  ],
-                ),
+              TextLineBetween(
+                label: 'Giá ',
+                content: '$total VNĐ',
+                contentStyle: kNormalTextStyle,
               ),
               //TODO: ViewDetail and CancelOrder
               SizedBox(
@@ -192,7 +116,7 @@ class OrderCard extends StatelessWidget {
                           width: ConstScreen.setSizeWidth(7),
                         ),
                         Text(
-                          'VIEW DETAIL',
+                          'Xem chi tiết',
                           style: kBoldTextStyle.copyWith(
                               color: kColorBlue, fontSize: FontSize.s28),
                         ),
@@ -209,7 +133,7 @@ class OrderCard extends StatelessWidget {
                         Icon(
                           Icons.close,
                           color: isEnableCancel
-                              ? kColorBlue
+                              ? kColorRed
                               : kColorBlack.withOpacity(0.7),
                           size: ConstScreen.setSizeWidth(30),
                         ),
@@ -217,10 +141,10 @@ class OrderCard extends StatelessWidget {
                           width: ConstScreen.setSizeWidth(7),
                         ),
                         Text(
-                          'CANCEL',
+                          'Hủy',
                           style: kBoldTextStyle.copyWith(
                               color: isEnableCancel
-                                  ? kColorBlue
+                                  ? kColorRed
                                   : kColorBlack.withOpacity(0.7),
                               fontSize: FontSize.s28),
                         ),

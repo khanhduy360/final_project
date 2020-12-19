@@ -38,7 +38,7 @@ class Indicator extends StatelessWidget {
               width: 4,
             ),
             Text(
-              text,
+              '$text: $value',
               style: TextStyle(
                   fontSize: FontSize.s30,
                   fontWeight: FontWeight.bold,
@@ -47,7 +47,7 @@ class Indicator extends StatelessWidget {
           ],
         ),
         Text(
-          'Total: $value',
+          'Số lượng: $value',
           style: TextStyle(
               fontSize: FontSize.s27,
               fontWeight: FontWeight.normal,

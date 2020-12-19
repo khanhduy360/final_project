@@ -50,7 +50,7 @@ class DashboardCard extends StatelessWidget {
                         style: kBoldTextStyle.copyWith(
                             fontSize: FontSize.s36, color: color),
                         maxLines: 1,
-                        minFontSize: 10,
+                        minFontSize: 20,
                       ),
                       SizedBox(
                         height: ConstScreen.setSizeHeight(10),

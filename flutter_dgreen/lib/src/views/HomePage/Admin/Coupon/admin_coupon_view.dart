@@ -31,7 +31,7 @@ class _CouponAdminViewState extends State<CouponAdminView>
         backgroundColor: kColorWhite,
         // TODO: Quantity Items
         title: Text(
-          'Coupon List',
+          'Quản lí mã khuyến mãi',
           style: TextStyle(
               color: kColorBlack,
               fontSize: FontSize.setTextSize(32),
@@ -51,7 +51,7 @@ class _CouponAdminViewState extends State<CouponAdminView>
                 size: ConstScreen.setSizeHeight(30),
               ),
               child: Text(
-                'Private',
+                'Cá Nhân',
                 style: kBoldTextStyle.copyWith(fontSize: FontSize.s28),
               ),
             ),
@@ -61,7 +61,7 @@ class _CouponAdminViewState extends State<CouponAdminView>
                 size: ConstScreen.setSizeHeight(30),
               ),
               child: Text(
-                'Global',
+                'Chung',
                 style: kBoldTextStyle.copyWith(fontSize: FontSize.s28),
               ),
             )

@@ -75,7 +75,7 @@ class RatingComment extends StatelessWidget {
                           width: ConstScreen.setSizeWidth(20),
                         ),
                         (!isAdmin)
-                            ? RatingBar(
+                            ? RatingBar.builder(
                                 allowHalfRating: true,
                                 initialRating: ratingPoint,
                                 itemCount: 5,

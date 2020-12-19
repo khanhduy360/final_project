@@ -75,7 +75,7 @@ class _RatingProductPageState extends State<RatingProductPage>
                         StreamBuilder(
                             stream: _controller.averageStream,
                             builder: (context, snapshot) {
-                              return RatingBar(
+                              return RatingBar.builder(
                                 allowHalfRating: true,
                                 initialRating:
                                     snapshot.hasData ? snapshot.data : 0,
@@ -96,8 +96,8 @@ class _RatingProductPageState extends State<RatingProductPage>
                             builder: (context, snapshot) {
                               return Text(
                                 snapshot.hasData
-                                    ? '${snapshot.data} Reviews'
-                                    : '0 Reviews',
+                                    ? '${snapshot.data} Đánh giá'
+                                    : '0 Đánh giá',
                                 style: TextStyle(
                                     fontSize: FontSize.s30,
                                     fontWeight: FontWeight.bold),
@@ -146,7 +146,7 @@ class _RatingProductPageState extends State<RatingProductPage>
                                                   Expanded(
                                                     flex: 1,
                                                     child: Text(
-                                                      'Rating:',
+                                                      'Điểm:',
                                                       style: TextStyle(
                                                           fontSize:
                                                               FontSize.s36,
@@ -157,7 +157,7 @@ class _RatingProductPageState extends State<RatingProductPage>
                                                   Expanded(
                                                     flex: 3,
                                                     child: Center(
-                                                      child: RatingBar(
+                                                      child: RatingBar.builder(
                                                         itemCount: 5,
                                                         onRatingUpdate:
                                                             (value) {
@@ -187,7 +187,7 @@ class _RatingProductPageState extends State<RatingProductPage>
                                             ),
                                             // Comment
                                             Text(
-                                              'Comment:',
+                                              'Bình luận:',
                                               style: TextStyle(
                                                   fontSize: FontSize.s36,
                                                   fontWeight: FontWeight.bold),
@@ -233,7 +233,7 @@ class _RatingProductPageState extends State<RatingProductPage>
                                                   //TODO: Save Button
                                                   Expanded(
                                                     child: CusRaisedButton(
-                                                      title: 'ADD',
+                                                      title: 'Thêm',
                                                       isDisablePress: true,
                                                       onPress: () {
                                                         StorageUtil
@@ -269,7 +269,7 @@ class _RatingProductPageState extends State<RatingProductPage>
                                                   // Button Add
                                                   Expanded(
                                                     child: CusRaisedButton(
-                                                      title: 'CANCEL',
+                                                      title: 'Hủy',
                                                       onPress: () {
                                                         Navigator.pop(context);
                                                       },
@@ -300,7 +300,7 @@ class _RatingProductPageState extends State<RatingProductPage>
           Expanded(
             flex: 9,
             child: StreamBuilder<QuerySnapshot>(
-                stream: Firestore.instance
+                stream: FirebaseFirestore.instance
                     .collection('Comments')
                     .orderBy('create_at')
                     .where('product_id', isEqualTo: widget.productId)
@@ -313,7 +313,7 @@ class _RatingProductPageState extends State<RatingProductPage>
                     // snapshot.data.documents.length.toDouble();
                     double ratingPoint = 0;
 
-                    for (var rating in snapshot.data.documents) {
+                    for (var rating in snapshot.data.docs) {
                       if (rating['type'] == 'customer') {
                         totalReview++;
                         ratingPoint += rating['point'];
@@ -321,8 +321,8 @@ class _RatingProductPageState extends State<RatingProductPage>
                     }
                     _controller.setTotalReview(totalReview.toInt());
                     _controller.setAveragePoint(ratingPoint / totalReview);
-                    commentList = snapshot.data.documents
-                        .map((DocumentSnapshot document) {
+                    commentList =
+                        snapshot.data.docs.map((DocumentSnapshot document) {
                       return RatingComment(
                         username: document['name'],
                         isAdmin: (document['type'] == 'admin'),
@@ -332,9 +332,9 @@ class _RatingProductPageState extends State<RatingProductPage>
                             Util.convertDateToFullString(document['create_at']),
                         isCanDelete: widget.isAdmin,
                         onDelete: () {
-                          Firestore.instance
+                          FirebaseFirestore.instance
                               .collection('Comments')
-                              .document(document.documentID)
+                              .doc(document.id)
                               .delete();
                           setState(() {});
                         },

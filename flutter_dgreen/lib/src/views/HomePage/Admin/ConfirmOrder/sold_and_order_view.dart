@@ -30,7 +30,7 @@ class _SoldAndOrderViewState extends State<SoldAndOrderView> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    if (widget.title == 'Order List') {
+    if (widget.title == 'Đơn hàng') {
       isOrderPage = true;
     } else {
       isOrderPage = false;
@@ -69,19 +69,19 @@ class _SoldAndOrderViewState extends State<SoldAndOrderView> {
               if (mainSnapshot.hasData) {
                 return StreamBuilder<QuerySnapshot>(
                     stream: isOrderPage
-                        ? Firestore.instance
+                        ? FirebaseFirestore.instance
                             .collection('Orders')
                             .orderBy('create_at')
                             .where('status', isEqualTo: 'Pending')
                             .snapshots()
-                        : Firestore.instance
+                        : FirebaseFirestore.instance
                             .collection('Orders')
                             .where('status', isLessThan: 'Pending')
                             .snapshots(),
                     builder: (context, snapshot) {
                       if (mainSnapshot.hasData && snapshot.hasData) {
                         return ListView(
-                          children: snapshot.data.documents
+                          children: snapshot.data.docs
                               .map((DocumentSnapshot document) {
                             OrderInfo orderInfo = new OrderInfo(
                                 id: document['id'],
@@ -130,18 +130,18 @@ class _SoldAndOrderViewState extends State<SoldAndOrderView> {
                                   if (result) {
                                     String adminName =
                                         await StorageUtil.geFullName();
-                                    Firestore.instance
+                                    FirebaseFirestore.instance
                                         .collection('Orders')
-                                        .document(document['sub_Id'])
-                                        .updateData({
+                                        .doc(document['sub_Id'])
+                                        .update({
                                       'status': 'Completed',
                                       'description': '',
                                       'admin': adminName
                                     });
                                     //TODO: delete coupon
-                                    Firestore.instance
+                                    FirebaseFirestore.instance
                                         .collection('Orders')
-                                        .document(document['couponId'])
+                                        .doc(document['couponId'])
                                         .delete();
                                     setState(() {});
                                   } else {
@@ -161,7 +161,7 @@ class _SoldAndOrderViewState extends State<SoldAndOrderView> {
                                           ),
                                           Expanded(
                                             child: Text(
-                                              'Invalid Bank Cards.',
+                                              'Thẻ ngân hàng không có hiệu lực.',
                                               style: kBoldTextStyle.copyWith(
                                                   fontSize: FontSize.s28),
                                             ),
@@ -196,7 +196,7 @@ class _SoldAndOrderViewState extends State<SoldAndOrderView> {
                                                     flex: 1,
                                                     child: Center(
                                                       child: Text(
-                                                        'Cancel Order',
+                                                        'Xóa đơn',
                                                         style: kBoldTextStyle
                                                             .copyWith(
                                                                 fontSize:
@@ -222,8 +222,7 @@ class _SoldAndOrderViewState extends State<SoldAndOrderView> {
                                                                     fontSize:
                                                                         FontSize
                                                                             .s25),
-                                                            hintText:
-                                                                'Description',
+                                                            hintText: 'Mô tả',
                                                             border:
                                                                 OutlineInputBorder(),
                                                             labelStyle: kBoldTextStyle
@@ -255,20 +254,20 @@ class _SoldAndOrderViewState extends State<SoldAndOrderView> {
                                                           flex: 1,
                                                           child:
                                                               CusRaisedButton(
-                                                            title: 'ACCEPT',
+                                                            title: 'Nhận đơn',
                                                             backgroundColor:
                                                                 kColorBlack,
                                                             onPress: () async {
                                                               String adminName =
                                                                   await StorageUtil
                                                                       .geFullName();
-                                                              Firestore.instance
+                                                              FirebaseFirestore
+                                                                  .instance
                                                                   .collection(
                                                                       'Orders')
-                                                                  .document(
-                                                                      document[
-                                                                          'sub_Id'])
-                                                                  .updateData({
+                                                                  .doc(document[
+                                                                      'sub_Id'])
+                                                                  .update({
                                                                 'status':
                                                                     'Canceled',
                                                                 'description':
@@ -280,16 +279,16 @@ class _SoldAndOrderViewState extends State<SoldAndOrderView> {
                                                                     adminName
                                                               });
                                                               //TODO: increase quantity
-                                                              Firestore.instance
+                                                              FirebaseFirestore
+                                                                  .instance
                                                                   .collection(
                                                                       'Orders')
-                                                                  .document(
-                                                                      document[
-                                                                          'sub_Id'])
+                                                                  .doc(document[
+                                                                      'sub_Id'])
                                                                   .collection(
                                                                       document[
                                                                           'id'])
-                                                                  .getDocuments()
+                                                                  .get()
                                                                   .then(
                                                                       (document) {
                                                                 List<QuantityOrder>
@@ -297,7 +296,7 @@ class _SoldAndOrderViewState extends State<SoldAndOrderView> {
                                                                     [];
                                                                 for (var document
                                                                     in document
-                                                                        .documents) {
+                                                                        .docs) {
                                                                   QuantityOrder
                                                                       quantityOrder =
                                                                       new QuantityOrder(
@@ -311,13 +310,12 @@ class _SoldAndOrderViewState extends State<SoldAndOrderView> {
                                                                 }
                                                                 for (var qtyOrder
                                                                     in quantityOrderList) {
-                                                                  Firestore
+                                                                  FirebaseFirestore
                                                                       .instance
                                                                       .collection(
                                                                           'Products')
-                                                                      .document(
-                                                                          qtyOrder
-                                                                              .productId)
+                                                                      .doc(qtyOrder
+                                                                          .productId)
                                                                       .get()
                                                                       .then(
                                                                           (document) {
@@ -329,13 +327,13 @@ class _SoldAndOrderViewState extends State<SoldAndOrderView> {
                                                                             qtyOrder.quantity;
                                                                     print(
                                                                         result);
-                                                                    Firestore
+                                                                    FirebaseFirestore
                                                                         .instance
                                                                         .collection(
                                                                             'Products')
-                                                                        .document(
-                                                                            qtyOrder.productId)
-                                                                        .updateData({
+                                                                        .doc(qtyOrder
+                                                                            .productId)
+                                                                        .update({
                                                                       'quantity':
                                                                           result
                                                                               .toString(),
@@ -358,7 +356,7 @@ class _SoldAndOrderViewState extends State<SoldAndOrderView> {
                                                           flex: 1,
                                                           child:
                                                               CusRaisedButton(
-                                                            title: 'CANCEL',
+                                                            title: 'Hủy',
                                                             backgroundColor:
                                                                 kColorWhite,
                                                             onPress: () {
@@ -407,10 +405,10 @@ class _SoldAndOrderViewState extends State<SoldAndOrderView> {
                                               )));
                                 },
                                 onCancel: () {
-                                  Firestore.instance
+                                  FirebaseFirestore.instance
                                       .collection('Orders')
-                                      .document(document['sub_Id'])
-                                      .updateData({
+                                      .doc(document['sub_Id'])
+                                      .update({
                                     'status': 'Canceled',
                                     'client_secret': "null",
                                     'payment_method_id': "null"

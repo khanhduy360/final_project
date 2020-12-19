@@ -44,17 +44,17 @@ class _WishListViewState extends State<WishListView>
 
   Future<void> getWishlistList(String uid) async {
     List<ProductCard> list = [];
-    await Firestore.instance
-        .collection('Wishlists')
-        .document(uid)
+    await FirebaseFirestore.instance
+        .collection('WishLists')
+        .doc(uid)
         .collection(uid)
-        .getDocuments()
+        .get()
         .then((snap) async {
-      if (snap.documents != null) {
-        for (var document in snap.documents) {
-          var doc = await Firestore.instance
+      if (snap.docs != null) {
+        for (var document in snap.docs) {
+          var doc = await FirebaseFirestore.instance
               .collection('Products')
-              .document(document['id'])
+              .doc(document['id'])
               .get();
           listProduct.add(ProductCard(
             id: doc['id'],
@@ -70,7 +70,6 @@ class _WishListViewState extends State<WishListView>
                 productName: doc['name'],
                 imageList: doc['image'],
                 category: doc['categogy'],
-                sizeList: doc['size'],
                 colorList: doc['color'],
                 price: doc['price'],
                 salePrice: doc['sale_price'],
@@ -91,11 +90,11 @@ class _WishListViewState extends State<WishListView>
               );
             },
             onClosePress: () {
-              Firestore.instance
-                  .collection('Wishlists')
-                  .document(uid)
+              FirebaseFirestore.instance
+                  .collection('WishLists')
+                  .doc(uid)
                   .collection(uid)
-                  .document(doc['id'])
+                  .doc(doc['id'])
                   .delete();
               removeProduct(doc['id']);
             },
@@ -157,9 +156,9 @@ class _WishListViewState extends State<WishListView>
                               ),
                               Positioned(
                                 top: ConstScreen.setSizeHeight(680),
-                                left: ConstScreen.setSizeWidth(160),
+                                left: ConstScreen.setSizeWidth(150),
                                 child: Text(
-                                  'Sorry, No Product Found',
+                                  'Không có sản phẩm nào',
                                   style: kBoldTextStyle.copyWith(
                                       color: kColorBlack.withOpacity(0.8),
                                       fontSize: FontSize.s36,

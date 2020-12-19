@@ -3,7 +3,6 @@ class Product {
   String productName;
   List<dynamic> imageList;
   String category;
-  List<dynamic> sizeList;
   List<dynamic> colorList;
   String price;
   String salePrice;
@@ -22,7 +21,6 @@ class Product {
       this.imageList,
       this.image,
       this.category,
-      this.sizeList,
       this.size,
       this.colorList,
       this.color,

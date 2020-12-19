@@ -30,7 +30,7 @@ class _UserManagerViewState extends State<UserManagerView>
         backgroundColor: kColorWhite,
         // TODO: Quantity Items
         title: Text(
-          'User List',
+          'Danh sách người dùng',
           style: TextStyle(
               color: kColorBlack,
               fontSize: FontSize.setTextSize(32),
@@ -63,7 +63,7 @@ class _UserManagerViewState extends State<UserManagerView>
                 size: ConstScreen.setSizeHeight(30),
               ),
               child: Text(
-                'Customer',
+                'Khách hàng',
                 style: kBoldTextStyle.copyWith(fontSize: FontSize.s28),
               ),
             ),
@@ -73,7 +73,7 @@ class _UserManagerViewState extends State<UserManagerView>
                 size: ConstScreen.setSizeHeight(30),
               ),
               child: Text(
-                'Admin',
+                'Quản lý',
                 style: kBoldTextStyle.copyWith(fontSize: FontSize.s28),
               ),
             )

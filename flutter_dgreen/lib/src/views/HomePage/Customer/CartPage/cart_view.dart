@@ -70,12 +70,12 @@ class _CartViewState extends State<CartView> {
     if (find != null) {
       int index = productInfoList.indexOf(find);
       productInfoList.elementAt(index).quantity = qty;
-      Firestore.instance
+      FirebaseFirestore.instance
           .collection('Carts')
-          .document(uidUser)
+          .doc(uidUser)
           .collection(uidUser)
-          .document(productInfoList.elementAt(index).id)
-          .updateData({'quantity': qty});
+          .doc(productInfoList.elementAt(index).id)
+          .update({'quantity': qty});
       getTotal();
     }
   }
@@ -97,9 +97,9 @@ class _CartViewState extends State<CartView> {
 //TODO: get product quantity Server
   void getQuantity() {
     for (var product in productInfoList) {
-      Firestore.instance
+      FirebaseFirestore.instance
           .collection('Products')
-          .document(product.id)
+          .doc(product.id)
           .get()
           .then((document) {
         product.quantityMain = document['quantity'];
@@ -115,22 +115,21 @@ class _CartViewState extends State<CartView> {
       _streamController.add(uid);
       uidUser = uid;
       //TODO: count item
-      Firestore.instance
+      FirebaseFirestore.instance
           .collection('Carts')
-          .document(uid)
+          .doc(uid)
           .collection(uid)
-          .getDocuments()
+          .get()
           .then((onValue) {
         int index = 0;
         //TODO:Get list product
-        for (var value in onValue.documents) {
+        for (var value in onValue.docs) {
           print('Sale: ' + value.data()['sale_price']);
           Product product = new Product(
             id: value.data()['id'],
             productName: value.data()['name'],
             image: value.data()['image'],
             category: value.data()['categogy'],
-            size: value.data()['size'],
             color: value.data()['color'],
             price: value.data()['price'],
             salePrice: value.data()['sale_price'],
@@ -232,7 +231,7 @@ class _CartViewState extends State<CartView> {
                             top: ConstScreen.setSizeHeight(650),
                             left: ConstScreen.setSizeWidth(250),
                             child: Text(
-                              'No Product Order',
+                              'Không có sản phẩm nào',
                               style: kBoldTextStyle.copyWith(
                                   color: kColorBlack.withOpacity(0.8),
                                   fontSize: FontSize.s36,
@@ -277,9 +276,9 @@ class _CartViewState extends State<CartView> {
                   child: Row(
                     children: <Widget>[
                       Expanded(
-                        flex: 1,
+                        flex: 2,
                         child: AutoSizeText(
-                          'Total',
+                          'Tổng cộng',
                           style: TextStyle(
                               fontSize: FontSize.s36,
                               fontWeight: FontWeight.bold),
@@ -308,8 +307,8 @@ class _CartViewState extends State<CartView> {
             Expanded(
               flex: 1,
               child: CusRaisedButton(
-                title: 'PLACE THIS ORDER',
-                backgroundColor: kColorBlack,
+                title: 'Đặt hàng',
+                backgroundColor: kColorBlue,
                 height: ConstScreen.setSizeHeight(150),
                 onPress: () {
                   if (totalPrice != 0) {

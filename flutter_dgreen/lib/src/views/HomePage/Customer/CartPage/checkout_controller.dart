@@ -38,7 +38,7 @@ class CheckoutController {
       String cusName = await StorageUtil.geFullName();
       String uid = await StorageUtil.getUid();
       //TODO: receiver info
-      await Firestore.instance.collection('Orders').document(orderId).setData({
+      await FirebaseFirestore.instance.collection('Orders').doc(orderId).set({
         'id': uid,
         'sub_Id': orderId,
         'customer_name': cusName,
@@ -71,12 +71,12 @@ class CheckoutController {
       }).then((value) {
         //TODO: add list product
         for (var product in productList) {
-          Firestore.instance
+          FirebaseFirestore.instance
             ..collection('Orders')
-                .document(orderId)
+                .doc(orderId)
                 .collection(uid)
-                .document(product.id)
-                .setData({
+                .doc(product.id)
+                .set({
               'id': product.id,
               'name': product.productName,
               'size': product.size,
@@ -97,28 +97,28 @@ class CheckoutController {
         quantityOrderList.add(quantityOrder);
 
         for (var qtyOrder in quantityOrderList) {
-          Firestore.instance
+          FirebaseFirestore.instance
               .collection('Products')
-              .document(qtyOrder.productId)
+              .doc(qtyOrder.productId)
               .get()
               .then((document) {
             int quantity = int.parse(document.data()['quantity']);
             int result = quantity - qtyOrder.quantity;
-            Firestore.instance
+            FirebaseFirestore.instance
                 .collection('Products')
-                .document(qtyOrder.productId)
-                .updateData({'quantity': result.toString()});
+                .doc(qtyOrder.productId)
+                .update({'quantity': result.toString()});
           });
         }
       }
 
-      Firestore.instance
+      FirebaseFirestore.instance
           .collection('Carts')
-          .document(uid)
+          .doc(uid)
           .collection(uid)
-          .getDocuments()
+          .get()
           .then((snapshot) {
-        for (DocumentSnapshot document in snapshot.documents) {
+        for (DocumentSnapshot document in snapshot.docs) {
           document.reference.delete();
         }
       });
@@ -165,9 +165,9 @@ class CheckoutController {
 
     //TODO: Check quantity maximum
     for (var product in productList) {
-      await Firestore.instance
+      await FirebaseFirestore.instance
           .collection('Products')
-          .document(product.id)
+          .doc(product.id)
           .get()
           .then((document) {
         if (int.parse(product.quantity) > int.parse(product.quantityMain)) {

@@ -45,11 +45,11 @@ class MessageBubble extends StatelessWidget {
                   onTap: () {
                     //TODO: delete message
                     isDeleteMessage(createAt) {
-                      Firestore.instance
+                      FirebaseFirestore.instance
                           .collection('Chat')
-                          .document(uid)
+                          .doc(uid)
                           .collection(uid)
-                          .document(documentID)
+                          .doc(documentID)
                           .delete();
                     }
 
@@ -89,8 +89,7 @@ class MessageBubble extends StatelessWidget {
               style: TextStyle(
                   fontSize: FontSize.s26,
                   fontWeight: FontWeight.bold,
-                  color:
-                      isAdmin ? Colors.redAccent.shade400 : Colors.lightBlue),
+                  color: isAdmin ? Colors.redAccent.shade400 : kColorGreen),
             ),
             (text != '')
                 ? Material(
@@ -105,7 +104,7 @@ class MessageBubble extends StatelessWidget {
                             topRight: Radius.circular(30.0),
                           ),
                     elevation: 5.0,
-                    color: isMe ? Colors.lightBlueAccent : Colors.white,
+                    color: isMe ? kColorGreen : Colors.white,
                     child: Padding(
                       padding: EdgeInsets.symmetric(
                           vertical: ConstScreen.setSizeHeight(15),

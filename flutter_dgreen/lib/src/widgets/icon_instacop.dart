@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class IconInstacop extends StatelessWidget {
-  IconInstacop({this.textSize});
+class IconDgreen extends StatelessWidget {
+  IconDgreen({this.textSize});
   final double textSize;
   @override
   Widget build(BuildContext context) {

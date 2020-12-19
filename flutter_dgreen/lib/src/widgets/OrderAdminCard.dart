@@ -53,7 +53,7 @@ class OrderAdminCard extends StatelessWidget {
                     ),
                     children: [
                       TextSpan(
-                        text: 'Order Id: ',
+                        text: 'Mã đơn: ',
                       ),
                       TextSpan(
                         text: id,
@@ -75,7 +75,7 @@ class OrderAdminCard extends StatelessWidget {
                     ),
                     children: [
                       TextSpan(
-                        text: 'Order Date: ',
+                        text: 'Ngày đặt: ',
                       ),
                       TextSpan(
                         text: date,
@@ -97,7 +97,7 @@ class OrderAdminCard extends StatelessWidget {
                     ),
                     children: [
                       TextSpan(
-                        text: 'Customer: ',
+                        text: 'Khách hàng: ',
                       ),
                       TextSpan(
                         text: customerName,
@@ -119,7 +119,7 @@ class OrderAdminCard extends StatelessWidget {
                     ),
                     children: [
                       TextSpan(
-                        text: 'Status: ',
+                        text: 'Trạng thái: ',
                       ),
                       TextSpan(
                         text: status,
@@ -141,7 +141,7 @@ class OrderAdminCard extends StatelessWidget {
                     ),
                     children: [
                       TextSpan(
-                        text: 'Total: ',
+                        text: 'Tổng cộng: ',
                       ),
                       TextSpan(
                         text: '$total VND',
@@ -172,7 +172,7 @@ class OrderAdminCard extends StatelessWidget {
                             width: ConstScreen.setSizeWidth(7),
                           ),
                           Text(
-                            'ACCEPT',
+                            'CHẤP NHẬN',
                             style: kBoldTextStyle.copyWith(
                                 color: kColorGreen, fontSize: FontSize.s28),
                           ),
@@ -197,7 +197,7 @@ class OrderAdminCard extends StatelessWidget {
                             width: ConstScreen.setSizeWidth(7),
                           ),
                           Text(
-                            'CANCEL',
+                            'HỦY',
                             style: kBoldTextStyle.copyWith(
                                 color: isEnableCancel
                                     ? kColorRed

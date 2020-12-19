@@ -25,7 +25,7 @@ class _PrivateCouponViewState extends State<PrivateCouponView> {
     return Scaffold(
       body: Container(
           child: StreamBuilder<QuerySnapshot>(
-        stream: Firestore.instance
+        stream: FirebaseFirestore.instance
             .collection('Users')
             .where('type', isEqualTo: 'customer')
             .orderBy('create_at')
@@ -33,13 +33,13 @@ class _PrivateCouponViewState extends State<PrivateCouponView> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return ListView(
-              children: snapshot.data.documents.map((document) {
+              children: snapshot.data.docs.map((document) {
                 return Slidable(
                   actionPane: SlidableDrawerActionPane(),
                   actionExtentRatio: 0.25,
                   secondaryActions: <Widget>[
                     IconSlideAction(
-                      caption: 'Sent',
+                      caption: 'Thêm',
                       color: Colors.deepOrangeAccent.shade200,
                       icon: FontAwesomeIcons.ticketAlt,
                       onTap: () {
@@ -80,7 +80,7 @@ class _PrivateCouponViewState extends State<PrivateCouponView> {
                                               couponController.discountStream,
                                           builder: (context, snapshot) {
                                             return InputText(
-                                              title: 'Discount',
+                                              title: 'Giảm giá',
                                               controller:
                                                   discountTextController,
                                               errorText: snapshot.hasError
@@ -99,7 +99,7 @@ class _PrivateCouponViewState extends State<PrivateCouponView> {
                                               .billingAmountStream,
                                           builder: (context, snapshot) {
                                             return InputText(
-                                              title: 'Billing Amount',
+                                              title: 'Giá trị hóa đơn',
                                               controller:
                                                   billingAmountTextController,
                                               errorText: snapshot.hasError
@@ -160,7 +160,7 @@ class _PrivateCouponViewState extends State<PrivateCouponView> {
                                                         )
                                                       : Text(
                                                           snapshot.hasData
-                                                              ? ('Expired Date: ' +
+                                                              ? ('Ngày hết hạn: ' +
                                                                   expiredDate
                                                                       .day
                                                                       .toString() +
@@ -172,7 +172,7 @@ class _PrivateCouponViewState extends State<PrivateCouponView> {
                                                                   expiredDate
                                                                       .year
                                                                       .toString())
-                                                              : 'Expired Date Picker',
+                                                              : 'Chọn hạn dùng',
                                                           style: TextStyle(
                                                               color:
                                                                   kColorBlack,
@@ -195,7 +195,7 @@ class _PrivateCouponViewState extends State<PrivateCouponView> {
                                           Expanded(
                                             flex: 1,
                                             child: CusRaisedButton(
-                                              title: 'CREATE',
+                                              title: 'Thêm',
                                               backgroundColor: kColorBlack,
                                               onPress: () {
                                                 coupon.discount =
@@ -204,8 +204,7 @@ class _PrivateCouponViewState extends State<PrivateCouponView> {
                                                 coupon.maxBillingAmount =
                                                     billingAmountTextController
                                                         .text;
-                                                coupon.uid =
-                                                    document.documentID;
+                                                coupon.uid = document.id;
                                                 coupon.couponKey =
                                                     Coupon.randomCouponKey(10);
                                                 coupon.createAt =
@@ -226,7 +225,7 @@ class _PrivateCouponViewState extends State<PrivateCouponView> {
                                           Expanded(
                                             flex: 1,
                                             child: CusRaisedButton(
-                                              title: 'CANCEL',
+                                              title: 'Hủy',
                                               backgroundColor: kColorLightGrey,
                                               onPress: () {
                                                 Navigator.pop(context);
@@ -245,16 +244,16 @@ class _PrivateCouponViewState extends State<PrivateCouponView> {
                   ],
                   child: Card(
                     child: StreamBuilder<QuerySnapshot>(
-                        stream: Firestore.instance
+                        stream: FirebaseFirestore.instance
                             .collection('Coupon')
-                            .where('uid', isEqualTo: document.documentID)
+                            .where('uid', isEqualTo: document.id)
                             .orderBy('create_at')
                             .snapshots(),
                         builder: (context, snapshot) {
                           int index = 0;
                           if (snapshot.hasData) {
                             List<Slidable> privateCouponList = [];
-                            for (var coupon in snapshot.data.documents) {
+                            for (var coupon in snapshot.data.docs) {
                               if (Util.isDateGreaterThanNow(
                                   coupon['expired_date'])) {
                                 privateCouponList.add(Slidable(
@@ -262,13 +261,13 @@ class _PrivateCouponViewState extends State<PrivateCouponView> {
                                   actionExtentRatio: 0.25,
                                   secondaryActions: <Widget>[
                                     IconSlideAction(
-                                      caption: 'Delete',
+                                      caption: 'Xóa',
                                       color: kColorRed,
                                       icon: Icons.delete,
                                       onTap: () {
-                                        Firestore.instance
+                                        FirebaseFirestore.instance
                                             .collection('Coupon')
-                                            .document(coupon.documentID)
+                                            .doc(coupon.id)
                                             .delete();
                                         setState(() {});
                                       },

@@ -22,7 +22,7 @@ class _ProductManagerState extends State<ProductManager> {
         appBar: AppBar(
           centerTitle: true,
           title: Text(
-            'Product Manager',
+            'Quản lí sản phẩm',
             style: kBoldTextStyle.copyWith(
               fontSize: FontSize.setTextSize(32),
             ),
@@ -41,11 +41,11 @@ class _ProductManagerState extends State<ProductManager> {
           ],
         ),
         body: StreamBuilder<QuerySnapshot>(
-          stream: Firestore.instance.collection('Products').snapshots(),
+          stream: FirebaseFirestore.instance.collection('Products').snapshots(),
           builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (snapshot.hasData) {
               return ListView(
-                children: snapshot.data.documents.map((document) {
+                children: snapshot.data.docs.map((document) {
                   return AdminProductCard(
                     productName: document['name'],
                     quantity: document['quantity'],
@@ -54,9 +54,7 @@ class _ProductManagerState extends State<ProductManager> {
                     brand: document['brand'],
                     category: document['categogy'],
                     madeIn: document['made_in'],
-                    createAt:
-                        Util.convertDateToFullString(document['create_at']),
-                    productSizeList: document['size'],
+                    createAt: convertDate(date: document['create_at']),
                     productColorList: document['color'],
                     productImage: document['image'][0],
                     onComment: () {
@@ -68,9 +66,9 @@ class _ProductManagerState extends State<ProductManager> {
                                   )));
                     },
                     onClose: () {
-                      Firestore.instance
+                      FirebaseFirestore.instance
                           .collection('Products')
-                          .document(document.documentID)
+                          .doc(document.id)
                           .delete();
                     },
                     onEdit: () {
@@ -98,7 +96,7 @@ class _ProductManagerState extends State<ProductManager> {
                                       children: <Widget>[
                                         Center(
                                           child: Text(
-                                            'Edit Product',
+                                            'Chỉnh sửa sản phẩm',
                                             style: kBoldTextStyle.copyWith(
                                                 fontSize: FontSize.s36,
                                                 color: kColorBlack),
@@ -109,7 +107,7 @@ class _ProductManagerState extends State<ProductManager> {
                                         ),
                                         //TODO: product name
                                         InputTextProduct(
-                                          title: 'Product Name',
+                                          title: 'Tên sản phẩm',
                                           initValue: document['name'],
                                           inputType: TextInputType.text,
                                           onValueChange: (name) {
@@ -121,7 +119,7 @@ class _ProductManagerState extends State<ProductManager> {
                                         ),
                                         //TODO:quantity
                                         InputTextProduct(
-                                          title: 'Quantity',
+                                          title: 'Số lượng',
                                           initValue: document['quantity'],
                                           inputType: TextInputType.number,
                                           onValueChange: (qty) {
@@ -133,7 +131,7 @@ class _ProductManagerState extends State<ProductManager> {
                                         ),
                                         //TODO: Price
                                         InputTextProduct(
-                                          title: 'Price',
+                                          title: 'Giá',
                                           initValue: document['price'],
                                           inputType: TextInputType.number,
                                           onValueChange: (value) {
@@ -145,7 +143,7 @@ class _ProductManagerState extends State<ProductManager> {
                                         ),
                                         //TODO: Sale price
                                         InputTextProduct(
-                                          title: 'Sale Price',
+                                          title: 'Giá khuyến mãi',
                                           initValue: document['sale_price'],
                                           inputType: TextInputType.number,
                                           onValueChange: (value) {
@@ -160,13 +158,13 @@ class _ProductManagerState extends State<ProductManager> {
                                             Expanded(
                                               flex: 1,
                                               child: CusRaisedButton(
-                                                title: 'SAVE',
+                                                title: 'Lưu lại',
                                                 backgroundColor: kColorBlack,
                                                 onPress: () {
-                                                  Firestore.instance
+                                                  FirebaseFirestore.instance
                                                       .collection('Products')
-                                                      .document(document['id'])
-                                                      .updateData({
+                                                      .doc(document['id'])
+                                                      .update({
                                                     'name': (productName !=
                                                                 null &&
                                                             productName != '')
@@ -193,11 +191,11 @@ class _ProductManagerState extends State<ProductManager> {
                                                               salePrice) &&
                                                       (price != '' &&
                                                           salePrice != '')) {
-                                                    Firestore.instance
+                                                    FirebaseFirestore.instance
                                                         .collection(
                                                             'PriceVolatility')
-                                                        .document()
-                                                        .setData({
+                                                        .doc()
+                                                        .set({
                                                       'product_id': productId,
                                                       'price': price,
                                                       'sale_price': salePrice,
@@ -220,7 +218,7 @@ class _ProductManagerState extends State<ProductManager> {
                                             Expanded(
                                               flex: 1,
                                               child: CusRaisedButton(
-                                                title: 'CANCEL',
+                                                title: 'Hủy',
                                                 backgroundColor:
                                                     kColorLightGrey,
                                                 onPress: () {

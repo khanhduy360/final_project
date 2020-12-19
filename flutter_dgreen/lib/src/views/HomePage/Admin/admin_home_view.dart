@@ -12,7 +12,7 @@ import 'package:flutter_dgreen/src/widgets/card_dashboard.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'ChartRevenue/chart_admin_view.dart';
-import 'OrderAndSold/sold_and_order_view.dart';
+import 'ConfirmOrder/sold_and_order_view.dart';
 
 class AdminHomeView extends StatefulWidget {
   @override
@@ -29,35 +29,35 @@ class _AdminHomeViewState extends State<AdminHomeView> {
   String globalCouponCount = '0';
   loadNumberDashboard() {
     //TODO: User
-    Firestore.instance.collection('Users').getDocuments().then((onValue) {
+    FirebaseFirestore.instance.collection('Users').get().then((onValue) {
       setState(() {
-        _userCount = onValue.documents.length.toString();
+        _userCount = onValue.docs.length.toString();
       });
     });
     //TODO:Order
-    Firestore.instance
+    FirebaseFirestore.instance
         .collection('Orders')
         .where('status', isEqualTo: 'Pending')
-        .getDocuments()
+        .get()
         .then((onValue) {
       setState(() {
-        _orderCount = onValue.documents.length.toString();
+        _orderCount = onValue.docs.length.toString();
       });
     });
     //TODO: Product
-    Firestore.instance.collection('Products').getDocuments().then((onValue) {
+    FirebaseFirestore.instance.collection('Products').get().then((onValue) {
       setState(() {
-        _productCount = onValue.documents.length.toString();
+        _productCount = onValue.docs.length.toString();
       });
     });
     //TODO:Sold
-    Firestore.instance
+    FirebaseFirestore.instance
         .collection('Orders')
         .where('status', isLessThan: 'Pending')
-        .getDocuments()
+        .get()
         .then((onValue) {
       setState(() {
-        _soldCount = onValue.documents.length.toString();
+        _soldCount = onValue.docs.length.toString();
       });
     });
     //TODO: Revenue
@@ -76,19 +76,19 @@ class _AdminHomeViewState extends State<AdminHomeView> {
       });
     });
     //TODO: Coupon
-    Firestore.instance
+    FirebaseFirestore.instance
         .collection('Coupon')
         .where('uid', isLessThan: 'global')
-        .getDocuments()
+        .get()
         .then((value) {
-      privateCouponCount = value.documents.length.toString();
+      privateCouponCount = value.docs.length.toString();
     });
-    Firestore.instance
+    FirebaseFirestore.instance
         .collection('Coupon')
         .where('uid', isEqualTo: 'global')
-        .getDocuments()
+        .get()
         .then((value) {
-      globalCouponCount = value.documents.length.toString();
+      globalCouponCount = value.docs.length.toString();
     });
   }
 
@@ -119,9 +119,9 @@ class _AdminHomeViewState extends State<AdminHomeView> {
                         (Route<dynamic> route) => false);
                   },
                   child: Text(
-                    'Sign out',
+                    'Đăng xuất',
                     style: kBoldTextStyle.copyWith(
-                        fontSize: FontSize.s30, color: kColorBlue),
+                        fontSize: FontSize.s30, color: kColorRed),
                   ),
                 ),
               ),
@@ -137,10 +137,10 @@ class _AdminHomeViewState extends State<AdminHomeView> {
             Expanded(
               flex: 3,
               child: DashboardCard(
-                title: 'Revenue',
+                title: 'Doanh thu',
                 color: Colors.orange.shade500,
                 icon: FontAwesomeIcons.dollarSign,
-                value: '$total VND',
+                value: '$total VNĐ',
                 onPress: () {
                   Navigator.push(
                       context,
@@ -159,8 +159,8 @@ class _AdminHomeViewState extends State<AdminHomeView> {
                 children: <Widget>[
                   Expanded(
                     child: DashboardBox(
-                      title: 'Users',
-                      color: kColorBlue,
+                      title: 'Người dùng',
+                      color: kColorGreen,
                       icon: FontAwesomeIcons.users,
                       value: _userCount,
                       onPress: () {
@@ -170,8 +170,8 @@ class _AdminHomeViewState extends State<AdminHomeView> {
                   ),
                   Expanded(
                     child: DashboardBox(
-                      title: 'Orders',
-                      color: kColorBlue,
+                      title: 'Đơn hàng',
+                      color: kColorGreen,
                       icon: FontAwesomeIcons.shoppingCart,
                       value: _orderCount,
                       onPress: () {
@@ -179,7 +179,7 @@ class _AdminHomeViewState extends State<AdminHomeView> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => SoldAndOrderView(
-                                      title: 'Order List',
+                                      title: 'Đơn hàng',
                                     )));
                       },
                     ),
@@ -197,8 +197,8 @@ class _AdminHomeViewState extends State<AdminHomeView> {
                 children: <Widget>[
                   Expanded(
                     child: DashboardBox(
-                      title: 'Product',
-                      color: kColorBlue,
+                      title: 'Sản phẩm',
+                      color: kColorGreen,
                       icon: FontAwesomeIcons.productHunt,
                       value: _productCount,
                       onPress: () {
@@ -208,13 +208,12 @@ class _AdminHomeViewState extends State<AdminHomeView> {
                   ),
                   Expanded(
                     child: DashboardBox(
-                      title: 'Bill',
-                      color: kColorBlue,
+                      title: 'Hóa đơn',
+                      color: kColorGreen,
                       icon: Icons.done_outline,
                       value: _soldCount,
                       onPress: () {
-                        Navigator.pushNamed(
-                            context, 'admin_bill_history_screen');
+                        Navigator.pushNamed(context, 'admin_bill_view');
                       },
                     ),
                   ),
@@ -228,11 +227,11 @@ class _AdminHomeViewState extends State<AdminHomeView> {
             Expanded(
               flex: 2,
               child: DashboardBox(
-                title: 'Coupon',
-                color: kColorBlue,
+                title: 'Mã Coupon',
+                color: kColorGreen,
                 icon: FontAwesomeIcons.ticketAlt,
                 value:
-                    'Private: $privateCouponCount  Global: $globalCouponCount',
+                    'Cá nhân: $privateCouponCount  Chung: $globalCouponCount',
                 onPress: () {
                   Navigator.pushNamed(context, 'admin_coupon_manager');
                 },

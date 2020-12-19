@@ -24,7 +24,7 @@ class _GlobalCouponViewState extends State<GlobalCouponView> {
     return Scaffold(
       body: Container(
           child: StreamBuilder<QuerySnapshot>(
-        stream: Firestore.instance
+        stream: FirebaseFirestore.instance
             .collection('Coupon')
             .where('uid', isEqualTo: 'global')
             .orderBy('create_at')
@@ -33,19 +33,19 @@ class _GlobalCouponViewState extends State<GlobalCouponView> {
           int index = 0;
           if (snapshot.hasData) {
             return ListView(
-              children: snapshot.data.documents.map((document) {
+              children: snapshot.data.docs.map((document) {
                 return Slidable(
                   actionPane: SlidableDrawerActionPane(),
                   actionExtentRatio: 0.25,
                   secondaryActions: <Widget>[
                     IconSlideAction(
-                      caption: 'Delete',
+                      caption: 'Xóa',
                       color: kColorRed,
                       icon: Icons.delete,
                       onTap: () {
-                        Firestore.instance
+                        FirebaseFirestore.instance
                             .collection('Coupon')
-                            .document(document.documentID)
+                            .doc(document.id)
                             .delete();
                         setState(() {});
                       },
@@ -54,7 +54,7 @@ class _GlobalCouponViewState extends State<GlobalCouponView> {
                   child: Card(
                     child: CategoryItem(
                       title:
-                          'ID: ${++index}\nDiscount: ${document['discount']}% \nBilling amount: ${Util.intToMoneyType(int.parse(document['max_billing_amount']))} VND\nCreate at: ${Util.convertDateToString(document['create_at'].toString())} \nExpired date: ${Util.convertDateToString(document['expired_date'].toString())}',
+                          'ID: ${++index}\nGiảm giá: ${document['discount']}% \nGiá trị hóa đơn: ${Util.intToMoneyType(int.parse(document['max_billing_amount']))} VND\nNgày tạo: ${Util.convertDateToString(document['create_at'].toString())} \nNgày hết hạn: ${Util.convertDateToString(document['expired_date'].toString())}',
                       height: 200,
                       onTap: () {},
                     ),
@@ -107,7 +107,7 @@ class _GlobalCouponViewState extends State<GlobalCouponView> {
                             stream: couponController.discountStream,
                             builder: (context, snapshot) {
                               return InputText(
-                                title: 'Discount',
+                                title: 'Giảm giá',
                                 controller: discountTextController,
                                 errorText:
                                     snapshot.hasError ? snapshot.error : null,
@@ -123,7 +123,7 @@ class _GlobalCouponViewState extends State<GlobalCouponView> {
                             stream: couponController.billingAmountStream,
                             builder: (context, snapshot) {
                               return InputText(
-                                title: 'Billing Amount',
+                                title: 'Giá trị hóa đơn',
                                 controller: billingAmountTextController,
                                 errorText:
                                     snapshot.hasError ? snapshot.error : null,
@@ -172,14 +172,14 @@ class _GlobalCouponViewState extends State<GlobalCouponView> {
                                           )
                                         : Text(
                                             snapshot.hasData
-                                                ? ('Expired Date: ' +
+                                                ? ('Ngày hết hạn: ' +
                                                     expiredDate.day.toString() +
                                                     '/' +
                                                     expiredDate.month
                                                         .toString() +
                                                     '/' +
                                                     expiredDate.year.toString())
-                                                : 'Expired Date Picker',
+                                                : 'Chọn ngày hết hạn',
                                             style: TextStyle(
                                                 color: kColorBlack,
                                                 fontSize: FontSize.s30,
@@ -198,7 +198,7 @@ class _GlobalCouponViewState extends State<GlobalCouponView> {
                             Expanded(
                               flex: 1,
                               child: CusRaisedButton(
-                                title: 'CREATE',
+                                title: 'Tạo',
                                 backgroundColor: kColorBlack,
                                 onPress: () {
                                   coupon.discount = discountTextController.text;
@@ -223,7 +223,7 @@ class _GlobalCouponViewState extends State<GlobalCouponView> {
                             Expanded(
                               flex: 1,
                               child: CusRaisedButton(
-                                title: 'CANCEL',
+                                title: 'Hủy',
                                 backgroundColor: kColorLightGrey,
                                 onPress: () {
                                   Navigator.pop(context);
