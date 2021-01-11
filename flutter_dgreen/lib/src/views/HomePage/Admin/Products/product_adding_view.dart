@@ -140,7 +140,7 @@ class _ProductAddingViewState extends State<ProductAddingView> {
           ),
         ),
         backgroundColor: kColorWhite,
-        iconTheme: IconThemeData.fallback(),
+        iconTheme: IconThemeData(color: kColorGreen),
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(
@@ -348,19 +348,7 @@ class _ProductAddingViewState extends State<ProductAddingView> {
             SizedBox(
               height: ConstScreen.sizeMedium,
             ),
-            // TODO: Brand
-            StreamBuilder(
-              stream: _controller.brandStream,
-              builder: (context, snapshot) => InputText(
-                title: 'Thương hiệu',
-                controller: _brandController,
-                errorText: snapshot.hasError ? snapshot.error : '',
-                inputType: TextInputType.text,
-              ),
-            ),
-            SizedBox(
-              height: ConstScreen.sizeMedium,
-            ),
+
             //TODO: Made In
             StreamBuilder(
               stream: _controller.madeInStream,
@@ -412,7 +400,7 @@ class _ProductAddingViewState extends State<ProductAddingView> {
           builder: (context, snapshot) {
             return CusRaisedButton(
               title: 'Thêm sản phẩm',
-              backgroundColor: kColorBlack,
+              backgroundColor: kColorGreen,
               height: 100,
               isDisablePress: snapshot.hasData ? snapshot.data : true,
               onPress: () async {
@@ -423,7 +411,6 @@ class _ProductAddingViewState extends State<ProductAddingView> {
                   colorList: colorList,
                   price: _priceController.text,
                   salePrice: _salePriceController.text,
-                  brand: _brandController.text,
                   madeIn: _madeInController.text,
                   quantity: _quantityController.text,
                   description: _descriptionController.text,

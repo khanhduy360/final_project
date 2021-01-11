@@ -89,9 +89,8 @@ class _OrderAndBillViewState extends State<OrderAndBillView> {
                                         status: document['status'],
                                         total: Util.intToMoneyType(
                                             int.parse(document['total'])),
-                                        isEnableCancel: (document['status'] !=
-                                                'Canceled' &&
-                                            document['status'] != 'Pending'),
+                                        isEnableCancel:
+                                            (document['status'] == 'Pending'),
                                         onViewDetail: () {
                                           bool isCancelled =
                                               document['status'] == 'Canceled';

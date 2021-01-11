@@ -13,7 +13,6 @@ class ProductManagerController {
   StreamController _colorListController = new StreamController.broadcast();
   StreamController _priceController = new StreamController.broadcast();
   StreamController _salePriceController = new StreamController.broadcast();
-  StreamController _brandController = new StreamController.broadcast();
   StreamController _madeInController = new StreamController.broadcast();
   StreamController _quantityController = new StreamController.broadcast();
   StreamController _descriptionController = new StreamController.broadcast();
@@ -26,7 +25,7 @@ class ProductManagerController {
   Stream get colorListStream => _colorListController.stream;
   Stream get priceStream => _priceController.stream;
   Stream get salePriceStream => _salePriceController.stream;
-  Stream get brandStream => _brandController.stream;
+
   Stream get madeInStream => _madeInController.stream;
   Stream get quantityStream => _quantityController.stream;
   Stream get descriptionStream => _descriptionController.stream;
@@ -39,7 +38,6 @@ class ProductManagerController {
       @required List<String> colorList,
       @required String price,
       String salePrice = '0',
-      @required String brand,
       @required String madeIn,
       @required String quantity,
       @required String description}) async {
@@ -49,7 +47,7 @@ class ProductManagerController {
     _colorListController.sink.add('');
     _priceController.sink.add('');
     _salePriceController.sink.add('');
-    _brandController.sink.add('');
+
     _madeInController.sink.add('');
     _quantityController.sink.add('');
     _descriptionController.sink.add('');
@@ -87,11 +85,7 @@ class ProductManagerController {
 //      countError++;
       salePrice = '0';
     }
-    //TODO: Brand
-    if (brand == null || brand == '') {
-      _brandController.addError('Brand is empty');
-      countError++;
-    }
+
     //TODO: Made in
     if (madeIn == null || madeIn == '') {
       _madeInController.addError('Made in is empty');
@@ -123,7 +117,6 @@ class ProductManagerController {
         'color': colorListFinal,
         'price': price,
         'sale_price': salePrice,
-        'brand': brand,
         'made_in': madeIn,
         'quantity': quantity,
         'description': description,
@@ -189,7 +182,7 @@ class ProductManagerController {
     _colorListController.close();
     _priceController.close();
     _salePriceController.close();
-    _brandController.close();
+
     _madeInController.close();
     _quantityController.close();
     _descriptionController.close();

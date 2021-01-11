@@ -37,9 +37,9 @@ class ProductController {
         'color': color,
         'price': product.price,
         'sale_price': product.salePrice,
-        'brand': product.brand,
         'made_in': product.madeIn,
         'quantity': '1',
+        'quantityMain': product.quantityMain,
         'create_at': DateTime.now().toString()
       }).catchError((onError) {
         return false;

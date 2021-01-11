@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:flutter_dgreen/src/component/textline_between.dart';
 import 'package:flutter_dgreen/src/helpers/TextStyle.dart';
 import 'package:flutter_dgreen/src/helpers/colors_constant.dart';
+import 'package:flutter_dgreen/src/helpers/font_constant.dart';
 import 'package:flutter_dgreen/src/helpers/screen.dart';
 import 'package:flutter_dgreen/src/helpers/utils.dart';
 import 'package:flutter_dgreen/src/model/coupon.dart';
@@ -54,8 +56,8 @@ class _GlobalCouponViewState extends State<GlobalCouponView> {
                   child: Card(
                     child: CategoryItem(
                       title:
-                          'ID: ${++index}\nGiảm giá: ${document['discount']}% \nGiá trị hóa đơn: ${Util.intToMoneyType(int.parse(document['max_billing_amount']))} VND\nNgày tạo: ${Util.convertDateToString(document['create_at'].toString())} \nNgày hết hạn: ${Util.convertDateToString(document['expired_date'].toString())}',
-                      height: 200,
+                          'ID: \t\t${++index}\nGiảm giá: ${document['discount']}% \nGiá trị hóa đơn: ${Util.intToMoneyType(int.parse(document['max_billing_amount']))} VND\nNgày tạo: ${Util.convertDateToString(document['create_at'].toString())} \nNgày hết hạn: ${Util.convertDateToString(document['expired_date'].toString())}',
+                      height: 250,
                       onTap: () {},
                     ),
                   ),
@@ -68,7 +70,7 @@ class _GlobalCouponViewState extends State<GlobalCouponView> {
         },
       )),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: kColorBlack,
+        backgroundColor: kColorGreen,
         child: Icon(
           Icons.add,
           color: kColorWhite,
@@ -97,7 +99,7 @@ class _GlobalCouponViewState extends State<GlobalCouponView> {
                           padding: EdgeInsets.symmetric(
                               vertical: ConstScreen.setSizeHeight(25)),
                           child: Text(
-                            'Coupon',
+                            'Mã khuyến mãi',
                             style: kBoldTextStyle.copyWith(
                                 fontSize: FontSize.setTextSize(45)),
                           ),
@@ -139,6 +141,13 @@ class _GlobalCouponViewState extends State<GlobalCouponView> {
                           onPressed: () {
                             DatePicker.showDatePicker(context,
                                 showTitleActions: true,
+                                theme: DatePickerTheme(
+                                  headerColor: kColorGreen,
+                                  doneStyle: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                  ),
+                                ),
                                 minTime: DateTime(DateTime.now().year,
                                     DateTime.now().month, DateTime.now().day),
                                 maxTime:
@@ -154,8 +163,9 @@ class _GlobalCouponViewState extends State<GlobalCouponView> {
                                 locale: LocaleType.vi);
                           },
                           child: Container(
-                            height: ConstScreen.setSizeHeight(80),
+                            height: ConstScreen.setSizeHeight(100),
                             decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(40),
                                 border: Border.all(
                                     color: kColorBlack.withOpacity(0.7))),
                             child: Center(
@@ -181,7 +191,7 @@ class _GlobalCouponViewState extends State<GlobalCouponView> {
                                                     expiredDate.year.toString())
                                                 : 'Chọn ngày hết hạn',
                                             style: TextStyle(
-                                                color: kColorBlack,
+                                                color: kColorGreen,
                                                 fontSize: FontSize.s30,
                                                 fontWeight: FontWeight.w400),
                                           );
@@ -199,7 +209,7 @@ class _GlobalCouponViewState extends State<GlobalCouponView> {
                               flex: 1,
                               child: CusRaisedButton(
                                 title: 'Tạo',
-                                backgroundColor: kColorBlack,
+                                backgroundColor: kColorGreen,
                                 onPress: () {
                                   coupon.discount = discountTextController.text;
 

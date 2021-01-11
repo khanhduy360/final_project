@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dgreen/src/helpers/TextStyle.dart';
 import 'package:flutter_dgreen/src/helpers/colors_constant.dart';
 import 'package:flutter_dgreen/src/helpers/screen.dart';
+import 'package:flutter_dgreen/src/widgets/button_normal.dart';
 import 'package:flutter_dgreen/src/widgets/button_raised.dart';
 import 'package:flutter_dgreen/src/widgets/input_text.dart';
 
@@ -33,7 +34,7 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
           ),
         ),
         backgroundColor: kColorWhite,
-        iconTheme: IconThemeData.fallback(),
+        iconTheme: IconThemeData(color: kColorGreen),
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: ConstScreen.setSizeWidth(40)),
@@ -95,10 +96,9 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
             StreamBuilder(
                 stream: _controller.btnLoadingStream,
                 builder: (context, snapshot) {
-                  return CusRaisedButton(
-                    title: 'Save',
-                    backgroundColor: kColorBlue,
-                    isDisablePress: snapshot.hasData ? snapshot.data : true,
+                  return ButtonNormal(
+                    text: 'Lưu lại',
+                    color: kColorGreen,
                     onPress: () async {
                       setState(() {
                         isBtnLoading = false;
@@ -126,7 +126,7 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
                               ),
                               Expanded(
                                 child: Text(
-                                  'Your password has been changed.',
+                                  'Mật khẩu đã được thay đổi.',
                                   style: kBoldTextStyle.copyWith(
                                       fontSize: FontSize.s28),
                                 ),
@@ -152,7 +152,7 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
                               ),
                               Expanded(
                                 child: Text(
-                                  'Changed error.',
+                                  'Lỗi server.',
                                   style: kBoldTextStyle.copyWith(
                                       fontSize: FontSize.s28),
                                 ),

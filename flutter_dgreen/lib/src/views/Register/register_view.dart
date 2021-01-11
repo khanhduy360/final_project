@@ -53,6 +53,7 @@ class _RegisterViewState extends State<RegisterView> {
                     child: SingleChildScrollView(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
+                        mainAxisSize: MainAxisSize.min,
                         children: <Widget>[
                           Text(
                             _isSignIn ? 'Đăng nhập' : 'Đăng kí',

@@ -36,7 +36,7 @@ class _AdminChartView extends State with SingleTickerProviderStateMixin {
           ),
         ),
         backgroundColor: kColorWhite,
-        iconTheme: IconThemeData.fallback(),
+        iconTheme: IconThemeData(color: kColorGreen),
         bottom: TabBar(
           unselectedLabelColor: Colors.black.withOpacity(0.5),
           labelColor: Colors.lightBlueAccent,

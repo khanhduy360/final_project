@@ -4,46 +4,37 @@ import 'package:flutter_dgreen/src/helpers/colors_constant.dart';
 class TreePickingList {
   //TODO: list color
   static const List<String> ColorList = [
-    'Black',
-    'White',
-    'Grey',
-    'Red',
-    'Blue',
-    'Yellow',
-    'Orange',
-    'Pink',
-    'Brown',
-    'Purple',
-    'Cyan',
-    'Green'
+    'Trắng',
+    'Đỏ',
+    'Xanh dương',
+    'Vàng',
+    'Cam',
+    'Hồng',
+    'Nâu',
+    'Tím',
+    'Xanh lá'
   ];
 
 //TODO: Convert ColorList value to Color
   Color getColorFromColorList(String value) {
     switch (value) {
-      case 'Black':
-        return kColorBlack;
-      case 'White':
+      case 'Trắng':
         return kColorWhite;
-      case 'Grey':
-        return kColorGrey;
-      case 'Red':
+      case 'Đỏ':
         return kColorRed;
-      case 'Blue':
+      case 'Xanh dương':
         return kColorBlue;
-      case 'Yellow':
+      case 'Vàng':
         return kColorYellow;
-      case 'Orange':
+      case 'Cam':
         return kColorOrange;
-      case 'Pink':
+      case 'Hồng':
         return kColorPink;
-      case 'Brown':
+      case 'Nâu':
         return kColorBrown;
-      case 'Purple':
+      case 'Tím':
         return kColorPurple;
-      case 'Cyan':
-        return kColorCyan;
-      case 'Green':
+      case 'Xanh lá':
         return kColorGreen;
       default:
         return kColorWhite;

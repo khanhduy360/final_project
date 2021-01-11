@@ -22,7 +22,6 @@ class _DetailOfProductPageState extends State<DetailOfProductPage>
     // TODO: implement initState
     super.initState();
     description = widget.product.description;
-    brand = widget.product.brand;
     madeIn = widget.product.madeIn;
   }
 
@@ -77,7 +76,7 @@ class _DetailOfProductPageState extends State<DetailOfProductPage>
                         height: ConstScreen.setSizeHeight(10),
                       ),
                       AutoSizeText(
-                        'Thương hiệu: $brand.\nXuất xứ: $madeIn.',
+                        'Xuất xứ: $madeIn.',
                         style: TextStyle(fontSize: 18),
                         minFontSize: 14,
                         maxLines: 2,

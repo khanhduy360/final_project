@@ -6,8 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_credit_card/credit_card_widget.dart';
 import 'package:flutter_dgreen/link.dart';
+import 'package:flutter_dgreen/src/component/search_address_view.dart';
+import 'package:flutter_dgreen/src/component/textline_between.dart';
 import 'package:flutter_dgreen/src/helpers/TextStyle.dart';
 import 'package:flutter_dgreen/src/helpers/colors_constant.dart';
+import 'package:flutter_dgreen/src/helpers/font_constant.dart';
 import 'package:flutter_dgreen/src/helpers/screen.dart';
 import 'package:flutter_dgreen/src/helpers/utils.dart';
 import 'package:flutter_dgreen/src/model/coupon.dart';
@@ -63,13 +66,13 @@ class _ProcessingOrderViewState extends State<ProcessingOrderView> {
     return Scaffold(
       key: widget._globalKey,
       appBar: AppBar(
-        iconTheme: IconThemeData.fallback(),
+        iconTheme: IconThemeData(color: kColorGreen),
         backgroundColor: kColorWhite,
         // TODO: Quantity Items
         title: Text(
-          'Checkout',
+          'Thanh Toán',
           style: TextStyle(
-              color: kColorBlack,
+              color: kColorGreen,
               fontSize: FontSize.setTextSize(32),
               fontWeight: FontWeight.w500),
         ),
@@ -154,61 +157,84 @@ class _ProcessingOrderViewState extends State<ProcessingOrderView> {
                         SizedBox(
                           height: ConstScreen.setSizeHeight(20),
                         ),
-                        // TODO: get Address
-//                        GestureDetector(
-//                          onTap: () async {
-//                            Prediction p = await PlacesAutocomplete.show(
-//                                context: context,
-//                                apiKey:
-//                                    'AIzaSyAAsiJbTpLEeB2dEPVTVWDF5HjyU2lbwAo', // Mode.fullscreen
-//                                mode: Mode.fullscreen,
-//                                language: "vn",
-//                                components: [
-//                                  new Component(Component.country, "vn")
-//                                ]);
-//                            if (p.description != null) {
-//                              setState(() {
-//                                _address = p.description;
-//                              });
-//                            }
-//                          },
-//                          child: Container(
-//                            width: double.infinity,
-//                            decoration: BoxDecoration(
-//                              border: Border.all(
-//                                  color: kColorBlack.withOpacity(0.3)),
-//                            ),
-//                            child: Padding(
-//                              padding: EdgeInsets.only(
-//                                  top: ConstScreen.setSizeHeight(20),
-//                                  bottom: ConstScreen.setSizeHeight(20),
-//                                  left: ConstScreen.setSizeHeight(20),
-//                                  right: ConstScreen.setSizeHeight(20)),
-//                              child: AutoSizeText('Address: ' + _address,
-//                                  textAlign: TextAlign.start,
-//                                  maxLines: 2,
-//                                  minFontSize: 15,
-//                                  style: TextStyle(
-//                                      fontSize: FontSize.setTextSize(30),
-//                                      color: kColorBlack,
-//                                      fontWeight: FontWeight.normal)),
-//                            ),
-//                          ),
-//                        ),
-                        //TODO: Error address check
-                        StreamBuilder(
-                          stream: _checkoutController.addressStream,
-                          builder: (context, snapshot) {
-                            return InputText(
-                              title: 'Địa chỉ',
-                              errorText:
-                                  snapshot.hasError ? snapshot.error : '',
-                              onValueChange: (address) {
-                                _address = address;
-                              },
-                            );
-                          },
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: Row(
+                            children: <Widget>[
+                              Icon(
+                                Icons.location_on,
+                                color: kColorRed,
+                                size: ConstScreen.setSizeHeight(40),
+                              ),
+                              AutoSizeText('Địa chỉ:',
+                                  textAlign: TextAlign.start,
+                                  maxLines: 2,
+                                  minFontSize: 15,
+                                  style: TextStyle(
+                                      fontSize: FontSize.setTextSize(34),
+                                      color: kColorBlack,
+                                      fontWeight: FontWeight.w500)),
+                            ],
+                          ),
                         ),
+                        SizedBox(
+                          height: ConstScreen.setSizeHeight(20),
+                        ),
+                        // TODO: get Address
+                        GestureDetector(
+                          onTap: () async {
+                            Prediction p = await PlacesAutocomplete.show(
+                                context: context,
+                                apiKey:
+                                    'AIzaSyBHwSceZWVDO_3B9WyycSlWKJ3adYeHI48', // Mode.fullscreen
+                                mode: Mode.fullscreen,
+                                language: "vn",
+                                components: [
+                                  new Component(Component.country, "vn")
+                                ]);
+                            if (p.description != null) {
+                              setState(() {
+                                _address = p.description;
+                              });
+                            }
+                          },
+                          child: Container(
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(40),
+                              border: Border.all(
+                                  color: kColorBlack.withOpacity(0.3)),
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                  top: ConstScreen.setSizeHeight(20),
+                                  bottom: ConstScreen.setSizeHeight(20),
+                                  left: ConstScreen.setSizeHeight(20),
+                                  right: ConstScreen.setSizeHeight(20)),
+                              child: Text(_address,
+                                  textAlign: TextAlign.start,
+                                  maxLines: 2,
+                                  style: TextStyle(
+                                      fontSize: FontSize.setTextSize(30),
+                                      color: kColorGreen,
+                                      fontWeight: FontWeight.normal)),
+                            ),
+                          ),
+                        ),
+                        //TODO: Error address check
+                        // StreamBuilder(
+                        //   stream: _checkoutController.addressStream,
+                        //   builder: (context, snapshot) {
+                        //     return InputText(
+                        //       title: 'Địa chỉ',
+                        //       errorText:
+                        //           snapshot.hasError ? snapshot.error : '',
+                        //       onValueChange: (address) {
+                        //         _address = address;
+                        //       },
+                        //     );
+                        //   },
+                        // ),
                       ],
                     ),
                   ),
@@ -230,6 +256,7 @@ class _ProcessingOrderViewState extends State<ProcessingOrderView> {
                               Icon(
                                 FontAwesomeIcons.ticketAlt,
                                 size: ConstScreen.setSizeHeight(35),
+                                color: kColorOrange,
                               ),
                               SizedBox(
                                 width: ConstScreen.setSizeWidth(12),
@@ -277,7 +304,7 @@ class _ProcessingOrderViewState extends State<ProcessingOrderView> {
                             //TODO: Coupon Dialog
                             CusRaisedButton(
                               title: 'Lấy mã',
-                              backgroundColor: kColorBlue,
+                              backgroundColor: kColorGreen,
                               onPress: () {
                                 List<CategoryItem> privateCoupon = [];
                                 List<CategoryItem> globalCoupon = [];
@@ -332,7 +359,7 @@ class _ProcessingOrderViewState extends State<ProcessingOrderView> {
                                                               privateCoupon.add(
                                                                   CategoryItem(
                                                                 title:
-                                                                    'Discount: ${document['discount']}% \nBilling amount: ${Util.intToMoneyType(int.parse(document['max_billing_amount']))} VND \nExpired date: ${Util.convertDateToString(document['expired_date'].toString())}',
+                                                                    'Giảm: ${document['discount']}% \nGiá trị hóa đơn: ${Util.intToMoneyType(int.parse(document['max_billing_amount']))} VND \nNgày hết hạn: ${Util.convertDateToString(document['expired_date'].toString())}',
                                                                 onTap: () {
                                                                   Coupon coup = new Coupon(
                                                                       id: document
@@ -414,7 +441,7 @@ class _ProcessingOrderViewState extends State<ProcessingOrderView> {
                                                               globalCoupon.add(
                                                                   CategoryItem(
                                                                 title:
-                                                                    'Discount: ${document['discount']}% \nBilling amount: ${Util.intToMoneyType(int.parse(document['max_billing_amount']))} VND \nExpired date: ${Util.convertDateToString(document['expired_date'].toString())}',
+                                                                    'Giảm: ${document['discount']}% \nGiá trị hóa đơn: ${Util.intToMoneyType(int.parse(document['max_billing_amount']))} VND \nNgày hết hạn: ${Util.convertDateToString(document['expired_date'].toString())}',
                                                                 onTap: () {
                                                                   Coupon coup = new Coupon(
                                                                       id: document
@@ -543,140 +570,49 @@ class _ProcessingOrderViewState extends State<ProcessingOrderView> {
                           height: ConstScreen.setSizeWidth(20),
                         ),
                         //TODO: Sub total
-                        Row(
-                          children: <Widget>[
-                            Expanded(
-                              flex: 3,
-                              child: AutoSizeText(
-                                'Giá sản phẩm',
-                                textAlign: TextAlign.start,
-                                maxLines: 2,
-                                minFontSize: 15,
-                                style: TextStyle(
-                                    fontSize: FontSize.setTextSize(26),
-                                    color: kColorBlack,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 4,
-                              child: AutoSizeText(
-                                Util.intToMoneyType(widget.total) + ' VND',
-                                textAlign: TextAlign.end,
-                                maxLines: 2,
-                                minFontSize: 15,
-                                style: TextStyle(
-                                    fontSize: FontSize.setTextSize(30),
-                                    color: kColorBlack,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            ),
-                          ],
-                        ),
-                        //TODO: Shipping
-                        Row(
-                          children: <Widget>[
-                            Expanded(
-                              flex: 3,
-                              child: AutoSizeText(
-                                'Phí vận chuyển',
-                                textAlign: TextAlign.start,
-                                maxLines: 2,
-                                minFontSize: 15,
-                                style: TextStyle(
-                                    fontSize: FontSize.setTextSize(26),
-                                    color: kColorBlack,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 4,
-                              child: AutoSizeText(
-                                (widget.total > 300000)
-                                    ? '+0 VND'
-                                    : '+20,000 VND',
-                                textAlign: TextAlign.end,
-                                maxLines: 2,
-                                minFontSize: 15,
-                                style: TextStyle(
-                                    fontSize: FontSize.setTextSize(30),
-                                    color: kColorBlack,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            ),
-                          ],
-                        ),
+                        TextLineBetween(
+                            label: 'Giá sản phẩm: ',
+                            content: Util.intToMoneyType(widget.total) + ' VND',
+                            contentStyle: TextStyle(
+                                color: kColorGreen,
+                                fontFamily: kFontMontserratBold,
+                                fontSize: 16)),
+                        TextLineBetween(
+                            label: 'Phí vận chuyển: ',
+                            content: (widget.total > 300000)
+                                ? '+0 VND'
+                                : '+20,000 VND',
+                            contentStyle: TextStyle(
+                                color: kColorGreen,
+                                fontFamily: kFontMontserratBold,
+                                fontSize: 16)),
+
                         //TODO: coupon
                         (coupon.discount != null && coupon.discount != '')
-                            ? Row(
-                                children: <Widget>[
-                                  Expanded(
-                                    flex: 3,
-                                    child: AutoSizeText(
-                                      'Giảm giá',
-                                      textAlign: TextAlign.start,
-                                      maxLines: 2,
-                                      minFontSize: 15,
-                                      style: TextStyle(
-                                          fontSize: FontSize.setTextSize(26),
-                                          color: kColorBlack,
-                                          fontWeight: FontWeight.w500),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    flex: 4,
-                                    child: AutoSizeText(
-                                      coupon.discount +
-                                          '%\n-${Util.intToMoneyType(discountPrice.toInt())} VND',
-                                      textAlign: TextAlign.end,
-                                      maxLines: 2,
-                                      minFontSize: 15,
-                                      style: TextStyle(
-                                          fontSize: FontSize.setTextSize(30),
-                                          color: kColorBlack,
-                                          fontWeight: FontWeight.w500),
-                                    ),
-                                  ),
-                                ],
-                              )
+                            ? TextLineBetween(
+                                label: 'Giảm giá: ',
+                                content: coupon.discount +
+                                    '%\n-${Util.intToMoneyType(discountPrice.toInt())} VND',
+                                contentStyle: TextStyle(
+                                    color: kColorGreen,
+                                    fontFamily: kFontMontserratBold,
+                                    fontSize: 16))
                             : Container(),
 
                         //TODO: TOTAL
-                        Row(
-                          children: <Widget>[
-                            Expanded(
-                              flex: 3,
-                              child: AutoSizeText(
-                                'Tổng cộng',
-                                textAlign: TextAlign.start,
-                                maxLines: 2,
-                                minFontSize: 15,
-                                style: TextStyle(
-                                    fontSize: FontSize.setTextSize(30),
-                                    color: kColorBlack,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 4,
-                              child: AutoSizeText(
-                                Util.intToMoneyType((widget.total > 300000)
-                                        ? widget.total - discountPrice.floor()
-                                        : widget.total +
-                                            20000 -
-                                            discountPrice.floor()) +
-                                    ' VND',
-                                textAlign: TextAlign.end,
-                                maxLines: 2,
-                                minFontSize: 15,
-                                style: TextStyle(
-                                    fontSize: FontSize.setTextSize(34),
-                                    color: kColorBlack,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            ),
-                          ],
-                        ),
+                        TextLineBetween(
+                            label: 'Tổng cộng: ',
+                            content: Util.intToMoneyType((widget.total > 300000)
+                                    ? widget.total - discountPrice.floor()
+                                    : widget.total +
+                                        20000 -
+                                        discountPrice.floor()) +
+                                ' VND',
+                            contentStyle: TextStyle(
+                                color: kColorGreen,
+                                fontFamily: kFontMontserratBold,
+                                fontSize: 16)),
+
                         //TODO: Error quantity check
                         StreamBuilder(
                           stream: _checkoutController.quantityStream,
@@ -720,14 +656,16 @@ class _ProcessingOrderViewState extends State<ProcessingOrderView> {
                 title: 'THANH TOÁN',
                 isDisablePress: snapshot.hasData ? snapshot.data : true,
                 height: ConstScreen.setSizeHeight(150),
-                backgroundColor: Colors.orangeAccent.shade700,
+                backgroundColor: kColorGreen,
                 onPress: () async {
                   bool isValidate = await _checkoutController.onValidate(
                     name: _receiverName,
                     phoneNumber: _phoneNumber,
                     address: _address,
                     productList: widget.productList,
-                    total: widget.total.toString(),
+                    total: Util.intToMoneyType((widget.total > 300000)
+                        ? widget.total - discountPrice.floor()
+                        : widget.total + 20000 - discountPrice.floor()),
                   );
 
                   if (isValidate) {
@@ -774,18 +712,19 @@ class _ProcessingOrderViewState extends State<ProcessingOrderView> {
                                   //TODO: Pay via new card
                                   CusRaisedButton(
                                     title: 'Trả với thẻ mới',
-                                    backgroundColor: Colors.blue,
+                                    backgroundColor: kColorGreen,
                                     onPress: () async {
                                       String orderId = DateTime.now()
                                           .millisecondsSinceEpoch
                                           .toString();
                                       var response = await StripeService
                                           .paymentWithNewCard(
-                                              amount: (((widget.total >= 300000)
-                                                          ? 0
-                                                          : 20000) +
-                                                      widget.total -
-                                                      discountPrice.floor())
+                                              amount: ((widget.total > 300000)
+                                                      ? widget.total -
+                                                          discountPrice.floor()
+                                                      : widget.total +
+                                                          20000 -
+                                                          discountPrice.floor())
                                                   .toString(),
                                               currency: 'VND',
                                               orderId: orderId);
@@ -796,7 +735,13 @@ class _ProcessingOrderViewState extends State<ProcessingOrderView> {
                                             phoneNumber: _phoneNumber,
                                             address: _address,
                                             productList: widget.productList,
-                                            total: widget.total.toString(),
+                                            total: ((widget.total > 300000)
+                                                    ? widget.total -
+                                                        discountPrice.floor()
+                                                    : widget.total +
+                                                        20000 -
+                                                        discountPrice.floor())
+                                                .toString(),
                                             clientSecret: response.clientSecret,
                                             orderId: orderId,
                                             paymentMethodId:
@@ -810,7 +755,16 @@ class _ProcessingOrderViewState extends State<ProcessingOrderView> {
                                             MaterialPageRoute(
                                                 builder: (context) =>
                                                     PaymentCompleteView(
-                                                      totalPrice: widget.total,
+                                                      totalPrice:
+                                                          (widget.total >
+                                                                  300000)
+                                                              ? widget.total -
+                                                                  discountPrice
+                                                                      .floor()
+                                                              : widget.total +
+                                                                  20000 -
+                                                                  discountPrice
+                                                                      .floor(),
                                                     )));
                                       } else {
                                         Navigator.pop(context);
@@ -828,7 +782,7 @@ class _ProcessingOrderViewState extends State<ProcessingOrderView> {
                                   //TODO: Payment via existing card
                                   CusRaisedButton(
                                     title: 'Dùng thẻ hiện tại',
-                                    backgroundColor: Colors.blue,
+                                    backgroundColor: kColorGreen,
                                     onPress: () {
                                       showDialog(
                                           context: context,
@@ -939,7 +893,7 @@ class _ProcessingOrderViewState extends State<ProcessingOrderView> {
                                                                                 phoneNumber: _phoneNumber,
                                                                                 address: _address,
                                                                                 productList: widget.productList,
-                                                                                total: widget.total.toString(),
+                                                                                total: (((widget.total >= 300000) ? 0 : 20000) + widget.total - discountPrice.floor()).toString(),
                                                                                 orderId: orderId,
                                                                                 clientSecret: response.clientSecret,
                                                                                 paymentMethodId: response.paymentMethodId,
@@ -950,7 +904,7 @@ class _ProcessingOrderViewState extends State<ProcessingOrderView> {
                                                                                 context,
                                                                                 MaterialPageRoute(
                                                                                     builder: (context) => PaymentCompleteView(
-                                                                                          totalPrice: widget.total,
+                                                                                          totalPrice: (widget.total > 300000) ? widget.total - discountPrice.floor() : widget.total + 20000 - discountPrice.floor(),
                                                                                         )));
                                                                           } else {
                                                                             Navigator.pop(context);

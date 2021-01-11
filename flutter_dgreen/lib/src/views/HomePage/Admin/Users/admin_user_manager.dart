@@ -26,13 +26,13 @@ class _UserManagerViewState extends State<UserManagerView>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData.fallback(),
+        iconTheme: IconThemeData(color: kColorGreen),
         backgroundColor: kColorWhite,
         // TODO: Quantity Items
         title: Text(
           'Danh sách người dùng',
           style: TextStyle(
-              color: kColorBlack,
+              color: kColorGreen,
               fontSize: FontSize.setTextSize(32),
               fontWeight: FontWeight.w500),
         ),
@@ -42,6 +42,7 @@ class _UserManagerViewState extends State<UserManagerView>
               icon: Icon(
                 Icons.add_comment,
                 size: ConstScreen.setSizeWidth(45),
+                color: kColorGreen,
               ),
               onPressed: () {
                 Navigator.push(

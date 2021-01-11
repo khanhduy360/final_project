@@ -63,6 +63,9 @@ dependencies:
   avatar_glow: ^1.2.0
   curved_navigation_bar: ^0.3.4
   firebase_messaging: ^7.0.3
+  flutter_local_notifications: ^3.0.2
+  fluttertoast: ^7.1.6
+  flutter_svg: ^0.18.0
 flutter_datetime_picker:
   git:
     url: https://github.com/derohimat/flutter_datetime_picker.git
@@ -73,12 +76,13 @@ dev_dependencies:
 flutter_icons:
   android: true
   ios: true
-  image_path: "lib/src/assets/images/launcher_logo.png"
+  image_path: "lib/src/assets/images/tree.png"
 
 flutter:
   uses-material-design: true
   assets:
     - lib/src/assets/images/
+    - lib/src/assets/icons/
 
   fonts:
     - family: Montserrat

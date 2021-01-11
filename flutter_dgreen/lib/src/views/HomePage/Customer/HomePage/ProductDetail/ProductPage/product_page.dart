@@ -304,7 +304,7 @@ class _ProductPageState extends State<ProductPage>
                       ? soldOutWidget()
                       : CusRaisedButton(
                           title: 'Thêm vào giỏ',
-                          backgroundColor: kColorBlue,
+                          backgroundColor: kColorGreen,
                           isDisablePress: _isAddBtnPress,
                           onPress: () async {
                             //TODO: check logging

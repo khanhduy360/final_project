@@ -1,7 +1,9 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dgreen/src/component/textline_between.dart';
 import 'package:flutter_dgreen/src/helpers/TextStyle.dart';
 import 'package:flutter_dgreen/src/helpers/colors_constant.dart';
+import 'package:flutter_dgreen/src/helpers/font_constant.dart';
 import 'package:flutter_dgreen/src/helpers/screen.dart';
 import 'package:flutter_dgreen/src/helpers/utils.dart';
 import 'package:flutter_dgreen/src/widgets/widget_title.dart';
@@ -41,68 +43,69 @@ class ProductOrderDetail extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            // TODO: Product name
-            TitleWidget(
-              title: 'Tên sản phẩm: ',
-              content: name,
-              isSpaceBetween: false,
+            SizedBox(
+              height: ConstScreen.setSizeWidth(20),
             ),
+            // TODO: Product name
+            TextLineBetween(
+                label: 'Tên sản phẩm ',
+                content: name,
+                contentStyle: TextStyle(
+                    color: kColorGreen,
+                    fontFamily: kFontMontserratBold,
+                    fontSize: 16)),
 
             //TODO: Color
-            Padding(
-              padding: EdgeInsets.symmetric(
-                  vertical: ConstScreen.setSizeHeight(10),
-                  horizontal: ConstScreen.setSizeWidth(25)),
-              child: Row(
-                mainAxisAlignment: false
-                    ? MainAxisAlignment.spaceBetween
-                    : MainAxisAlignment.start,
-                children: <Widget>[
-                  Expanded(
-                    flex: 4,
-                    child: AutoSizeText(
-                      'Màu:',
-                      maxLines: 1,
-                      minFontSize: 10,
-                      style: kBoldTextStyle.copyWith(
-                          fontSize: FontSize.s30,
-                          color: kColorBlack.withOpacity(0.5)),
-                    ),
+            Row(
+              children: <Widget>[
+                Expanded(
+                  flex: 4,
+                  child: AutoSizeText(
+                    'Màu:',
+                    maxLines: 1,
+                    minFontSize: 10,
+                    style: kBoldTextStyle.copyWith(
+                        fontSize: FontSize.s30, color: kColorGreen),
                   ),
-                  Expanded(
-                    flex: 1,
-                    child: Container(
-                      height: ConstScreen.setSizeHeight(30),
-                      width: ConstScreen.setSizeHeight(30),
-                      decoration: BoxDecoration(
-                          color: color, border: Border.all(color: kColorBlack)),
-                    ),
+                ),
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                    height: ConstScreen.setSizeHeight(30),
+                    width: ConstScreen.setSizeHeight(30),
+                    decoration: BoxDecoration(
+                        color: color, border: Border.all(color: kColorBlack)),
                   ),
-                  Expanded(
-                    flex: 3,
-                    child: Container(),
-                  ),
-                ],
-              ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: ConstScreen.setSizeWidth(20),
             ),
             //TODO: Price
-            TitleWidget(
-              title: 'Giá sản phẩm: ',
-              content: '$priceMoneyType VND',
-              isSpaceBetween: false,
-            ),
+            TextLineBetween(
+                label: 'Giá sản phẩm ',
+                content: '$priceMoneyType VND',
+                contentStyle: TextStyle(
+                    color: kColorGreen,
+                    fontFamily: kFontMontserratBold,
+                    fontSize: 16)),
             //TODO: Quantity
-            TitleWidget(
-              title: 'Số lượng: ',
-              content: quantity,
-              isSpaceBetween: false,
-            ),
+            TextLineBetween(
+                label: 'Số lượng: ',
+                content: quantity,
+                contentStyle: TextStyle(
+                    color: kColorGreen,
+                    fontFamily: kFontMontserratBold,
+                    fontSize: 16)),
             //TODO: SubTotal
-            TitleWidget(
-              title: 'Tổng: ',
-              content: '$subPriceMoneyType VND',
-              isSpaceBetween: false,
-            ),
+            TextLineBetween(
+                label: 'Tổng ',
+                content: '$subPriceMoneyType VND',
+                contentStyle: TextStyle(
+                    color: kColorGreen,
+                    fontFamily: kFontMontserratBold,
+                    fontSize: 16)),
           ],
         ),
       ),

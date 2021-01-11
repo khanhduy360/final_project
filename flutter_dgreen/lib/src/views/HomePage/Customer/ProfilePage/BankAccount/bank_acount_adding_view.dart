@@ -24,6 +24,7 @@ class _BankAccountAddingViewState extends State<BankAccountAddingView> {
   String cardHolderName = '';
   String cvvCode = '';
   bool isAddPage = false;
+  bool isCvvFocused = false;
 
   @override
   void initState() {
@@ -42,14 +43,14 @@ class _BankAccountAddingViewState extends State<BankAccountAddingView> {
         key: widget._globalKey,
         appBar: AppBar(
           title: Text(
-            'Add Bank Card',
+            'Thêm thẻ ngân hàng',
             style: kBoldTextStyle.copyWith(
               fontSize: FontSize.setTextSize(32),
             ),
           ),
           centerTitle: true,
           backgroundColor: kColorWhite,
-          iconTheme: IconThemeData.fallback(),
+          iconTheme: IconThemeData(color: kColorGreen),
         ),
         body: Container(
           child: Padding(
@@ -76,7 +77,7 @@ class _BankAccountAddingViewState extends State<BankAccountAddingView> {
                         expiryDate: expiryDate,
                         cardHolderName: cardHolderName,
                         cvvCode: cvvCode,
-                        showBackView: false,
+                        showBackView: isCvvFocused,
                       ),
                     ),
                     //TODO: Card Data
@@ -92,6 +93,7 @@ class _BankAccountAddingViewState extends State<BankAccountAddingView> {
                           expiryDate = data.expiryDate;
                           cardHolderName = data.cardHolderName;
                           cvvCode = data.cvvCode;
+                          isCvvFocused = data.isCvvFocused;
                         });
                       },
                     ),
@@ -107,9 +109,9 @@ class _BankAccountAddingViewState extends State<BankAccountAddingView> {
               stream: _controller.btnLoadStream,
               builder: (context, snapshot) {
                 return CusRaisedButton(
-                  title: 'ADD',
+                  title: 'Thêm',
                   height: 100,
-                  backgroundColor: kColorBlack,
+                  backgroundColor: kColorGreen,
                   isDisablePress: snapshot.hasData ? snapshot.data : true,
                   onPress: () async {
                     print(cardHolderName);
@@ -138,7 +140,7 @@ class _BankAccountAddingViewState extends State<BankAccountAddingView> {
                             ),
                             Expanded(
                               child: Text(
-                                'Adding Card Success.',
+                                'Thêm thành công.',
                                 style: kBoldTextStyle.copyWith(
                                     fontSize: FontSize.s28),
                               ),

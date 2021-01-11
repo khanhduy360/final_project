@@ -3,6 +3,7 @@ import 'package:flutter_dgreen/src/component/size_box_component.dart';
 import 'package:flutter_dgreen/src/component/textline_between.dart';
 import 'package:flutter_dgreen/src/helpers/TextStyle.dart';
 import 'package:flutter_dgreen/src/helpers/colors_constant.dart';
+import 'package:flutter_dgreen/src/helpers/font_constant.dart';
 import 'package:flutter_dgreen/src/helpers/screen.dart';
 
 import 'widget_title.dart';
@@ -56,29 +57,45 @@ class UserInfoCard extends StatelessWidget {
               SizeBoxHeight(size: 30),
               //TODO: id
               TextLineBetween(
-                label: 'ID',
-                content: id,
-              ),
+                  label: 'ID',
+                  content: id,
+                  contentStyle: TextStyle(
+                      color: kColorBlack,
+                      fontFamily: kFontMontserratBold,
+                      fontSize: 16)),
+
               //TODO: Username
               TextLineBetween(
-                label: 'Tên người dùng',
-                content: username,
-              ),
+                  label: 'Tên người dùng',
+                  content: username,
+                  contentStyle: TextStyle(
+                      color: kColorBlack,
+                      fontFamily: kFontMontserratBold,
+                      fontSize: 16)),
               //TODO: full name
               TextLineBetween(
-                label: 'Họ tên',
-                content: fullname,
-              ),
+                  label: 'Họ tên',
+                  content: fullname,
+                  contentStyle: TextStyle(
+                      color: kColorBlack,
+                      fontFamily: kFontMontserratBold,
+                      fontSize: 16)),
               //TODO: phone number
               TextLineBetween(
-                label: 'Phone',
-                content: phone,
-              ),
+                  label: 'Phone',
+                  content: phone,
+                  contentStyle: TextStyle(
+                      color: kColorBlack,
+                      fontFamily: kFontMontserratBold,
+                      fontSize: 16)),
               //TODO: Create at
               TextLineBetween(
-                label: 'Ngày tạo',
-                content: createAt,
-              ),
+                  label: 'Ngày tạo',
+                  content: createAt,
+                  contentStyle: TextStyle(
+                      color: kColorBlack,
+                      fontFamily: kFontMontserratBold,
+                      fontSize: 16)),
             ],
           ),
         ),

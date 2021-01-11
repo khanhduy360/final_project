@@ -1,4 +1,7 @@
 import 'dart:async';
+import 'dart:convert';
+import 'dart:io';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +14,9 @@ import 'package:flutter_dgreen/src/helpers/screen.dart';
 import 'package:flutter_dgreen/src/helpers/shared_preferrence.dart';
 import 'package:flutter_dgreen/src/model/user.dart';
 import 'package:flutter_dgreen/src/widgets/message_bubble.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 User loggedInUser;
 
@@ -28,6 +33,9 @@ class _ChatScreenState extends State<ChatScreen>
     with AutomaticKeepAliveClientMixin {
   final messageTextController = TextEditingController();
   final _auth = FirebaseAuth.instance;
+  final FirebaseMessaging firebaseMessaging = FirebaseMessaging();
+  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
   List<MessageBubble> messageBubbles = [];
   String messageText;
   String uid = '';
@@ -53,6 +61,73 @@ class _ChatScreenState extends State<ChatScreen>
     }
     getCurrentUser();
     userApp = getUser();
+    registerNotification();
+    configLocalNotification();
+  }
+
+  void registerNotification() {
+    firebaseMessaging.requestNotificationPermissions();
+
+    firebaseMessaging.configure(onMessage: (Map<String, dynamic> message) {
+      print('onMessage: $message');
+      Platform.isAndroid
+          ? showNotification(message['notification'])
+          : showNotification(message['aps']['alert']);
+      return;
+    }, onResume: (Map<String, dynamic> message) {
+      print('onResume: $message');
+      return;
+    }, onLaunch: (Map<String, dynamic> message) {
+      print('onLaunch: $message');
+      return;
+    });
+
+    firebaseMessaging.getToken().then((token) {
+      print('token: $token');
+      FirebaseFirestore.instance
+          .collection('Users')
+          .doc(uid)
+          .update({'pushToken': token});
+    }).catchError((err) {
+      Fluttertoast.showToast(msg: err.message.toString());
+    });
+  }
+
+  void configLocalNotification() {
+    var initializationSettingsAndroid =
+        new AndroidInitializationSettings('mipmap/ic_launcher');
+    var initializationSettingsIOS = new IOSInitializationSettings();
+    var initializationSettings = new InitializationSettings(
+        android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
+    flutterLocalNotificationsPlugin.initialize(initializationSettings);
+  }
+
+  void showNotification(message) async {
+    var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
+      Platform.isAndroid
+          ? 'com.example.nkd.flutter_dgreen'
+          : 'com.example.nkd.flutter_dgreen',
+      'Flutter chat demo',
+      'your channel description',
+      playSound: true,
+      enableVibration: true,
+    );
+    var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
+    var platformChannelSpecifics = new NotificationDetails(
+        android: androidPlatformChannelSpecifics,
+        iOS: iOSPlatformChannelSpecifics);
+
+    print(message);
+//    print(message['body'].toString());
+//    print(json.encode(message));
+
+    await flutterLocalNotificationsPlugin.show(0, message['title'].toString(),
+        message['body'].toString(), platformChannelSpecifics,
+        payload: json.encode(message));
+
+//    await flutterLocalNotificationsPlugin.show(
+//        0, 'plain title', 'plain body', platformChannelSpecifics,
+//        payload: 'item x');
   }
 
   void getCurrentUser() async {

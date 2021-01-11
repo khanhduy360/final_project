@@ -21,7 +21,7 @@ class CustomBanner extends StatelessWidget {
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage(KImageAddress + image),
-            fit: BoxFit.cover,
+            fit: BoxFit.fill,
           ),
         ),
         child: Column(
@@ -53,10 +53,10 @@ class CustomBanner extends StatelessWidget {
                 padding: EdgeInsets.symmetric(
                     vertical: ConstScreen.setSizeHeight(5),
                     horizontal: ConstScreen.setSizeHeight(60)),
-                child: Text('View',
+                child: Text('Xem ngay',
                     style: TextStyle(
                         fontSize: FontSize.setTextSize(40),
-                        color: kColorWhite,
+                        color: kColorYellow,
                         fontWeight: FontWeight.w900)),
               ),
             )

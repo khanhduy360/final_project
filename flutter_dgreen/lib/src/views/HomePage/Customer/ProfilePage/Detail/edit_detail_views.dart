@@ -1,9 +1,14 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dgreen/src/component/dropdown_custom.dart';
 import 'package:flutter_dgreen/src/helpers/TextStyle.dart';
 import 'package:flutter_dgreen/src/helpers/colors_constant.dart';
 import 'package:flutter_dgreen/src/helpers/screen.dart';
+import 'package:flutter_dgreen/src/helpers/style_constant.dart';
+import 'package:flutter_dgreen/src/helpers/utils.dart';
+import 'package:flutter_dgreen/src/widgets/button_normal.dart';
 import 'package:flutter_dgreen/src/widgets/button_raised.dart';
+import 'package:flutter_dgreen/src/widgets/input_normal.dart';
 import 'package:flutter_dgreen/src/widgets/input_text.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
@@ -58,7 +63,7 @@ class _EditDetailViewState extends State<EditDetailView> {
         cupertinoOptions: CupertinoOptions(takePhotoIcon: "chat"),
         materialOptions: MaterialOptions(
           actionBarColor: "#000000",
-          actionBarTitle: "Pick Product Image",
+          actionBarTitle: "Chọn ảnh",
           allViewTitle: "All Photos",
           useDetailsView: false,
           selectCircleStrokeColor: "#000000",
@@ -85,7 +90,7 @@ class _EditDetailViewState extends State<EditDetailView> {
           ),
         ),
         backgroundColor: kColorWhite,
-        iconTheme: IconThemeData.fallback(),
+        iconTheme: IconThemeData(color: kColorGreen),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -128,132 +133,133 @@ class _EditDetailViewState extends State<EditDetailView> {
               SizedBox(
                 height: ConstScreen.setSizeHeight(20),
               ),
-              //TODO: Mobile Phone and Gender picker
-              Row(
-                children: <Widget>[
-                  //TODO: Mobile Phone
-                  StreamBuilder(
-                      stream: _controller.phoneStream,
-                      builder: (context, snapshot) {
-                        return Expanded(
-                          flex: 2,
-                          child: InputText(
-                            title: 'Số điện thoại',
-                            errorText: snapshot.hasError ? snapshot.error : '',
-                            inputType: TextInputType.number,
-                            onValueChange: (value) {
-                              _phone = value;
-                            },
-                          ),
-                        );
-                      }),
-                  SizedBox(
-                    width: ConstScreen.setSizeWidth(15),
-                  ),
-                  //TODO: Gender picker
-                  Expanded(
-                    flex: 1,
-                    child: Container(
-                      decoration: BoxDecoration(
-                          border: Border.all(color: Colors.black54)),
-                      child: Padding(
-                        padding: EdgeInsets.only(
-                          top: ConstScreen.setSizeHeight(6),
-                          bottom: ConstScreen.setSizeHeight(6),
-                          left: ConstScreen.setSizeHeight(6),
-                        ),
-                        child: Center(
-                          child: StreamBuilder(
-                              stream: _controller.genderStream,
-                              builder: (context, snapshot) {
-                                return DropdownButton(
-                                  isExpanded: true,
-                                  value: _genderData,
-                                  hint: (snapshot.hasError)
-                                      ? AutoSizeText(
-                                          snapshot.error,
-                                          style: kBoldTextStyle.copyWith(
-                                              fontSize: FontSize.s30,
-                                              color: kColorRed),
-                                          minFontSize: 10,
-                                          maxLines: 1,
-                                        )
-                                      : AutoSizeText(
-                                          'Chọn giới tính',
-                                          style: kBoldTextStyle.copyWith(
-                                              fontSize: FontSize.s30,
-                                              color: kColorBlack),
-                                          minFontSize: 10,
-                                          maxLines: 1,
-                                        ),
-                                  onChanged: (value) {
-                                    setState(() {
-                                      _genderData = value;
-                                    });
-                                  },
-                                  items: gender.map((String value) {
-                                    return DropdownMenuItem(
-                                        value: value,
-                                        child: Text(
-                                          value,
-                                          style: kBoldTextStyle.copyWith(
-                                              fontSize: FontSize.s30),
-                                        ));
-                                  }).toList(),
-                                );
-                              }),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+              //TODO: Mobile Phone
+              StreamBuilder(
+                  stream: _controller.phoneStream,
+                  builder: (context, snapshot) {
+                    return InputText(
+                      title: 'Số điện thoại',
+                      errorText: snapshot.hasError ? snapshot.error : '',
+                      inputType: TextInputType.number,
+                      onValueChange: (value) {
+                        _phone = value;
+                      },
+                    );
+                  }),
+              SizedBox(
+                width: ConstScreen.setSizeWidth(15),
               ),
               SizedBox(
                 height: ConstScreen.setSizeHeight(20),
               ),
+              StreamBuilder<Object>(
+                  stream: _controller.genderStream,
+                  builder: (context, snapshot) {
+                    return DropdownCustom(
+                      textError: snapshot.hasError ? snapshot.error : '',
+                      iconSize: 32,
+                      icon: Icon(
+                        Icons.keyboard_arrow_down,
+                        color: kColorGrey,
+                      ),
+                      listItem: gender,
+                      itemSelected: _genderData,
+                      hintText: 'Chọn giới tính',
+                      labelText: 'GIỚI TÍNH',
+                      onChanged: (value) {
+                        setState(() {
+                          _genderData = value;
+                        });
+                      },
+                    );
+                  }),
+              SizedBox(
+                height: ConstScreen.setSizeHeight(20),
+              ),
               //TODO: Date Picker
-              GestureDetector(
-                onTap: () {
-                  DatePicker.showDatePicker(context,
-                      showTitleActions: true,
-                      minTime: DateTime(1950, 12, 31),
-                      maxTime: DateTime(DateTime.now().year, 12, 31),
-                      onChanged: (date) {
-                    print('change $date');
-                    birthDay = date;
-                  }, onConfirm: (date) {
-                    birthDay = date;
-                    _birthday = (birthDay.day.toString() +
-                        '/' +
-                        birthDay.month.toString() +
-                        '/' +
-                        birthDay.year.toString());
-                    setState(() {
-                      _isBirthdayConfirm = true;
-                    });
-                  }, currentTime: DateTime.now(), locale: LocaleType.vi);
-                },
-                child: Container(
-                  height: ConstScreen.setSizeHeight(100),
-                  decoration: BoxDecoration(
-                      border: Border.all(color: kColorBlack.withOpacity(0.7))),
-                  child: Center(
-                    child: Text(
-                      _isBirthdayConfirm
-                          ? ('Ngày sinh: ' +
-                              birthDay.day.toString() +
-                              '/' +
-                              birthDay.month.toString() +
-                              '/' +
-                              birthDay.year.toString())
-                          : 'Chọn ngày sinh',
-                      style: TextStyle(
-                          color: kColorBlack,
-                          fontSize: FontSize.s30,
-                          fontWeight: FontWeight.w400),
-                    ),
+              Stack(
+                children: <Widget>[
+                  IgnorePointer(
+                    child: StreamBuilder<Object>(
+                        stream: _controller.birthdayStream,
+                        builder: (context, snapshot) {
+                          return InputNormal(
+                            labelText: 'Ngày sinh',
+                            textError: snapshot.hasError ? snapshot.error : '',
+                            children: TextField(
+                              controller:
+                                  TextEditingController(text: _birthday),
+                              style: TextStyle(
+                                fontSize: setFontSize(size: 32.0),
+                                color: kColorBody,
+                              ),
+                              decoration: kInputTextDecoration.copyWith(
+                                hintText: 'Ngày/Tháng/Năm',
+                                hintStyle: TextStyle(
+                                  height: 1.7,
+                                  fontSize: 14,
+                                  backgroundColor: Colors.white,
+                                  color: kColorBody,
+                                ),
+                                suffixIcon: GestureDetector(
+                                  child: Icon(
+                                    Icons.calendar_today,
+                                    size: setFontSize(size: 32.0),
+                                    color: kColorGrey,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        }),
                   ),
-                ),
+                  Positioned(
+                    child: GestureDetector(
+                      onTap: () {
+                        DatePicker.showDatePicker(
+                          context,
+                          showTitleActions: true,
+                          minTime: DateTime(1950, 12, 31),
+                          maxTime: DateTime(DateTime.now().year, 12, 31),
+                          theme: DatePickerTheme(
+                            headerColor: kColorGreen,
+                            doneStyle: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                            ),
+                          ),
+                          onChanged: (date) {
+                            print('change $date');
+                            birthDay = date;
+                          },
+                          onConfirm: (date) {
+                            FocusScope.of(context).requestFocus(FocusNode());
+                            birthDay = date;
+                            _birthday = (birthDay.day.toString() +
+                                '/' +
+                                birthDay.month.toString() +
+                                '/' +
+                                birthDay.year.toString());
+                            setState(
+                              () {
+                                setState(() {
+                                  _isBirthdayConfirm = true;
+                                });
+                              },
+                            );
+                          },
+                          currentTime: DateTime.now(),
+                          locale: LocaleType.vi,
+                        );
+                      },
+                      child: Container(
+                        color: Colors.black.withOpacity(0),
+                        height: 60,
+                        width: 300,
+                      ),
+                    ),
+                  )
+                ],
               ),
               //TODO: Image product
               Text(
@@ -288,11 +294,9 @@ class _EditDetailViewState extends State<EditDetailView> {
               StreamBuilder(
                   stream: _controller.btnLoading,
                   builder: (context, snapshot) {
-                    return CusRaisedButton(
-                      height: 90,
-                      title: 'Lưu lại',
-                      isDisablePress: snapshot.hasData ? snapshot.data : true,
-                      backgroundColor: kColorBlue,
+                    return ButtonNormal(
+                      text: 'Lưu lại',
+                      isBtnColor: true,
                       onPress: () async {
                         bool result = await _controller.onSave(
                             fullName: _fullName,

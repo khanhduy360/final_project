@@ -77,7 +77,7 @@ class _DetailBannerScreenState extends State<ProductListView> {
     return Scaffold(
       backgroundColor: kColorWhite,
       appBar: AppBar(
-          iconTheme: IconThemeData.fallback(),
+          iconTheme: IconThemeData(color: kColorGreen),
           backgroundColor: kColorWhite,
           centerTitle: true,
           title: Text(
@@ -181,7 +181,6 @@ class _DetailBannerScreenState extends State<ProductListView> {
                                 colorList: document['color'],
                                 price: document['price'],
                                 salePrice: document['sale_price'],
-                                brand: document['brand'],
                                 madeIn: document['made_in'],
                                 quantityMain: document['quantity'],
                                 quantity: '',

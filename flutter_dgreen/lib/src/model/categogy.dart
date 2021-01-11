@@ -5,11 +5,12 @@ class Category {
     'Cỏ',
   ];
   static const List OutSide = [
-    'Cao kiểng',
+    'Cây kiểng',
     'Hoa',
+    'Cây ăn quả',
   ];
   static const List Handing = [
     'Lan',
-    'Lan rừng',
+    'Các loại khác',
   ];
 }

@@ -59,22 +59,15 @@ class _InputNormalState extends State<InputNormal> {
         padding: EdgeInsets.symmetric(horizontal: widget.isRequired ? 0 : 7),
         child: Row(
           children: <Widget>[
-            widget.isRequired
-                ? Icon(
-                    Icons.brightness_1,
-                    color: kColorOrange,
-                    size: 9,
-                  )
-                : Container(),
             SizeBoxWidth(size: 5),
             Text(
               widget.labelText != null ? widget.labelText : '',
               style: TextStyle(
                 height: 1.7,
                 fontWeight: FontWeight.w500,
-                fontSize: 12,
+                fontSize: 14,
                 backgroundColor: Colors.white,
-                color: kColorBody,
+                color: kColorGreen,
               ),
             ),
           ],

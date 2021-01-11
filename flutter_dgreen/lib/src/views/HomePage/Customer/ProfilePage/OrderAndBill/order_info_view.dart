@@ -2,8 +2,10 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dgreen/src/component/textline_between.dart';
 import 'package:flutter_dgreen/src/helpers/TextStyle.dart';
 import 'package:flutter_dgreen/src/helpers/colors_constant.dart';
+import 'package:flutter_dgreen/src/helpers/font_constant.dart';
 import 'package:flutter_dgreen/src/helpers/screen.dart';
 import 'package:flutter_dgreen/src/helpers/utils.dart';
 import 'package:flutter_dgreen/src/model/orderInfo.dart';
@@ -33,7 +35,7 @@ class _OrderInfoViewState extends State<OrderInfoView> {
           ),
         ),
         backgroundColor: kColorWhite,
-        iconTheme: IconThemeData.fallback(),
+        iconTheme: IconThemeData(color: kColorGreen),
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(
@@ -49,48 +51,72 @@ class _OrderInfoViewState extends State<OrderInfoView> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
                   //TODO: Order ID
-                  TitleWidget(
-                    title: 'ID Khách Hàng',
-                    content: widget.id,
-                  ),
-                  TitleWidget(
-                    title: 'Ngày đặt',
-                    content: widget.orderInfo.createAt,
-                  ),
-                  TitleWidget(
-                    title: 'Tên khách',
-                    content: widget.orderInfo.customerName,
-                  ),
-                  TitleWidget(
-                    title: 'Người nhận',
-                    content: widget.orderInfo.receiverName,
-                  ),
-                  TitleWidget(
-                    title: 'Trạng thái',
-                    content: widget.orderInfo.status,
-                  ),
-                  TitleWidget(
-                    title: 'Giá sản phẩm',
-                    content:
-                        '${Util.intToMoneyType(int.parse(widget.orderInfo.total) + int.parse(widget.orderInfo.shipping) + int.parse(widget.orderInfo.maxBillingAmount))} VND',
-                  ),
-                  TitleWidget(
-                    title: 'Phí vận chuyển',
-                    content:
-                        '+${Util.intToMoneyType(int.parse(widget.orderInfo.shipping))} VND',
-                  ),
-                  TitleWidget(
-                    title: 'Mã giảm giá',
-                    content:
-                        'Giảm giá: ${widget.orderInfo.discount}% \n-${Util.intToMoneyType(int.parse(widget.orderInfo.discountPrice))} VND',
-                  ),
+                  TextLineBetween(
+                      label: 'ID Khách Hàng',
+                      content: widget.id,
+                      contentStyle: TextStyle(
+                          color: kColorBlack,
+                          fontFamily: kFontMontserratBold,
+                          fontSize: 16)),
+                  TextLineBetween(
+                      label: 'Ngày đặt',
+                      content: widget.orderInfo.createAt,
+                      contentStyle: TextStyle(
+                          color: kColorBlack,
+                          fontFamily: kFontMontserratBold,
+                          fontSize: 16)),
+                  TextLineBetween(
+                      label: 'Tên khách',
+                      content: widget.orderInfo.customerName,
+                      contentStyle: TextStyle(
+                          color: kColorBlack,
+                          fontFamily: kFontMontserratBold,
+                          fontSize: 16)),
+                  TextLineBetween(
+                      label: 'Người nhận',
+                      content: widget.orderInfo.receiverName,
+                      contentStyle: TextStyle(
+                          color: kColorBlack,
+                          fontFamily: kFontMontserratBold,
+                          fontSize: 16)),
+                  TextLineBetween(
+                      label: 'Trạng thái',
+                      content: widget.orderInfo.status,
+                      contentStyle: TextStyle(
+                          color: kColorBlue,
+                          fontFamily: kFontMontserratBold,
+                          fontSize: 16)),
+
+                  TextLineBetween(
+                      label: 'Phí vận chuyển',
+                      content:
+                          '+${Util.intToMoneyType(int.parse(widget.orderInfo.shipping))} VND',
+                      contentStyle: TextStyle(
+                          color: kColorGreen,
+                          fontFamily: kFontMontserratBold,
+                          fontSize: 16)),
+                  TextLineBetween(
+                      label: 'Mã giảm giá',
+                      content:
+                          'Giảm giá: ${widget.orderInfo.discount}% \n-${Util.intToMoneyType(int.parse(widget.orderInfo.discountPrice))} VND',
+                      contentStyle: TextStyle(
+                          color: kColorOrange,
+                          fontFamily: kFontMontserratBold,
+                          fontSize: 16)),
 
                   // TODO: Err total 200,000
                   Card(
-                    child: TitleWidget(
-                        title: 'Tổng cộng',
-                        content:
-                            '${Util.intToMoneyType(int.parse(widget.orderInfo.total))} VND'),
+                    child: Container(
+                      margin: EdgeInsets.only(top: 20.0),
+                      child: TextLineBetween(
+                          label: 'Tổng cộng',
+                          content:
+                              '${Util.intToMoneyType(int.parse(widget.orderInfo.total))} VND',
+                          contentStyle: TextStyle(
+                              color: kColorRed,
+                              fontFamily: kFontMontserratBold,
+                              fontSize: 16)),
+                    ),
                   ),
                 ],
               ),
@@ -144,7 +170,7 @@ class _OrderInfoViewState extends State<OrderInfoView> {
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: AutoSizeText(
-                    'Product Detail',
+                    'Chi tiết sản phẩm',
                     maxLines: 1,
                     minFontSize: 10,
                     style: kBoldTextStyle.copyWith(

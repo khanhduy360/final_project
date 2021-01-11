@@ -14,30 +14,32 @@ class _AdminAddingAccountState extends State<AdminAddingAccount> {
     ConstScreen.setScreen(context);
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData.fallback(),
+        iconTheme: IconThemeData(color: kColorGreen),
         backgroundColor: kColorWhite,
         // TODO: Quantity Items
         title: Text(
-          'Adding User',
+          'Thêm người dùng',
           style: TextStyle(
-              color: kColorBlack,
+              color: kColorGreen,
               fontSize: FontSize.setTextSize(32),
               fontWeight: FontWeight.w500),
         ),
         centerTitle: true,
       ),
-      body: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(50), topRight: Radius.circular(50)),
-        ),
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-              vertical: ConstScreen.setSizeHeight(65),
-              horizontal: ConstScreen.setSizeHeight(50)),
-          child: SignUpView(
-            typeAccount: 'admin',
+      body: SingleChildScrollView(
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(50), topRight: Radius.circular(50)),
+          ),
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+                vertical: ConstScreen.setSizeHeight(65),
+                horizontal: ConstScreen.setSizeHeight(50)),
+            child: SignUpView(
+              typeAccount: 'admin',
+            ),
           ),
         ),
       ),

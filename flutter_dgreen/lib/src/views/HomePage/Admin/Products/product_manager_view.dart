@@ -28,12 +28,13 @@ class _ProductManagerState extends State<ProductManager> {
             ),
           ),
           backgroundColor: kColorWhite,
-          iconTheme: IconThemeData.fallback(),
+          iconTheme: IconThemeData(color: kColorGreen),
           actions: <Widget>[
             IconButton(
                 icon: Icon(
                   Icons.add_comment,
                   size: ConstScreen.setSizeWidth(45),
+                  color: kColorGreen,
                 ),
                 onPressed: () {
                   Navigator.pushNamed(context, 'admin_home_product_adding');
@@ -51,7 +52,6 @@ class _ProductManagerState extends State<ProductManager> {
                     quantity: document['quantity'],
                     productPrice: int.parse(document['price']),
                     productSalePrice: int.parse(document['sale_price']),
-                    brand: document['brand'],
                     category: document['categogy'],
                     madeIn: document['made_in'],
                     createAt: convertDate(date: document['create_at']),

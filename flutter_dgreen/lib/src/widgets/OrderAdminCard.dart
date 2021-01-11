@@ -1,8 +1,11 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dgreen/src/component/textline_between.dart';
 import 'package:flutter_dgreen/src/helpers/TextStyle.dart';
 import 'package:flutter_dgreen/src/helpers/colors_constant.dart';
+import 'package:flutter_dgreen/src/helpers/font_constant.dart';
 import 'package:flutter_dgreen/src/helpers/screen.dart';
+import 'package:flutter_dgreen/src/helpers/utils.dart';
 
 class OrderAdminCard extends StatelessWidget {
   OrderAdminCard(
@@ -46,112 +49,57 @@ class OrderAdminCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 // TODO: Order id
-                AutoSizeText.rich(
-                  TextSpan(
-                    style: kBoldTextStyle.copyWith(
-                      fontSize: FontSize.s30,
-                    ),
-                    children: [
-                      TextSpan(
-                        text: 'Mã đơn: ',
-                      ),
-                      TextSpan(
-                        text: id,
-                        style: kNormalTextStyle.copyWith(
-                          fontSize: FontSize.s30,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                TextLineBetween(
+                    label: 'Mã đơn',
+                    content: id,
+                    contentStyle: TextStyle(
+                        color: kColorBlack,
+                        fontFamily: kFontMontserratBold,
+                        fontSize: 16)),
                 SizedBox(
                   height: ConstScreen.setSizeHeight(10),
                 ),
                 //TODO: Order date
-                AutoSizeText.rich(
-                  TextSpan(
-                    style: kBoldTextStyle.copyWith(
-                      fontSize: FontSize.s30,
-                    ),
-                    children: [
-                      TextSpan(
-                        text: 'Ngày đặt: ',
-                      ),
-                      TextSpan(
-                        text: date,
-                        style: kNormalTextStyle.copyWith(
-                          fontSize: FontSize.s30,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                TextLineBetween(
+                    label: 'Đặt vào',
+                    content: date,
+                    contentStyle: TextStyle(
+                        color: kColorBlack,
+                        fontFamily: kFontMontserratBold,
+                        fontSize: 16)),
                 SizedBox(
                   height: ConstScreen.setSizeHeight(10),
                 ),
                 //TODO:Customer's Name
-                AutoSizeText.rich(
-                  TextSpan(
-                    style: kBoldTextStyle.copyWith(
-                      fontSize: FontSize.s30,
-                    ),
-                    children: [
-                      TextSpan(
-                        text: 'Khách hàng: ',
-                      ),
-                      TextSpan(
-                        text: customerName,
-                        style: kNormalTextStyle.copyWith(
-                          fontSize: FontSize.s30,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                TextLineBetween(
+                    label: 'Khách hàng',
+                    content: customerName,
+                    contentStyle: TextStyle(
+                        color: kColorBlack,
+                        fontFamily: kFontMontserratBold,
+                        fontSize: 16)),
                 SizedBox(
                   height: ConstScreen.setSizeHeight(10),
                 ),
                 // TODO: Status
-                AutoSizeText.rich(
-                  TextSpan(
-                    style: kBoldTextStyle.copyWith(
-                      fontSize: FontSize.s30,
-                    ),
-                    children: [
-                      TextSpan(
-                        text: 'Trạng thái: ',
-                      ),
-                      TextSpan(
-                        text: status,
-                        style: kNormalTextStyle.copyWith(
-                          fontSize: FontSize.s30,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                TextLineBetween(
+                    label: 'Trạng thái',
+                    content: status,
+                    contentStyle: TextStyle(
+                        color: kColorBlue,
+                        fontFamily: kFontMontserratBold,
+                        fontSize: 16)),
                 SizedBox(
                   height: ConstScreen.setSizeHeight(10),
                 ),
                 //TODO: Total price
-                AutoSizeText.rich(
-                  TextSpan(
-                    style: kBoldTextStyle.copyWith(
-                      fontSize: FontSize.s30,
-                    ),
-                    children: [
-                      TextSpan(
-                        text: 'Tổng cộng: ',
-                      ),
-                      TextSpan(
-                        text: '$total VND',
-                        style: kNormalTextStyle.copyWith(
-                          fontSize: FontSize.s30,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                TextLineBetween(
+                    label: 'Tổng cộng',
+                    content: '$total VND',
+                    contentStyle: TextStyle(
+                        color: kColorBlack,
+                        fontFamily: kFontMontserratBold,
+                        fontSize: 16)),
                 //TODO: ViewDetail and CancelOrder
                 SizedBox(
                   height: ConstScreen.setSizeHeight(15),

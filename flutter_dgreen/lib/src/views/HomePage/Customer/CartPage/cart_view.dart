@@ -126,17 +126,16 @@ class _CartViewState extends State<CartView> {
         for (var value in onValue.docs) {
           print('Sale: ' + value.data()['sale_price']);
           Product product = new Product(
-            id: value.data()['id'],
-            productName: value.data()['name'],
-            image: value.data()['image'],
-            category: value.data()['categogy'],
-            color: value.data()['color'],
-            price: value.data()['price'],
-            salePrice: value.data()['sale_price'],
-            brand: value.data()['brand'],
-            madeIn: value.data()['made_in'],
-            quantity: value.data()['quantity'],
-          );
+              id: value.data()['id'],
+              productName: value.data()['name'],
+              image: value.data()['image'],
+              category: value.data()['categogy'],
+              color: value.data()['color'],
+              price: value.data()['price'],
+              salePrice: value.data()['sale_price'],
+              madeIn: value.data()['made_in'],
+              quantity: value.data()['quantity'],
+              quantityMain: value.data()['quantityMain']);
           productInfoList.add(product);
           getQuantity();
         }
@@ -148,11 +147,11 @@ class _CartViewState extends State<CartView> {
             productPrice: int.parse(product.price),
             productSalePrice: int.parse(product.salePrice),
             productColor: Color(product.color),
-            productSize: product.size,
             productImage: product.image,
-            brand: product.brand,
             madeIn: product.madeIn,
             quantity: product.quantity,
+            quantityMain: product.quantityMain,
+
             //TODO: onQtyChange
             onQtyChange: (qty) {
               print(qty);
@@ -160,6 +159,10 @@ class _CartViewState extends State<CartView> {
                 product.quantity = qty;
               });
               onChangeQty(qty, product.id);
+              if (int.parse(product.quantity) >
+                  int.parse(product.quantityMain)) {
+                _onWillPop();
+              }
             },
             onClose: () {
               onDelete(product.id);
@@ -176,18 +179,35 @@ class _CartViewState extends State<CartView> {
     });
   }
 
+  Future<bool> _onWillPop() {
+    return showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text('Nhập lại số lượng'),
+            content: Text('Số lượng lớn hơn cửa hàng hiện có'),
+            actions: <Widget>[
+              FlatButton(
+                onPressed: () => Navigator.of(context).pop(false),
+                child: Text('OK'),
+              ),
+            ],
+          ),
+        ) ??
+        false;
+  }
+
   @override
   Widget build(BuildContext context) {
     ConstScreen.setScreen(context);
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData.fallback(),
+        iconTheme: IconThemeData(color: kColorGreen),
         backgroundColor: kColorWhite,
         // TODO: Quantity Items
         title: Text(
-          uiProductList.length.toString() + ' items',
+          'Có ${uiProductList.length.toString()} sản phẩm trong Giỏ hàng',
           style: TextStyle(
-              color: kColorBlack,
+              color: kColorGreen,
               fontSize: FontSize.setTextSize(32),
               fontWeight: FontWeight.w500),
         ),
@@ -308,9 +328,10 @@ class _CartViewState extends State<CartView> {
               flex: 1,
               child: CusRaisedButton(
                 title: 'Đặt hàng',
-                backgroundColor: kColorBlue,
+                backgroundColor: kColorGreen,
                 height: ConstScreen.setSizeHeight(150),
                 onPress: () {
+                  getQuantity();
                   if (totalPrice != 0) {
                     Navigator.push(
                       context,

@@ -108,7 +108,7 @@ class _OrderChartState extends State<OrderChart>
                               sectionsSpace: 0,
                               centerSpaceRadius: 40,
                               sections: showingSections(snapshot.data)),
-                          swapAnimationDuration: Duration(milliseconds: 1500),
+                          swapAnimationDuration: Duration(milliseconds: 150),
                         );
                       } else {
                         return Center(child: CircularProgressIndicator());

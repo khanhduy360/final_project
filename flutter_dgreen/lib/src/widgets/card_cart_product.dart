@@ -18,25 +18,23 @@ class CartProductCard extends StatelessWidget {
   CartProductCard({
     this.id,
     this.productName = '',
-    this.productSize = '',
     this.productColor = kColorWhite,
     this.productPrice = 0,
     this.productImage = '',
     this.productSalePrice = 0,
     this.quantity = '1',
-    this.brand,
+    this.quantityMain,
     this.madeIn,
     this.onQtyChange,
     this.onClose,
   });
   final String productName;
   final Color productColor;
-  final String productSize;
   final int productPrice;
   final int productSalePrice;
   final String productImage;
   final String quantity;
-  final String brand;
+  final String quantityMain;
   final String madeIn;
   final Function onClose;
   final Function onQtyChange;
@@ -117,25 +115,25 @@ class CartProductCard extends StatelessWidget {
                                     fontWeight: FontWeight.w500),
                               ),
                             ),
-                            //TODO: Brand
-                            Align(
-                              alignment: Alignment.topLeft,
-                              child: AutoSizeText(
-                                'Brand: $brand',
-                                textAlign: TextAlign.start,
-                                maxLines: 2,
-                                minFontSize: 15,
-                                style: TextStyle(
-                                    fontSize: FontSize.setTextSize(34),
-                                    color: kColorBlack,
-                                    fontWeight: FontWeight.w300),
-                              ),
-                            ),
+                            // //TODO: Brand
+                            // Align(
+                            //   alignment: Alignment.topLeft,
+                            //   child: AutoSizeText(
+                            //     'Brand: $brand',
+                            //     textAlign: TextAlign.start,
+                            //     maxLines: 2,
+                            //     minFontSize: 15,
+                            //     style: TextStyle(
+                            //         fontSize: FontSize.setTextSize(34),
+                            //         color: kColorBlack,
+                            //         fontWeight: FontWeight.w300),
+                            //   ),
+                            // ),
                             //TODO: Made In
                             Align(
                               alignment: Alignment.topLeft,
                               child: AutoSizeText(
-                                'Made in: $madeIn',
+                                'Xuất xứ: $madeIn',
                                 textAlign: TextAlign.start,
                                 maxLines: 2,
                                 minFontSize: 15,
@@ -150,7 +148,17 @@ class CartProductCard extends StatelessWidget {
                               children: <Widget>[
                                 // TODO: Product Color
                                 Expanded(
-                                  flex: 1,
+                                  flex: 3,
+                                  child: Text(
+                                    'Màu: ',
+                                    style: TextStyle(
+                                        fontSize: FontSize.setTextSize(34),
+                                        color: kColorBlack,
+                                        fontWeight: FontWeight.w300),
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 2,
                                   child: BoxInfo(
                                     color: productColor,
                                   ),
@@ -158,42 +166,75 @@ class CartProductCard extends StatelessWidget {
                                 SizedBox(
                                   width: ConstScreen.setSizeWidth(5),
                                 ),
-                                // TODO: Product Size
-                                Expanded(
-                                  flex: 1,
-                                  child: BoxInfo(
-                                    sizeProduct: productSize,
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: ConstScreen.setSizeWidth(180),
-                                ),
+
+                                // SizedBox(
+                                //   width: ConstScreen.setSizeWidth(180),
+                                // ),
+                              ],
+                            ),
+                            Row(
+                              children: <Widget>[
+                                // TODO: Product Color
                                 Expanded(
                                   flex: 3,
-                                  child: //TODO: quantity
-                                      Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: ConstScreen.setSizeWidth(20)),
-                                    child: TextFormField(
-                                      initialValue: quantity,
-                                      textAlign: TextAlign.center,
-                                      decoration: InputDecoration(
-                                        hintText: 'Qty',
-                                        hintStyle: kBoldTextStyle.copyWith(
-                                            fontSize: FontSize.s28,
-                                            fontWeight: FontWeight.w200),
-                                        focusColor: Colors.black,
-                                      ),
-                                      maxLines: 1,
-                                      keyboardType: TextInputType.number,
-                                      onChanged: (qty) {
-                                        onQtyChange(qty);
-                                      },
-                                    ),
+                                  child: Text(
+                                    'Hiện có: ',
+                                    style: TextStyle(
+                                        fontSize: FontSize.setTextSize(34),
+                                        color: kColorBlack,
+                                        fontWeight: FontWeight.w300),
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 1,
+                                  child: Text(
+                                    quantityMain,
+                                    style: TextStyle(
+                                        fontSize: FontSize.setTextSize(34),
+                                        color: kColorBlack,
+                                        fontWeight: FontWeight.w300),
                                   ),
                                 ),
                                 SizedBox(
                                   width: ConstScreen.setSizeWidth(5),
+                                ),
+
+                                // SizedBox(
+                                //   width: ConstScreen.setSizeWidth(180),
+                                // ),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Expanded(
+                                  flex: 3,
+                                  child: Text(
+                                    'Số lượng: ',
+                                    style: TextStyle(
+                                        fontSize: FontSize.setTextSize(34),
+                                        color: kColorBlack,
+                                        fontWeight: FontWeight.w300),
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 2,
+                                  child: //TODO: quantity
+                                      TextFormField(
+                                    initialValue: quantity,
+                                    textAlign: TextAlign.center,
+                                    decoration: InputDecoration(
+                                      hintText: 'Qty',
+                                      hintStyle: kBoldTextStyle.copyWith(
+                                          fontSize: FontSize.setTextSize(34),
+                                          fontWeight: FontWeight.w200),
+                                      focusColor: Colors.black,
+                                    ),
+                                    maxLines: 1,
+                                    keyboardType: TextInputType.number,
+                                    onChanged: (qty) {
+                                      onQtyChange(qty);
+                                    },
+                                  ),
                                 ),
                               ],
                             ),

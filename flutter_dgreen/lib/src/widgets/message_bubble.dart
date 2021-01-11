@@ -6,6 +6,7 @@ import 'package:flutter_dgreen/src/helpers/colors_constant.dart';
 import 'package:flutter_dgreen/src/helpers/screen.dart';
 import 'package:flutter_dgreen/src/views/HomePage/Customer/HomePage/ProductDetail/image_product_view.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:intl/intl.dart';
 
 class MessageBubble extends StatelessWidget {
   MessageBubble(
@@ -121,6 +122,17 @@ class MessageBubble extends StatelessWidget {
                 : Container(),
             //TODO Image
             isMeListImage(),
+            Container(
+              child: Text(
+                DateFormat('dd MMM kk:mm')
+                    .format(DateTime.fromMillisecondsSinceEpoch(createAt)),
+                style: TextStyle(
+                    color: kColorBlack,
+                    fontSize: 12.0,
+                    fontStyle: FontStyle.italic),
+              ),
+              margin: EdgeInsets.only(left: 50.0, top: 5.0, bottom: 5.0),
+            )
           ],
         ),
       ),

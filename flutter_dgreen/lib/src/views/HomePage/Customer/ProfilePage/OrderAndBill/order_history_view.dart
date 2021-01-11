@@ -29,7 +29,7 @@ class _OrderHistoryViewState extends State<OrderHistoryView>
     ConstScreen.setScreen(context);
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData.fallback(),
+        iconTheme: IconThemeData(color: kColorGreen),
         backgroundColor: kColorWhite,
         // TODO: Quantity Items
         title: Text(

@@ -26,17 +26,19 @@ class ChangePwdController {
     _confirmPwdController.sink.add('');
     int countError = 0;
     if (currentPwd == '' || currentPwd == null || currentPwd.length < 6) {
-      _currentPwdSController.sink.addError('Your current password is invalid.');
+      _currentPwdSController.sink
+          .addError('Mật khẩu hiện tại không chính xác.');
       countError++;
     }
 
     if (newPwd == '' || newPwd == null || currentPwd.length < 6) {
-      _newPwdController.sink.addError('Your new password is invalid.');
+      _newPwdController.sink.addError('Mật khẩu mới quá ngắn.');
       countError++;
     }
 
     if (confirmPwd == '' || confirmPwd == null || currentPwd.length < 6) {
-      _confirmPwdController.sink.addError('Your confirm password is invalid.');
+      _confirmPwdController.sink
+          .addError('Xác nhận mật khẩu không trùng khớp.');
       countError++;
     }
 
@@ -48,7 +50,7 @@ class ChangePwdController {
     String originalPwd;
     originalPwd = await StorageUtil.getPassword();
     if (originalPwd != Util.encodePassword(currentPwd)) {
-      _currentPwdSController.addError('Current password is invalid.');
+      _currentPwdSController.addError('Mật khẩu không đúng.');
       countError++;
     }
 
@@ -59,16 +61,15 @@ class ChangePwdController {
       String uid = await StorageUtil.getUid();
       var userInfo = await StorageUtil.getUserInfo();
       String username = userInfo.username;
-      FirebaseUser user = (await FirebaseAuth.instance
-              .signInWithEmailAndPassword(
-                  email: username, password: currentPwd))
+      User user = (await FirebaseAuth.instance.signInWithEmailAndPassword(
+              email: username, password: currentPwd))
           .user;
       user.updatePassword(newPwd);
       // TODO: update new password to cloud
-      await Firestore.instance
+      await FirebaseFirestore.instance
           .collection('Users')
-          .document(uid)
-          .updateData({'password': Util.encodePassword(newPwd)});
+          .doc(uid)
+          .update({'password': Util.encodePassword(newPwd)});
       StorageUtil.setPassword(Util.encodePassword(newPwd));
       _btnLoadingController.sink.add(true);
       return true;

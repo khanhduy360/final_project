@@ -27,13 +27,13 @@ class _CouponAdminViewState extends State<CouponAdminView>
     ConstScreen.setScreen(context);
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData.fallback(),
+        iconTheme: IconThemeData(color: kColorGreen),
         backgroundColor: kColorWhite,
         // TODO: Quantity Items
         title: Text(
           'Quản lí mã khuyến mãi',
           style: TextStyle(
-              color: kColorBlack,
+              color: kColorGreen,
               fontSize: FontSize.setTextSize(32),
               fontWeight: FontWeight.w500),
         ),

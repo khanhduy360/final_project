@@ -20,7 +20,7 @@ class CheckoutController {
   Stream get addressStream => _addressStreamController.stream;
   Stream get quantityStream => _quantityStreamController.stream;
   Stream get btnLoadingStream => _btnStreamController.stream;
-
+  Validators validators = new Validators();
   onPayment({
     @required String name,
     @required String phoneNumber,
@@ -45,13 +45,7 @@ class CheckoutController {
         'receiver_name': name,
         'address': address,
         'discountPrice': discountPrice,
-        'total': ((int.parse(total) -
-                int.parse((coupon.maxBillingAmount != null &&
-                        coupon.maxBillingAmount != '')
-                    ? coupon.maxBillingAmount
-                    : '0') +
-                int.parse((int.parse(total) >= 300000) ? '0' : '20000')))
-            .toString(),
+        'total': total,
         'phone': phoneNumber,
         'status': 'Pending',
         'client_secret': clientSecret,
@@ -79,12 +73,12 @@ class CheckoutController {
                 .set({
               'id': product.id,
               'name': product.productName,
-              'size': product.size,
               'color': product.color,
               'price': (int.parse(product.salePrice) == 0)
                   ? product.price
                   : product.salePrice,
-              'quantity': product.quantity
+              'quantity': product.quantity,
+              'quantityMain': product.quantityMain,
             });
         }
       });
@@ -143,23 +137,19 @@ class CheckoutController {
     int countError = 0;
     String message = 'Too much quantity selected: \n';
     if (name == null || name == '') {
-      _nameStreamController.sink.addError('Receiver\'s name is empty.');
+      _nameStreamController.sink.addError('Người nhận không được trống.');
       countError++;
     }
 
-    if (phoneNumber == null || phoneNumber == '') {
-      _phoneStreamController.sink.addError('Phone number is empty.');
-      countError++;
-    }
-    Validators validators = new Validators();
-    bool isphone = validators.isPhoneNumber(phoneNumber);
-    if (!isphone) {
-      _phoneStreamController.sink.addError('Phone number is invalid.');
+    if (phoneNumber == null ||
+        phoneNumber == '' ||
+        (phoneNumber.length < 10 || phoneNumber.length > 11)) {
+      _phoneStreamController.sink.addError('Số điện thoại không đúng.');
       countError++;
     }
 
     if (address == null || address == '') {
-      _addressStreamController.sink.addError('Address is invalid.');
+      _addressStreamController.sink.addError('Địa chỉ không được để trống.');
       countError++;
     }
 

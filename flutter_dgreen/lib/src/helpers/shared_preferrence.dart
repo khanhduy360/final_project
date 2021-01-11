@@ -9,16 +9,19 @@ class StorageUtil {
     SharedPreferences _preferences = await SharedPreferences.getInstance();
     _preferences.setString('uid', value);
   }
+
   //TODO: SET AVATAR
   static Future<void> setAvatar(String value) async {
     SharedPreferences _preferences = await SharedPreferences.getInstance();
     _preferences.setString('avatar', value);
   }
+
   //TODO: GET AVATART
   static Future<String> getAvatar() async {
     SharedPreferences _preferences = await SharedPreferences.getInstance();
     return _preferences.getString('avatar');
   }
+
   //TODO: GET UID
   static Future<String> getUid() async {
     SharedPreferences _preferences = await SharedPreferences.getInstance();

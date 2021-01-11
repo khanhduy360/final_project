@@ -64,6 +64,7 @@ class _RatingProductPageState extends State<RatingProductPage>
                       },
                       icon: Icon(
                         Icons.arrow_back_ios,
+                        color: kColorGreen,
                         size: ConstScreen.setSizeWidth(40),
                       ),
                     ),
@@ -100,7 +101,8 @@ class _RatingProductPageState extends State<RatingProductPage>
                                     : '0 Đánh giá',
                                 style: TextStyle(
                                     fontSize: FontSize.s30,
-                                    fontWeight: FontWeight.bold),
+                                    fontWeight: FontWeight.bold,
+                                    color: kColorGreen),
                               );
                             }),
                       ],
@@ -114,6 +116,7 @@ class _RatingProductPageState extends State<RatingProductPage>
                         icon: Icon(
                           Icons.add_comment,
                           size: ConstScreen.setSizeWidth(45),
+                          color: kColorGreen,
                         ),
                         onPressed: () {
                           //TODO: Add comment
@@ -192,6 +195,10 @@ class _RatingProductPageState extends State<RatingProductPage>
                                                   fontSize: FontSize.s36,
                                                   fontWeight: FontWeight.bold),
                                             ),
+                                            SizedBox(
+                                              height:
+                                                  ConstScreen.setSizeHeight(20),
+                                            ),
                                             Expanded(
                                                 flex: 10,
                                                 child: StreamBuilder(
@@ -259,7 +266,7 @@ class _RatingProductPageState extends State<RatingProductPage>
                                                         });
                                                       },
                                                       backgroundColor:
-                                                          kColorBlack,
+                                                          kColorGreen,
                                                     ),
                                                   ),
                                                   SizedBox(
@@ -328,8 +335,8 @@ class _RatingProductPageState extends State<RatingProductPage>
                         isAdmin: (document['type'] == 'admin'),
                         comment: document['comment'],
                         ratingPoint: document['point'],
-                        createAt:
-                            Util.convertDateToFullString(document['create_at']),
+                        createAt: Util.convertDateAndHourToString(
+                            document['create_at']),
                         isCanDelete: widget.isAdmin,
                         onDelete: () {
                           FirebaseFirestore.instance

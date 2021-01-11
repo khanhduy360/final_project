@@ -43,7 +43,7 @@ class OrderCard extends StatelessWidget {
             children: <Widget>[
               // TODO: Order id
               TextLineBetween(
-                label: 'ID:',
+                label: 'ID',
                 content: id,
                 contentStyle: kNormalTextStyle,
               ),

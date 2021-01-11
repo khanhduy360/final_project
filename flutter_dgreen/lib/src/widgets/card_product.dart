@@ -112,10 +112,11 @@ class ProductCard extends StatelessWidget {
                         icon: Container(
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(90),
-                              color: kColorWhite),
+                              color: kColorRed),
                           child: Icon(
                             Icons.close,
                             size: ConstScreen.setSizeWidth(30),
+                            color: kColorWhite,
                           ),
                         ),
                       ),

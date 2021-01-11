@@ -57,7 +57,7 @@ class _SoldAndOrderViewState extends State<SoldAndOrderView> {
           ),
         ),
         backgroundColor: kColorWhite,
-        iconTheme: IconThemeData.fallback(),
+        iconTheme: IconThemeData(color: kColorGreen),
       ),
       body: Padding(
           padding: EdgeInsets.symmetric(
@@ -92,7 +92,7 @@ class _SoldAndOrderViewState extends State<SoldAndOrderView> {
                                 phone: document['phone'],
                                 status: document['status'],
                                 total: document['total'],
-                                createAt: Util.convertDateToFullString(
+                                createAt: Util.convertDateAndHourToString(
                                     document['create_at']),
                                 shipping: document['shipping'],
                                 discount: document['discount'],
@@ -254,9 +254,9 @@ class _SoldAndOrderViewState extends State<SoldAndOrderView> {
                                                           flex: 1,
                                                           child:
                                                               CusRaisedButton(
-                                                            title: 'Nhận đơn',
+                                                            title: 'Hủy đơn',
                                                             backgroundColor:
-                                                                kColorBlack,
+                                                                kColorGreen,
                                                             onPress: () async {
                                                               String adminName =
                                                                   await StorageUtil

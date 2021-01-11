@@ -34,7 +34,7 @@ class _CusRaisedButtonState extends State<CusRaisedButton> {
               widget.title,
               style: TextStyle(
                   fontSize: FontSize.s27,
-                  color: (widget.backgroundColor == kColorBlue)
+                  color: (widget.backgroundColor == kColorGreen)
                       ? kColorWhite
                       : kColorGreen),
             )

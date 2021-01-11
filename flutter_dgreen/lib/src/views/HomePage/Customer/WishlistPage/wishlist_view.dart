@@ -73,7 +73,6 @@ class _WishListViewState extends State<WishListView>
                 colorList: doc['color'],
                 price: doc['price'],
                 salePrice: doc['sale_price'],
-                brand: doc['brand'],
                 madeIn: doc['made_in'],
                 quantityMain: doc['quantity'],
                 quantity: '',

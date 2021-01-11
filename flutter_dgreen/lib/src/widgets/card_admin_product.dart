@@ -27,7 +27,6 @@ class AdminProductCard extends StatelessWidget {
       this.category = '',
       this.createAt = '',
       this.quantity = '1',
-      this.brand = '',
       this.madeIn = '',
       this.onClose,
       this.onEdit,
@@ -39,7 +38,6 @@ class AdminProductCard extends StatelessWidget {
   final int productSalePrice;
   final String productImage;
   final String quantity;
-  final String brand;
   final String madeIn;
   final String category;
   final String createAt;
@@ -88,48 +86,43 @@ class AdminProductCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         TextLineBetween(
-                          label: 'Tên sản phẩm: ',
+                          label: 'Tên sản phẩm ',
                           content: productName,
                         ),
                         TextLineBetween(
-                          label: 'Số lượng: ',
+                          label: 'Số lượng ',
                           content: quantity,
                         ),
                         TextLineBetween(
-                          label: 'Giá: ',
+                          label: 'Giá ',
                           content: '${Util.intToMoneyType(productPrice)} VND',
                         ),
                         TextLineBetween(
-                          label: 'Giá khuyến mãi: ',
+                          label: 'Giá khuyến mãi ',
                           content:
                               '${Util.intToMoneyType(productSalePrice)} VND',
                         ),
                         TextLineBetween(
-                          label: 'Thương hiệu: ',
-                          content: brand,
-                        ),
-                        TextLineBetween(
-                          label: 'Loại: ',
+                          label: 'Loại ',
                           content: category,
                         ),
                         TextLineBetween(
-                          label: 'Xuất xứ: ',
+                          label: 'Xuất xứ ',
                           content: madeIn,
                         ),
                         TextLineBetween(
-                          label: 'Ngày thêm: ',
+                          label: 'Ngày thêm ',
                           content: createAt,
                         ),
                         Row(
                           children: <Widget>[
                             AutoSizeText(
-                              '   Color: ',
+                              'Màu ',
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                               minFontSize: 10,
                               style: kBoldTextStyle.copyWith(
-                                  fontSize: FontSize.s30,
-                                  color: kColorBlack.withOpacity(0.5)),
+                                  fontSize: FontSize.s30, color: kColorGreen),
                             ),
                             (productColorList != null)
                                 ? Row(

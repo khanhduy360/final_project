@@ -16,6 +16,6 @@ class Validators {
 
   //check phone number
   bool isPhoneNumber(String phone) {
-    return phone != null && phone != '' && phone.length <= 11;
+    return phone != null && phone != '' && phone.length <= 10;
   }
 }

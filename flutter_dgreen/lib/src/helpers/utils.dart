@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:crypto/crypto.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+
 import 'package:flutter_masked_text/flutter_masked_text.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:intl/intl.dart';
@@ -22,8 +23,14 @@ class Util {
   }
 
   static String convertDateToString(String dateTime) {
-    DateTime value = new DateFormat("yyyy-dd-MM").parse(dateTime);
+    DateTime value = new DateFormat("yyyy-MM-dd").parse(dateTime);
     var formatter = new DateFormat.yMd();
+    return formatter.format(value);
+  }
+
+  static String convertDateAndHourToString(String dateTime) {
+    DateTime value = new DateFormat("yyyy-MM-dd hh:mm").parse(dateTime);
+    var formatter = new DateFormat('hh:mm dd/MM/yyyy');
     return formatter.format(value);
   }
 

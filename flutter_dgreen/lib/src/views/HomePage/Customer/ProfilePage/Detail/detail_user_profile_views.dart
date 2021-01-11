@@ -41,7 +41,7 @@ class _DetailProfileViewState extends State<DetailProfileView> {
             ),
           ),
           backgroundColor: kColorWhite,
-          iconTheme: IconThemeData.fallback(),
+          iconTheme: IconThemeData(color: kColorGreen),
           actions: <Widget>[
             IconButton(
               icon: Icon(FontAwesomeIcons.edit),

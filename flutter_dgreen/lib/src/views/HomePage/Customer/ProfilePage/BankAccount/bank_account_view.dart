@@ -59,7 +59,7 @@ class _BankAccountViewState extends State<BankAccountView> {
           )
         ],
         backgroundColor: kColorWhite,
-        iconTheme: IconThemeData.fallback(),
+        iconTheme: IconThemeData(color: kColorGreen),
       ),
       body: Container(
         child: StreamBuilder(
@@ -77,18 +77,7 @@ class _BankAccountViewState extends State<BankAccountView> {
                     if (snapshot.data.docs.length != 0) {
                       return Stack(
                         children: <Widget>[
-                          Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: ConstScreen.setSizeWidth(80)),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(60),
-                                  gradient: LinearGradient(
-                                    colors: [Colors.blue, kColorCyan],
-                                    stops: [0.0, 0.7],
-                                  )),
-                            ),
-                          ),
+
                           //TODO: list card
                           ListView(
                             children: snapshot.data.docs

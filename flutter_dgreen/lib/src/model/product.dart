@@ -6,14 +6,13 @@ class Product {
   List<dynamic> colorList;
   String price;
   String salePrice;
-  String brand;
+
   String madeIn;
   String quantity;
   String quantityMain;
   String description;
   double rating;
   String image;
-  String size;
   int color;
   Product(
       {this.id,
@@ -21,12 +20,10 @@ class Product {
       this.imageList,
       this.image,
       this.category,
-      this.size,
       this.colorList,
       this.color,
       this.price,
       this.salePrice,
-      this.brand,
       this.madeIn,
       this.quantity,
       this.quantityMain,

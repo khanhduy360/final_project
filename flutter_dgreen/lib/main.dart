@@ -19,6 +19,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
 //      locale: DevicePreview.of(context).locale,
 //      builder: DevicePreview.appBuilder,
+      debugShowCheckedModeBanner: false,
       initialRoute: initialRoute,
       routes: routes,
     );

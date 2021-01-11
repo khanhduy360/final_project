@@ -68,16 +68,16 @@ class _MainDetailProductViewState extends State<MainDetailProductView> {
           currentIndex: indexPage,
           unselectedFontSize: FontSize.s25,
           selectedFontSize: FontSize.s28,
-          selectedItemColor: kColorBlack,
+          selectedItemColor: kColorGreen,
           selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
           iconSize: ConstScreen.setSizeHeight(0.1),
           items: const [
             BottomNavigationBarItem(
-                title: Text('Sản phẩm'), icon: Icon(Icons.rate_review)),
+                label: 'Sản phẩm', icon: Icon(Icons.rate_review)),
             BottomNavigationBarItem(
-                title: Text('Chi tiết'), icon: Icon(Icons.rate_review)),
+                label: 'Chi tiết', icon: Icon(Icons.rate_review)),
             BottomNavigationBarItem(
-                title: Text('Đánh giá'), icon: Icon(Icons.rate_review)),
+                label: 'Đánh giá', icon: Icon(Icons.rate_review)),
           ],
         ),
       ),

@@ -61,7 +61,6 @@ class _SearchViewState extends State<SearchView>
             colorList: document['color'],
             price: document['price'],
             salePrice: document['sale_price'],
-            brand: document['brand'],
             madeIn: document['made_in'],
             quantityMain: document['quantity'],
             quantity: '',
@@ -111,7 +110,6 @@ class _SearchViewState extends State<SearchView>
             colorList: document['color'],
             price: document['price'],
             salePrice: document['sale_price'],
-            brand: document['brand'],
             madeIn: document['made_in'],
             quantityMain: document['quantity'],
             quantity: '',
@@ -207,15 +205,21 @@ class _SearchViewState extends State<SearchView>
           ),
           children: <Widget>[
             CategoryItem(
-              title: 'Cao kiểng',
+              title: 'Cây kiểng',
               onTap: () {
-                navigatorTo('Cao kiểng');
+                navigatorTo('Cây kiểng');
               },
             ),
             CategoryItem(
               title: 'Hoa',
               onTap: () {
                 navigatorTo('Hoa');
+              },
+            ),
+            CategoryItem(
+              title: 'Cây ăn quả',
+              onTap: () {
+                navigatorTo('Cây ăn quả');
               },
             ),
           ],
@@ -236,9 +240,9 @@ class _SearchViewState extends State<SearchView>
               },
             ),
             CategoryItem(
-              title: 'Lan rừng',
+              title: 'Các loại khác',
               onTap: () {
-                navigatorTo('Lan rừng');
+                navigatorTo('Khác');
               },
             ),
           ],

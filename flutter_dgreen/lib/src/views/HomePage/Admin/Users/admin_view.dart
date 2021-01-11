@@ -16,7 +16,7 @@ class _AdminUserListViewState extends State<AdminUserListView> {
   Widget build(BuildContext context) {
     return Container(
       child: StreamBuilder<QuerySnapshot>(
-        stream: Firestore.instance
+        stream: FirebaseFirestore.instance
             .collection('Users')
             .orderBy('create_at')
             .where('type', isEqualTo: 'admin')
@@ -25,7 +25,7 @@ class _AdminUserListViewState extends State<AdminUserListView> {
           if (snapshot.hasData) {
             int index = 0;
             return ListView(
-              children: snapshot.data.documents
+              children: snapshot.data.docs
                   .map((DocumentSnapshot document) {
                     index++;
                     return Slidable(
@@ -43,7 +43,7 @@ class _AdminUserListViewState extends State<AdminUserListView> {
                                 MaterialPageRoute(
                                     builder: (context) => ChatScreen(
                                           isAdmin: true,
-                                          uidCustomer: document.documentID,
+                                          uidCustomer: document.id,
                                         )));
                           },
                         ),
